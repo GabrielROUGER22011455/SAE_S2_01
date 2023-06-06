@@ -11,9 +11,7 @@ public class main {
 
         System.out.println("Liste des séismes :");
         for (Earthquake earthquake : earthquakeList) {
-            //System.out.println("Ville : " + earthquake.getLocation());
-            //System.out.println("Magnitude : " + earthquake.getMagnitude());
-            System.out.println();
+            System.out.println(earthquake);
         }
     }
 }

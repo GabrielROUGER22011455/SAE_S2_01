@@ -16,14 +16,22 @@ public class EarthquakeViewModel {
 
             // Load data from the CSV file
             try {
-                //BufferedReader reader = new BufferedReader(new FileReader("earthquakes.csv"));
-                BufferedReader reader = new BufferedReader(new FileReader("SisFrance_seismes_20230604151458"));
+                BufferedReader reader = new BufferedReader(new FileReader("SisFrance_seismes_20230604151458.csv"));
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] data = line.split(",");
-                    String location = data[0];
-                    double magnitude = Double.parseDouble(data[1]);
-                    earthquakeList.add(new Earthquake(location, magnitude));
+                    int id = Integer.parseInt(data[0]);
+                    String date = data[1];
+                    String heure = data[2];
+                    String nom = data[3];
+                    String choc = data[4];
+                    String xRGF = data[5];
+                    String yRGF = data[6];
+                    String longiWGS84 = data[7];
+                    String latiWSG84 = data[8];
+                    String intensite = data[9];
+                    String qualIntensEpi = data[10];
+                    earthquakeList.add(new Earthquake(id, date, heure, nom, choc, xRGF, yRGF, longiWGS84, latiWSG84, intensite, qualIntensEpi));
                 }
                 reader.close();
             } catch (IOException e) {

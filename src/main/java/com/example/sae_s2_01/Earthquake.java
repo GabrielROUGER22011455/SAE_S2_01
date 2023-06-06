@@ -4,28 +4,30 @@ public class Earthquake {
 
     private int id;
     private String date;
-    private String heure;
-    private String nom;
-    private String choc;
+    private String time;
+    private String name;
+    private String type;
     private String xRGF93L93;
     private String yRGF93L93;
-    private String longiWGS84;
-    private String latiWGS84;
-    private String intensite;
-    private String qualIntensEpi;
+    private String longitudeWGS84;
+    private String latitudeWGS84;
+    private String magnitude;
+    private String dataQuality;
 
-    public Earthquake(int id, String date, String heure, String nom, String choc, String xRGF93L93, String yRGF93L93, String  longiWGS84, String latiWGS84, String intensite, String qualIntensEpi) {
+    public Earthquake(int id, String date, String time, String name, String type,
+                      String xRGF93L93, String yRGF93L93,
+                      String  longitudeWGS84, String latiWGS84, String magnitude, String dataQuality) {
         this.id = id;
         this.date = date;
-        this.heure = heure;
-        this.nom = nom;
-        this.choc = choc;
+        this.time = time;
+        this.name = name;
+        this.type = type;
         this.xRGF93L93 = xRGF93L93;
         this.yRGF93L93 = yRGF93L93;
-        this.longiWGS84 = longiWGS84;
-        this.latiWGS84 = latiWGS84;
-        this.intensite = intensite;
-        this.qualIntensEpi = qualIntensEpi;
+        this.longiWGS84 = longitudeWGS84;
+        this.latitudeWGS84 = latitudeWGS84;
+        this.magnitude = magnitude;
+        this.dataQuality = dataQuality;
     }
 
     public int getId() {
@@ -34,25 +36,29 @@ public class Earthquake {
     public String getDate() {
         return date;
     }
-    public String getHeure(){
-        return heure;
+    public String getTime(){
+        return time;
     }
-    public String getNom(){
-        return nom;
+    public String getName(){
+        return name;
     }
-    public String getChoc(){
-        return choc;
+    public String getType(){
+        return type;
     }
     public String getxRGF93L93() {return xRGF93L93;}
     public String getyRGF93L93() {return yRGF93L93;}
-    public String getLongiWGS84(){return  longiWGS84;}
-    public String getLatiWGS84(){return latiWGS84;}
-    public String getIntensite(){return intensite;}
-    public String getQualIntensEpi(){return qualIntensEpi;}
+    public String getLongitudeWGS84(){return  longitudeWGS84;}
+    public String getLatitudeWGS84(){return latitudeWGS84;}
+    public String getMagnitude(){return magnitude;}
+    public String getDataQuality(){return dataQuality;}
 
     @Override
     public String toString(){
-        String earthquakeInfo = ("Id : " + id +"\n Date : "+ date + "\n Heure : " + heure + "\n Nom : " + nom +"\n Choc : " + choc + "\n x RGF93L93 : "+xRGF93L93+"\n y RGF93L93"+yRGF93L93+"\n Longitude WSG84 : "+longiWGS84+"\n Latitude WSG94 : "+latiWGS84+"\n Intensité : "+intensite + "\n Qualité intensité épicentre : "+qualIntensEpi+"\n");
+        String earthquakeInfo = ("Id : " + id +"\n Date : "+ date + "\n Time : " + time
+                + "\n Name : " + name +"\n Type : " + type
+                + "\n x RGF93L93 : "+xRGF93L93+"\n y RGF93L93"
+                + yRGF93L93 + "\n Longitude WSG84 : " + longiWGS84+"\n Latitude WSG94 : "
+                + latiWGS84+"\n Intensité : " + magnitude + "\n Data quality : " + dataQuality+"\n");
         return  earthquakeInfo;
     }
 

@@ -6,7 +6,7 @@ public class Earthquake {
     private String date;
     private String time;
     private String name;
-    private String state;
+    private String region;
     private String type;
     private float xRGF93L93;
     private float yRGF93L93;
@@ -22,7 +22,7 @@ public class Earthquake {
         this.date = date;
         this.time = time;
         this.name = name;
-        this.state = state;
+        this.region = region;
         this.type = type;
         this.xRGF93L93 = xRGF93L93;
         this.yRGF93L93 = yRGF93L93;
@@ -46,8 +46,8 @@ public class Earthquake {
     public String getName(){
         return name;
     }
-    public String getState(){
-        return state;
+    public String getRegion(){
+        return region;
     }
     public String getType(){
         return type;

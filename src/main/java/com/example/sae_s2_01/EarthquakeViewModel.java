@@ -18,6 +18,7 @@ public class EarthquakeViewModel {
             String line;
             reader.readLine();
             while ((line = reader.readLine()) != null) {
+                ArrayList<String> data = separateString(line);
                 //String[] data = line.split(",");
                 //int id = Integer.parseInt(data[0]);
                 //String date = data[1];
@@ -32,8 +33,13 @@ public class EarthquakeViewModel {
                 //float latitudeWSG84 = Float.parseFloat(data[9]);
                 //float magnitude = Float.parseFloat(data[10]);
                 //String dataQuality = data[11];
-                //earthquakeList.add(new Earthquake(id, date, time, name, region, type, xRGF, yRGF, longitudeWGS84, latitudeWSG84, magnitude, dataQuality));
-                System.out.println(separateString(line));
+                if (data.size()==12) {
+                    //earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),data.get(4),data.get(5),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9)),Float.parseFloat(data.get(10)),data.get(11)));
+                }
+                else {
+                    System.out.println(data);
+                    //earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),data.get(0),Float.parseFloat(data.get(0)),Float.parseFloat(data.get(0)),Float.parseFloat(data.get(0)),Float.parseFloat(data.get(0)),Float.parseFloat(data.get(0)),data.get(0)));
+                }
             }
             reader.close();
         } catch (IOException e) {e.printStackTrace();}
@@ -50,7 +56,7 @@ public class EarthquakeViewModel {
         ArrayList<String> stringList = new ArrayList<String>();
         while (index <= str.length()) {
             tmp = getStringAt(str, index);
-            stringList.add(tmp.getStr());
+            if (tmp.getStr() != "") stringList.add(tmp.getStr());
             index = tmp.getNbr();
         }
         return stringList;
@@ -66,21 +72,14 @@ public class EarthquakeViewModel {
                 return new StringInt(tmp, index);
             }
             else if (i == '\"') {
-                getFullString(str, index);
-            }
-            tmp += i;
-        }
-        return new StringInt(tmp, index+1);
-    }
-    private StringInt getFullString(String str, int index) {
-        // Called when an entry in the CSV file has " in it
-        // Takes an entry from the CSV file and an index in parameter
-        // Returns the String between the two "
-        String tmp = "";
-        for (char i : str.toCharArray()) {
-            ++ index;
-            if (i == '\"') {
-                return new StringInt(tmp, index);
+                for (char j : str.substring(index).toCharArray()) {
+                    ++ index;
+                    if (j == '\"') {
+                        return new StringInt(tmp, index);
+                    }
+                    tmp += j;
+                }
+                return new StringInt(tmp, index+1);
             }
             tmp += i;
         }

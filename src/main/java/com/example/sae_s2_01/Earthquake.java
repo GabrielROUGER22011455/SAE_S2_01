@@ -15,7 +15,7 @@ public class Earthquake {
     private float magnitude;
     private String dataQuality;
 
-    public Earthquake(int id, String date, String time, String name, String state,
+    public Earthquake(int id, String date, String time, String name, String region,
                       String type,float xRGF93L93, float yRGF93L93,
                       float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
         this.id = id;
@@ -23,6 +23,21 @@ public class Earthquake {
         this.time = time;
         this.name = name;
         this.region = region;
+        this.type = type;
+        this.xRGF93L93 = xRGF93L93;
+        this.yRGF93L93 = yRGF93L93;
+        this.longitudeWGS84 = longitudeWGS84;
+        this.latitudeWGS84 = latitudeWGS84;
+        this.magnitude = magnitude;
+        this.dataQuality = dataQuality;
+    }
+    public Earthquake(int id, String date, String time, String name,
+                      String type,float xRGF93L93, float yRGF93L93,
+                      float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
+        this.id = id;
+        this.date = date;
+        this.time = time;
+        this.name = name;
         this.type = type;
         this.xRGF93L93 = xRGF93L93;
         this.yRGF93L93 = yRGF93L93;

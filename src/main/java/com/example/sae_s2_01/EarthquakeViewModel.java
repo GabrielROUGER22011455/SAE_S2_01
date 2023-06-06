@@ -16,8 +16,9 @@ public class EarthquakeViewModel {
 
             // Load data from the CSV file
             try {
-                BufferedReader reader = new BufferedReader(new FileReader("SisFrance_seismes_20230604151458.csv"));
+                BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/com/example/sae_s2_01/SisFrance_seismes_20230604151458.csv"));
                 String line;
+                reader.readLine();
                 while ((line = reader.readLine()) != null) {
                     String[] data = line.split(",");
                     int id = Integer.parseInt(data[0]);

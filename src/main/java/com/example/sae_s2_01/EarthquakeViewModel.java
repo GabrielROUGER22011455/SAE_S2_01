@@ -18,21 +18,22 @@ public class EarthquakeViewModel {
             String line;
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                int id = Integer.parseInt(data[0]);
-                String date = data[1];
-                String time = data[2];
-                String name = data[3];
-                String region = data[4];
-                String type = data[5];
+                //String[] data = line.split(",");
+                //int id = Integer.parseInt(data[0]);
+                //String date = data[1];
+                //String time = data[2];
+                //String name = data[3];
+                //String region = data[4];
+                //String type = data[5];
                 //System.out.println(data[3]);
-                float xRGF = Float.parseFloat(data[6]);
-                float yRGF = Float.parseFloat(data[7]);
-                float longitudeWGS84 = Float.parseFloat(data[8]);
-                float latitudeWSG84 = Float.parseFloat(data[9]);
-                float magnitude = Float.parseFloat(data[10]);
-                String dataQuality = data[11];
-                earthquakeList.add(new Earthquake(id, date, time, name, region, type, xRGF, yRGF, longitudeWGS84, latitudeWSG84, magnitude, dataQuality));
+                //float xRGF = Float.parseFloat(data[6]);
+                //float yRGF = Float.parseFloat(data[7]);
+                //float longitudeWGS84 = Float.parseFloat(data[8]);
+                //float latitudeWSG84 = Float.parseFloat(data[9]);
+                //float magnitude = Float.parseFloat(data[10]);
+                //String dataQuality = data[11];
+                //earthquakeList.add(new Earthquake(id, date, time, name, region, type, xRGF, yRGF, longitudeWGS84, latitudeWSG84, magnitude, dataQuality));
+                System.out.println(separateString(line));
             }
             reader.close();
         } catch (IOException e) {e.printStackTrace();}
@@ -59,7 +60,7 @@ public class EarthquakeViewModel {
         // Takes an entry from the CSV file and an index in parameter
         // Returns a String
         String tmp = "";
-        for (char i : str.toCharArray()) {
+        for (char i : str.substring(index).toCharArray()) {
             ++ index;
             if (i == ',') {
                 return new StringInt(tmp, index);

@@ -31,9 +31,6 @@ public class Earthquake {
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
-
-
-
     public int getId() {
         return id;
     }
@@ -62,8 +59,7 @@ public class Earthquake {
     @Override
     public String toString(){
         String earthquakeInfo = ("Id : " + id +"\n Date : "+ date + "\n Time : " + time
-                + "\n Name : " + name +"\n Type : " + type
-                + "\n x RGF93L93 : "+xRGF93L93+"\n y RGF93L93"
+                + "\n Name : " + name +"\n Type : " + type + "\n x RGF93L93 : "+xRGF93L93+"\n y RGF93L93"
                 + yRGF93L93 + "\n Longitude WSG84 : " + longitudeWGS84+"\n Latitude WSG94 : "
                 + latitudeWGS84+"\n Intensité : " + magnitude + "\n Data quality : " + dataQuality+"\n");
         return  earthquakeInfo;

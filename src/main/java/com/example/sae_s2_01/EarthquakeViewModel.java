@@ -33,12 +33,16 @@ public class EarthquakeViewModel {
                 //float latitudeWSG84 = Float.parseFloat(data[9]);
                 //float magnitude = Float.parseFloat(data[10]);
                 //String dataQuality = data[11];
-                if (data.size()==12) {
-                    //earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),data.get(4),data.get(5),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9)),Float.parseFloat(data.get(10)),data.get(11)));
+                if (data.size()==10) {
+                    // Heure non donnée
+                    // Type non donné
                 }
-                else {
+                else if (data.size()==11){
+                    // Type non donné
+                }
+                else if (data.size()==12){
                     System.out.println(data);
-                    //earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),data.get(0),Float.parseFloat(data.get(0)),Float.parseFloat(data.get(0)),Float.parseFloat(data.get(0)),Float.parseFloat(data.get(0)),Float.parseFloat(data.get(0)),data.get(0)));
+                    // Toutes les informations
                 }
             }
             reader.close();
@@ -72,6 +76,7 @@ public class EarthquakeViewModel {
                 return new StringInt(tmp, index);
             }
             else if (i == '\"') {
+                // Start of the " reading
                 for (char j : str.substring(index).toCharArray()) {
                     ++ index;
                     if (j == '\"') {
@@ -79,7 +84,7 @@ public class EarthquakeViewModel {
                     }
                     tmp += j;
                 }
-                return new StringInt(tmp, index+1);
+                // End of the " reading
             }
             tmp += i;
         }

@@ -23,16 +23,18 @@ public class EarthquakeViewModel {
                     String[] data = line.split(",");
                     int id = Integer.parseInt(data[0]);
                     String date = data[1];
-                    String time = data[2];
-                    String name = data[3];
-                    String type = data[4];
-                    String xRGF = data[5];
-                    String yRGF = data[6];
-                    String longitudeWGS84 = data[7];
-                    String latitudeWSG84 = data[8];
-                    String magnitude = data[9];
-                    String dataQuality = data[10];
-                    earthquakeList.add(new Earthquake(id, date, time, name, type, xRGF, yRGF, longitudeWGS84, latitudeWSG84, magnitude, dataQuality));
+                    String heure = data[2];
+                    String nom = data[3];
+                    String region = data[4];
+                    String choc = data[5];
+                    //System.out.println(data[3]);
+                    float xRGF = Float.parseFloat(data[6]);
+                    float yRGF = Float.parseFloat(data[7]);
+                    float longiWGS84 = Float.parseFloat(data[8]);
+                    float latiWSG84 = Float.parseFloat(data[9]);
+                    float intensite = Float.parseFloat(data[10]);
+                    String qualIntensEpi = data[11];
+                    earthquakeList.add(new Earthquake(id, date, heure, nom, region, choc, xRGF, yRGF, longiWGS84, latiWSG84, intensite, qualIntensEpi));
                 }
                 reader.close();
             } catch (IOException e) {

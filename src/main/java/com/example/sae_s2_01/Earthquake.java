@@ -6,29 +6,33 @@ public class Earthquake {
     private String date;
     private String time;
     private String name;
+    private String state;
     private String type;
-    private String xRGF93L93;
-    private String yRGF93L93;
-    private String longitudeWGS84;
-    private String latitudeWGS84;
-    private String magnitude;
+    private float xRGF93L93;
+    private float yRGF93L93;
+    private float longitudeWGS84;
+    private float latitudeWGS84;
+    private float magnitude;
     private String dataQuality;
 
-    public Earthquake(int id, String date, String time, String name, String type,
-                      String xRGF93L93, String yRGF93L93,
-                      String  longitudeWGS84, String latiWGS84, String magnitude, String dataQuality) {
+    public Earthquake(int id, String date, String time, String name, String state,
+                      String type,float xRGF93L93, float yRGF93L93,
+                      float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
         this.id = id;
         this.date = date;
         this.time = time;
         this.name = name;
+        this.state = state;
         this.type = type;
         this.xRGF93L93 = xRGF93L93;
         this.yRGF93L93 = yRGF93L93;
-        this.longiWGS84 = longitudeWGS84;
+        this.longitudeWGS84 = longitudeWGS84;
         this.latitudeWGS84 = latitudeWGS84;
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
+
+
 
     public int getId() {
         return id;
@@ -42,14 +46,17 @@ public class Earthquake {
     public String getName(){
         return name;
     }
+    public String getState(){
+        return state;
+    }
     public String getType(){
         return type;
     }
-    public String getxRGF93L93() {return xRGF93L93;}
-    public String getyRGF93L93() {return yRGF93L93;}
-    public String getLongitudeWGS84(){return  longitudeWGS84;}
-    public String getLatitudeWGS84(){return latitudeWGS84;}
-    public String getMagnitude(){return magnitude;}
+    public float getxRGF93L93() {return xRGF93L93;}
+    public float getyRGF93L93() {return yRGF93L93;}
+    public float getLongitudeWGS84(){return  longitudeWGS84;}
+    public float getLatitudeWGS84(){return latitudeWGS84;}
+    public float getMagnitude(){return magnitude;}
     public String getDataQuality(){return dataQuality;}
 
     @Override
@@ -57,8 +64,8 @@ public class Earthquake {
         String earthquakeInfo = ("Id : " + id +"\n Date : "+ date + "\n Time : " + time
                 + "\n Name : " + name +"\n Type : " + type
                 + "\n x RGF93L93 : "+xRGF93L93+"\n y RGF93L93"
-                + yRGF93L93 + "\n Longitude WSG84 : " + longiWGS84+"\n Latitude WSG94 : "
-                + latiWGS84+"\n Intensité : " + magnitude + "\n Data quality : " + dataQuality+"\n");
+                + yRGF93L93 + "\n Longitude WSG84 : " + longitudeWGS84+"\n Latitude WSG94 : "
+                + latitudeWGS84+"\n Intensité : " + magnitude + "\n Data quality : " + dataQuality+"\n");
         return  earthquakeInfo;
     }
 

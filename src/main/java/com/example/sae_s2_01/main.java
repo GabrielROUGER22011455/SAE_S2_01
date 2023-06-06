@@ -10,8 +10,8 @@ public class main {
         List<Earthquake> earthquakeList = viewModel.getEarthquakeList();
 
         System.out.println("Liste des séismes :");
-        for (Earthquake earthquake : earthquakeList) {
-            System.out.println(earthquake);
-        }
+        //for (Earthquake earthquake : earthquakeList) {
+        //    System.out.println(earthquake);
+        //}
     }
 }

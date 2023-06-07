@@ -8,70 +8,70 @@ public class Earthquake {
     private String name;
     private String region;
     private String type;
-    private float xRGF93L93;
-    private float yRGF93L93;
-    private float longitudeWGS84;
-    private float latitudeWGS84;
+    private float xPos;
+    private float yPos;
+    private float xPosWGS;
+    private float yPosWGS;
     private float magnitude;
     private String dataQuality;
 
     public Earthquake(int id, String date, String time, String name, String region,
-                      String type,float xRGF93L93, float yRGF93L93,
-                      float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
+                      String type,float xPos, float yPos,
+                      float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
         this.id = id;
         this.date = date;
         this.time = time;
         this.name = name;
         this.region = region;
         this.type = type;
-        this.xRGF93L93 = xRGF93L93;
-        this.yRGF93L93 = yRGF93L93;
-        this.longitudeWGS84 = longitudeWGS84;
-        this.latitudeWGS84 = latitudeWGS84;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xPosWGS = xPosWGS;
+        this.yPosWGS = yPosWGS;
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
     public Earthquake(int id, String date, String time, String name,
-                      String type,float xRGF93L93, float yRGF93L93,
-                      float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
+                      String type,float xPos, float yPos,
+                      float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
         this.id = id;
         this.date = date;
         this.time = time;
         this.name = name;
         this.type = type;
-        this.xRGF93L93 = xRGF93L93;
-        this.yRGF93L93 = yRGF93L93;
-        this.longitudeWGS84 = longitudeWGS84;
-        this.latitudeWGS84 = latitudeWGS84;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xPosWGS = xPosWGS;
+        this.yPosWGS = yPosWGS;
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
 
     public Earthquake(int id, String date, String name,
-                      String time,float xRGF93L93, float yRGF93L93,
-                      float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
+                      String time,float xPos, float yPos,
+                      float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
         this.id = id;
         this.date = date;
         this.name = name;
         this.type = time;
-        this.xRGF93L93 = xRGF93L93;
-        this.yRGF93L93 = yRGF93L93;
-        this.longitudeWGS84 = longitudeWGS84;
-        this.latitudeWGS84 = latitudeWGS84;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xPosWGS = xPosWGS;
+        this.yPosWGS = yPosWGS;
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
 
     public Earthquake(int id, String date, String name,
-                      float xRGF93L93, float yRGF93L93,
-                      float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
+                      float xPos, float yPos,
+                      float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
         this.id = id;
         this.date = date;
         this.name = name;
-        this.xRGF93L93 = xRGF93L93;
-        this.yRGF93L93 = yRGF93L93;
-        this.longitudeWGS84 = longitudeWGS84;
-        this.latitudeWGS84 = latitudeWGS84;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xPosWGS = xPosWGS;
+        this.yPosWGS = yPosWGS;
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
@@ -94,19 +94,19 @@ public class Earthquake {
     public String getType(){
         return type;
     }
-    public float getxRGF93L93() {return xRGF93L93;}
-    public float getyRGF93L93() {return yRGF93L93;}
-    public float getLongitudeWGS84(){return  longitudeWGS84;}
-    public float getLatitudeWGS84(){return latitudeWGS84;}
+    public float getXPos() {return xPos;}
+    public float getYPos() {return yPos;}
+    public float getXPosWGS(){return  xPosWGS;}
+    public float getYPosWGS(){return yPosWGS;}
     public float getMagnitude(){return magnitude;}
     public String getDataQuality(){return dataQuality;}
 
     @Override
     public String toString(){
         String earthquakeInfo = ("Id : " + id +"\n Date : "+ date + "\n Time : " + time
-                + "\n Name : " + name +"\n Type : " + type + "\n x RGF93L93 : "+xRGF93L93+"\n y RGF93L93"
-                + yRGF93L93 + "\n Longitude WSG84 : " + longitudeWGS84+"\n Latitude WSG94 : "
-                + latitudeWGS84+"\n Intensité : " + magnitude + "\n Data quality : " + dataQuality+"\n");
+                + "\n Name : " + name +"\n Type : " + type + "\n Longitude RGF93/L93 : "+xPos+"\n Latitude RGF93/L93 "
+                + yPos + "\n Longitude WSG84 : " + xPosWGS+"\n Latitude WSG94 : "
+                + yPosWGS+"\n Intensité : " + magnitude + "\n Data quality : " + dataQuality+"\n");
         return  earthquakeInfo;
     }
 

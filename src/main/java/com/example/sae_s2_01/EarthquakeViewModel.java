@@ -20,19 +20,27 @@ public class EarthquakeViewModel {
             while ((line = reader.readLine()) != null) {
                 ArrayList<String> data = separateString(line);
                 if (data.size()==10) {
-                    System.out.println(data);
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),Float.parseFloat(data.get(4)),Float.parseFloat(data.get(5)),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),data.get(9)));
+                    //System.out.println(data);
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3)
+                            ,Float.parseFloat(data.get(4)),Float.parseFloat(data.get(5)),Float.parseFloat(data.get(6))
+                            ,Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),data.get(9)));
                     // Heure non donnée
                     // Type non donné
                 }
                 else if (data.size()==11){
-                    System.out.println(data);
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),data.get(4),Float.parseFloat(data.get(5)),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9)),data.get(10)));
+                    //System.out.println(data);
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3)
+                            ,data.get(4),Float.parseFloat(data.get(5)),Float.parseFloat(data.get(6))
+                            ,Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9))
+                            ,data.get(10)));
                     // Type non donné
                 }
                 else if (data.size()==12){
-                    System.out.println(data);
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),data.get(4),data.get(5),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9)),Float.parseFloat(data.get(10)),data.get(11)));
+                    //System.out.println(data);
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3)
+                            ,data.get(4),data.get(5),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7))
+                            ,Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9)),Float.parseFloat(data.get(10))
+                            ,data.get(11)));
                     // Toutes les informations
                 }
             }

@@ -46,6 +46,36 @@ public class Earthquake {
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
+
+    public Earthquake(int id, String date, String name,
+                      String time,float xRGF93L93, float yRGF93L93,
+                      float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
+        this.id = id;
+        this.date = date;
+        this.name = name;
+        this.type = time;
+        this.xRGF93L93 = xRGF93L93;
+        this.yRGF93L93 = yRGF93L93;
+        this.longitudeWGS84 = longitudeWGS84;
+        this.latitudeWGS84 = latitudeWGS84;
+        this.magnitude = magnitude;
+        this.dataQuality = dataQuality;
+    }
+
+    public Earthquake(int id, String date, String name,
+                      float xRGF93L93, float yRGF93L93,
+                      float  longitudeWGS84, float latitudeWGS84, float magnitude, String dataQuality) {
+        this.id = id;
+        this.date = date;
+        this.name = name;
+        this.xRGF93L93 = xRGF93L93;
+        this.yRGF93L93 = yRGF93L93;
+        this.longitudeWGS84 = longitudeWGS84;
+        this.latitudeWGS84 = latitudeWGS84;
+        this.magnitude = magnitude;
+        this.dataQuality = dataQuality;
+    }
+
     public int getId() {
         return id;
     }

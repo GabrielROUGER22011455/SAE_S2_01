@@ -19,29 +19,20 @@ public class EarthquakeViewModel {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 ArrayList<String> data = separateString(line);
-                //String[] data = line.split(",");
-                //int id = Integer.parseInt(data[0]);
-                //String date = data[1];
-                //String time = data[2];
-                //String name = data[3];
-                //String region = data[4];
-                //String type = data[5];
-                //System.out.println(data[3]);
-                //float xRGF = Float.parseFloat(data[6]);
-                //float yRGF = Float.parseFloat(data[7]);
-                //float longitudeWGS84 = Float.parseFloat(data[8]);
-                //float latitudeWSG84 = Float.parseFloat(data[9]);
-                //float magnitude = Float.parseFloat(data[10]);
-                //String dataQuality = data[11];
                 if (data.size()==10) {
+                    System.out.println(data);
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),Float.parseFloat(data.get(4)),Float.parseFloat(data.get(5)),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),data.get(9)));
                     // Heure non donnée
                     // Type non donné
                 }
                 else if (data.size()==11){
+                    System.out.println(data);
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),data.get(4),Float.parseFloat(data.get(5)),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9)),data.get(10)));
                     // Type non donné
                 }
                 else if (data.size()==12){
                     System.out.println(data);
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3),data.get(4),data.get(5),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9)),Float.parseFloat(data.get(10)),data.get(11)));
                     // Toutes les informations
                 }
             }
@@ -54,7 +45,7 @@ public class EarthquakeViewModel {
     private ArrayList<String> separateString (String str) {
         // Separate strings from one entry on the CSV file
         // Takes an entry from the CSV file in parameter
-        // Returns an ArrayList of 12 to 13 String
+        // Returns an ArrayList of 10 to 12 String
         int index = 0;
         StringInt tmp;
         ArrayList<String> stringList = new ArrayList<String>();

@@ -9,6 +9,8 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 
+import java.util.ArrayList;
+
 public class HelloController {
     @FXML
     private PieChart pieChart1;
@@ -20,15 +22,38 @@ public class HelloController {
     private LineChart<String, Number> lineChart2;
     @FXML
     private CheckBox checkBox1;
+    @FXML
+    private CheckBox checkBox2;
+    @FXML
+    private CheckBox checkBox3;
+    @FXML
+    private CheckBox checkBox4;
+    @FXML
+    private CheckBox checkBox5;
+    @FXML
+    private CheckBox checkBox6;
+    @FXML
+    private CheckBox checkBox7;
+    IntegerProperty minDate;
+    IntegerProperty maxDate;
+    ArrayList<Boolean> checkBoxsState;
 
 
     public void initialize() {
+        checkBoxsState.set(1, checkBox1.isSelected());
+        checkBoxsState.set(2, checkBox1.isSelected());
+        checkBoxsState.set(3, checkBox1.isSelected());
+        checkBoxsState.set(4, checkBox1.isSelected());
+        checkBoxsState.set(5, checkBox1.isSelected());
+        checkBoxsState.set(6, checkBox1.isSelected());
+        checkBoxsState.set(7, checkBox1.isSelected());
+
         // Remplir le graphique en camembert avec des données de démonstration
         ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList(
                 new PieChart.Data("region 1", 10),
                 new PieChart.Data("region 2", 30),
                 new PieChart.Data("region 3", 20),
-                new PieChart.Data("region 4", 40)
+                new PieChart.Data("region 4", 80)
         );
         pieChart1.setData(pieData1);
 
@@ -69,6 +94,17 @@ public class HelloController {
         series2.getData().add(new XYChart.Data<>("Ville 3", 30));
         lineChart2.getData().add(series2); // Add series to lineChart2
 
+        checkBox1.setOnAction(event -> {
+            if (checkBox1.isSelected()) {
+                System.out.println("La checkbox est cochée");
+            } else {
+                System.out.println("La checkbox est décochée");
+            }
+        });
 
+    }
+
+    public ArrayList<Boolean> getCheckBoxsState(){
+        return checkBoxsState;
     }
 }

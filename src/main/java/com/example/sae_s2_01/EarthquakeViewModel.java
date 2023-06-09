@@ -1,14 +1,17 @@
 package com.example.sae_s2_01;
 
+import javafx.util.Pair;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+
 
 public class EarthquakeViewModel {
+
+    Earthquake earthquake = new Earthquake();
     private List<Earthquake> earthquakeList;
 
     public void EarthquakeViewModel() {
@@ -28,16 +31,24 @@ public class EarthquakeViewModel {
                     // Heure non donnée
                     // Type non donné
                 } else if (data.size() == 11) {
-                    //System.out.println(data);
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
-                            , data.get(4), Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6))
-                            , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9))
-                            , data.get(10)));
+                    char firstChar = data.get(2).charAt(0);
+                    if ((Character.isDigit(firstChar))) {
+                        //System.out.println(data);
+                        earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2),
+                                data.get(3), data.get(4),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(5)),
+                                Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
+                                data.get(5)));
+                    }else{
+                        earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2),
+                                data.get(3), earthquake.stringToType(data.get(4)),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(5)),
+                                Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
+                                data.get(5)));
+                    }
                     // Type non donné
                 } else if (data.size() == 12) {
                     //System.out.println(data);
                     earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
-                            , data.get(4), data.get(5), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7))
+                            , data.get(4), earthquake.stringToType(data.get(5)), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7))
                             , Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)), Float.parseFloat(data.get(10))
                             , data.get(11)));
                     // Toutes les informations
@@ -93,11 +104,14 @@ public class EarthquakeViewModel {
         return new StringInt(tmp, index + 1);
     }
 
-    public int getNumberOfEarthquakePerYear() {
-    Arrays eartquakeCount;
-    for(Earthquake earthquake : earthquakeList) {
-
+    public ArrayList<Pair<Float, Float>> getCoordonatesPerMagnitude(ArrayList<Float> magnitude, int magnitudeWanted) {
+        ArrayList<Pair<Float, Float>> coordonates = new ArrayList<>();
+        for (Earthquake earthquake : earthquakeList) {
+            if (Math.round(earthquake.getMagnitude()) == magnitudeWanted) {
+                Pair<Float, Float> pair = new Pair<>(earthquake.getXPosWGS(), earthquake.getYPosWGS());
+                coordonates.add(pair);
+            }
         }
-    return 0;
+        return coordonates;
     }
 }

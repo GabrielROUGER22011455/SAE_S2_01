@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class EarthquakeViewModel {
-    private List<Earthquake>  earthquakeList;
+    private List<Earthquake> earthquakeList;
 
     public void EarthquakeViewModel() {
         earthquakeList = new ArrayList<Earthquake>();
@@ -19,38 +20,40 @@ public class EarthquakeViewModel {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 ArrayList<String> data = separateString(line);
-                if (data.size()==10) {
+                if (data.size() == 10) {
                     //System.out.println(data);
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3)
-                            ,Float.parseFloat(data.get(4)),Float.parseFloat(data.get(5)),Float.parseFloat(data.get(6))
-                            ,Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),data.get(9)));
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
+                            , Float.parseFloat(data.get(4)), Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6))
+                            , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), data.get(9)));
                     // Heure non donnée
                     // Type non donné
-                }
-                else if (data.size()==11){
+                } else if (data.size() == 11) {
                     //System.out.println(data);
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3)
-                            ,data.get(4),Float.parseFloat(data.get(5)),Float.parseFloat(data.get(6))
-                            ,Float.parseFloat(data.get(7)),Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9))
-                            ,data.get(10)));
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
+                            , data.get(4), Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6))
+                            , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9))
+                            , data.get(10)));
                     // Type non donné
-                }
-                else if (data.size()==12){
+                } else if (data.size() == 12) {
                     //System.out.println(data);
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)),data.get(1),data.get(2),data.get(3)
-                            ,data.get(4),data.get(5),Float.parseFloat(data.get(6)),Float.parseFloat(data.get(7))
-                            ,Float.parseFloat(data.get(8)),Float.parseFloat(data.get(9)),Float.parseFloat(data.get(10))
-                            ,data.get(11)));
+                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
+                            , data.get(4), data.get(5), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7))
+                            , Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)), Float.parseFloat(data.get(10))
+                            , data.get(11)));
                     // Toutes les informations
                 }
             }
             reader.close();
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
     public List<Earthquake> getEarthquakeList() {
         return earthquakeList;
     }
-    private ArrayList<String> separateString (String str) {
+
+    private ArrayList<String> separateString(String str) {
         // Separate strings from one entry on the CSV file
         // Takes an entry from the CSV file in parameter
         // Returns an ArrayList of 10 to 12 String
@@ -64,20 +67,20 @@ public class EarthquakeViewModel {
         }
         return stringList;
     }
+
     private StringInt getStringAt(String str, int index) {
         // Give the string at the given position in the CSV file
         // Takes an entry from the CSV file and an index in parameter
         // Returns a String
         String tmp = "";
         for (char i : str.substring(index).toCharArray()) {
-            ++ index;
+            ++index;
             if (i == ',') {
                 return new StringInt(tmp, index);
-            }
-            else if (i == '\"') {
+            } else if (i == '\"') {
                 // Start of the " reading
                 for (char j : str.substring(index).toCharArray()) {
-                    ++ index;
+                    ++index;
                     if (j == '\"') {
                         return new StringInt(tmp, index);
                     }
@@ -87,6 +90,14 @@ public class EarthquakeViewModel {
             }
             tmp += i;
         }
-        return new StringInt(tmp, index+1);
+        return new StringInt(tmp, index + 1);
+    }
+
+    public int getNumberOfEarthquakePerYear() {
+    Arrays eartquakeCount;
+    for(Earthquake earthquake : earthquakeList) {
+
+        }
+    return 0;
     }
 }

@@ -109,5 +109,4 @@ public class Earthquake {
                 + yPosWGS+"\n Intensité : " + magnitude + "\n Data quality : " + dataQuality+"\n");
         return  earthquakeInfo;
     }
-
 }

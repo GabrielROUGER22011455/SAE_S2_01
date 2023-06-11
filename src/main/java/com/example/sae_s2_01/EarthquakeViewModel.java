@@ -201,7 +201,7 @@ public class EarthquakeViewModel {
             int intTmp = 0;
             String strTmp = "";
             for (int index1=0; index1<tmpRegion.size(); ++index1){
-                if (tmpRegion.get(index1) != null){
+                if (tmpRegion.get(index1) != ""){
                     if (nbrOfEarthquake.get(index1) > intTmp){
                         intTmp = nbrOfEarthquake.get(index1);
                         strTmp = tmpRegion.get(index1);
@@ -209,12 +209,12 @@ public class EarthquakeViewModel {
                 }
             }
             for (int index1=0; index1<tmpRegion.size(); ++index1){
-                //if (strTmp==(tmpRegion.get(index1))){
-                //    regionMostHitByEarthquake.add(strTmp);
-                //    higherNbrOfEarthquake.add(intTmp);
-                //    tmpRegion.set(index1, null);
-                //    break;
-                //}
+                if (strTmp.equals(tmpRegion.get(index1))){
+                    regionMostHitByEarthquake.add(strTmp);
+                    higherNbrOfEarthquake.add(intTmp);
+                    tmpRegion.set(index1, "");
+                    break;
+                }
             }
         }
         return higherNbrOfEarthquake;

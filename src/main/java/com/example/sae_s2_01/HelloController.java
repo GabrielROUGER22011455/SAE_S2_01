@@ -59,12 +59,10 @@ public class HelloController {
 
 
         // Remplir le graphique en camembert avec des données de démonstration
-        ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList(
-                new PieChart.Data("region A", 15),
-                new PieChart.Data("region B", 25),
-                new PieChart.Data("region C", 35),
-                new PieChart.Data("region D", 25)
-        );
+        ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
+        for (int index=0; index<4; ++index){
+            pieData1.add(new PieChart.Data(viewModel.regionMostHitByEarthquake.get(index), viewModel.higherNbrOfEarthquake.get(index)));
+        }
 
 
         pieChart1.setData(pieData1);

@@ -1,4 +1,4 @@
-package com.example.sae_s2_01;
+package EarthquakeJavaFX;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

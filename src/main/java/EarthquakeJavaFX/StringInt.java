@@ -1,4 +1,4 @@
-package com.example.sae_s2_01;
+package EarthquakeJavaFX;
 
 public class StringInt {
     // Type used in the separateString function from EarthQuakeViewModel

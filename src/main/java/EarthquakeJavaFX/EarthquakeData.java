@@ -1,4 +1,4 @@
-package com.example.sae_s2_01;
+package EarthquakeJavaFX;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,7 +23,7 @@ public class EarthquakeData {
         earthquakeMapList = new ArrayList<EarthquakeMap>();
         // Load data from the CSV file
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/com/example/sae_s2_01/SisFrance_seismes_20230604151458.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/SisFrance_seismes_20230604151458.csv"));
             String line;
             reader.readLine();
             while ((line = reader.readLine()) != null) {

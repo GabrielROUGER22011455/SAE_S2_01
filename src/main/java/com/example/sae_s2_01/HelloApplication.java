@@ -31,6 +31,10 @@ public class HelloApplication extends Application {
             System.out.println(earthquake);
         }
         viewModel.getRegionAndNumberOfEarthquake();
+        viewModel.getAvgEarthquakePerByRegion();
+        System.out.println(viewModel.region);
+        System.out.println(viewModel.nbrOfEarthquake);
+        System.out.println(viewModel.avgEarthquake);
     }
 
     public static void main(String[] args) {

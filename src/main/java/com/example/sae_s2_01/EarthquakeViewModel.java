@@ -17,6 +17,7 @@ public class EarthquakeViewModel {
 
     ArrayList<Integer> nbrOfEarthquake = new ArrayList<>();
     ArrayList<String> region = new ArrayList<>();
+    ArrayList<Float> avgEarthquake = new ArrayList<>();
 
 
     public void EarthquakeViewModel() {
@@ -123,27 +124,77 @@ public class EarthquakeViewModel {
         return new StringInt(tmp, index + 1);
     }
 
-    public void getRegionAndNumberOfEarthquake(){
-        String earthQuakeIndex;
+    public void getAvgEarthquakePerByRegion(){
         for (Earthquake earthquake : earthquakeList) {
+
+            boolean isInArray = false;
+            String earthQuakeIndex = earthquake.getRegion();
+
+            if (avgEarthquake.isEmpty()){
+                avgEarthquake.add(earthquake.getMagnitude());
+                continue;
+            }
+
+            for(int index = 0; index < avgEarthquake.size();++index){
+
+                if (earthQuakeIndex.equals(region.get(index))) {
+                    isInArray = true;
+                    avgEarthquake.set(index, avgEarthquake.get(index) + earthquake.getMagnitude());
+                    break;
+                }
+            }
+
+            if(!isInArray){
+                avgEarthquake.add(earthquake.getMagnitude());
+            }
+        }
+
+        for(int index = 0; index < region.size();++index){
+            avgEarthquake.set(index, avgEarthquake.get(index) / nbrOfEarthquake.get(index));
+        }
+    }
+
+    public void getRegionAndNumberOfEarthquake(){
+
+        String earthQuakeIndex;
+
+        for (Earthquake earthquake : earthquakeList) {
+
             earthQuakeIndex = earthquake.getRegion();
             boolean isInArray = false;
+
             if (region.isEmpty()){
                 region.add(earthQuakeIndex);
                 nbrOfEarthquake.add(1);
                 continue;
             }
+
             for(int index = 0; index < region.size();++index){
+
                 if (earthQuakeIndex.equals(region.get(index))) {
                     isInArray = true;
                     nbrOfEarthquake.set(index, nbrOfEarthquake.get(index) + 1);
+                    break;
                 }
             }
-            if(isInArray == false){
+
+            if(!isInArray){
                 region.add(earthquake.getRegion());
                 nbrOfEarthquake.add(1);
             }
         }
+    }
+
+    public ArrayList getRegion(){
+        return region;
+    }
+
+    public ArrayList getNbrOfEarthquake(){
+        return nbrOfEarthquake;
+    }
+
+    public ArrayList getAvgEarthquake(){
+        return avgEarthquake;
     }
 
     public void changeEarthquakeOnMap(){

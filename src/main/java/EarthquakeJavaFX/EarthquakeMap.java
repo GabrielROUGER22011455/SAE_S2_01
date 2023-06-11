@@ -6,11 +6,7 @@ public class EarthquakeMap {
     private float yPosWGS;
     private float magnitude;
     private boolean showable;
-
-    public EarthquakeMap() {
-
-    }
-
+    public EarthquakeMap (){};
     public EarthquakeMap (int year, float xPosWGS, float yPosWGS, float magnitude, boolean showable){
         this.year = year;
         this.xPosWGS = xPosWGS;
@@ -18,7 +14,6 @@ public class EarthquakeMap {
         this.magnitude = magnitude;
         this.showable = showable;
     }
-
     public int getYear(){
         return year;
     }
@@ -34,16 +29,14 @@ public class EarthquakeMap {
     public float getMagnitude(){
         return magnitude;
     }
-
     public void setShowable(boolean showableState){
         showable = showableState;
     }
-
-    public int setDateToYears(String date){
-        String tmp = "";
-        for(int index = 0; index < 4; ++index){
-            tmp = tmp + date.charAt(index);
+    public int dateToYear(String date){
+        String year = "";
+        for(int i = 0; i < 4; ++i){
+            year += date.charAt(i);
         }
-        return Integer.parseInt(tmp);
+        return Integer.parseInt(year);
     }
 }

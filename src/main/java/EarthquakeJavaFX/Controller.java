@@ -34,12 +34,10 @@ public class Controller {
     private CheckBox checkBox6;
     @FXML
     private CheckBox checkBox7;
-    IntegerProperty minDate;
-    IntegerProperty maxDate;
     ArrayList<Boolean> checkBoxsState = new ArrayList<>();
-    EarthquakeData viewModel = new EarthquakeData();
+    EarthquakeData data = new EarthquakeData();
     public void initialize() {
-        viewModel.EarthquakeViewModel();
+        data.EarthquakeViewModel();
         checkBoxsState.add(checkBox1.isSelected());
         checkBoxsState.add(checkBox2.isSelected());
         checkBoxsState.add(checkBox3.isSelected());
@@ -47,12 +45,12 @@ public class Controller {
         checkBoxsState.add(checkBox5.isSelected());
         checkBoxsState.add(checkBox6.isSelected());
         checkBoxsState.add(checkBox7.isSelected());
-        viewModel.getRegionAndNumberOfEarthquake();
-        viewModel.getAvgEarthquakePerByRegion();
-        viewModel.getTheMostHitByEarthquake(4);
+        data.earthquakesPerRegion();
+        data.avgEarthquakePerRegion();
+        data.mostHitRegions(4);
         ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
         for (int index=0; index<4; ++index){
-            pieData1.add(new PieChart.Data(viewModel.regionMostHitByEarthquake.get(index), viewModel.higherNbrOfEarthquake.get(index)));
+            pieData1.add(new PieChart.Data(data.regionMostHitByEarthquake.get(index), data.higherNbrOfEarthquake.get(index)));
         }
         pieChart1.setData(pieData1);
         int i = 0;
@@ -71,8 +69,8 @@ public class Controller {
             data.getNode().getStyleClass().add("section" + (i++));
         }
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        for(int index = 0;index < viewModel.getNbrOfEarthquake().size() ;++index){
-            series1.getData().add(new XYChart.Data<>(viewModel.region.get(index), viewModel.nbrOfEarthquake.get(index)));
+        for(int index = 0;index < data.getNbrOfEarthquake().size() ;++index){
+            series1.getData().add(new XYChart.Data<>(data.region.get(index), data.nbrOfEarthquake.get(index)));
         }
         series1.setName("Nombre de séisme par région épicentrale ");
         lineChart1.getData().add(series1);

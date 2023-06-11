@@ -18,54 +18,31 @@ public class Earthquake {
     public Earthquake(int id, String date, String time, String name, String region,
                       Type type,float xPos, float yPos,
                       float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
-        this.id = id;
-        this.date = date;
+        // Constructor for earthquake will full informations
+        this(id, date, name, region, xPos, yPos, xPosWGS, yPosWGS, magnitude, dataQuality);
         this.time = time;
-        this.name = name;
-        this.region = region;
         this.type = type;
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.xPosWGS = xPosWGS;
-        this.yPosWGS = yPosWGS;
-        this.magnitude = magnitude;
-        this.dataQuality = dataQuality;
     }
     public Earthquake(int id, String date, String name, String region,
                       Type type,float xPos, float yPos,
                       float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
-        this.id = id;
-        this.date = date;
-        this.name = name;
-        this.region = region;
+        // Constructor for earthquakes without information about the time
+        this(id, date, name, region, xPos, yPos, xPosWGS, yPosWGS, magnitude, dataQuality);
         this.type = type;
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.xPosWGS = xPosWGS;
-        this.yPosWGS = yPosWGS;
-        this.magnitude = magnitude;
-        this.dataQuality = dataQuality;
     }
 
     public Earthquake(int id, String date, String time, String name,
                       String region,float xPos, float yPos,
                       float  xPosWGS, float yPosWGS, float magnitude, String dataQuality){
-        this.id = id;
-        this.date = date;
-        this.name = name;
-        this.region = region;
+        // Constructor for earthquakes without information about the type
+        this(id, date, name, region, xPos, yPos, xPosWGS, yPosWGS, magnitude, dataQuality);
         this.time = time;
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.xPosWGS = xPosWGS;
-        this.yPosWGS = yPosWGS;
-        this.magnitude = magnitude;
-        this.dataQuality = dataQuality;
     }
 
     public Earthquake(int id, String date, String name,
                       String region,float xPos, float yPos,
                       float  xPosWGS, float yPosWGS, float magnitude, String dataQuality){
+        // Constructor for earthquakes without information about time and type
         this.id = id;
         this.date = date;
         this.name = name;
@@ -77,7 +54,6 @@ public class Earthquake {
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
-
     public int getId() {
         return id;
     }
@@ -102,38 +78,6 @@ public class Earthquake {
     public float getYPosWGS(){return yPosWGS;}
     public float getMagnitude(){return magnitude;}
     public String getDataQuality(){return dataQuality;}
-    
-    public Earthquake(){
-    }
-
-    public String typeToString(Type type){
-        switch (type){
-            case E:
-                return "SECOUSSE INDIVIDUALISEE D UN ESSAIM";
-            case P:
-                return "PRECURSEUR";
-            case R:
-                return "REPLIQUE";
-            case Z:
-                return "GROUPE DE SECOUSSES D UN ESSAIM";
-        }
-        return null;
-    }
-
-    public Type stringToType(String str){
-        switch (str){
-            case "SECOUSSE INDIVIDUALISEE D UN ESSAIM":
-                return Type.E;
-            case "PRECURSEUR":
-                return Type.P;
-            case "REPLIQUE":
-                return Type.R;
-            case "GROUPE DE SECOUSSES D UN ESSAIM":
-                return Type.Z;
-        }
-        return null;
-    }
-
     @Override
     public String toString(){
         String earthquakeInfo = ("Id : " + id +"\n Date : "+ date + "\n Time : " + time

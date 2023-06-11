@@ -11,7 +11,7 @@ import javafx.scene.control.CheckBox;
 
 import java.util.ArrayList;
 
-public class HelloController {
+public class Controller {
     @FXML
     private PieChart pieChart1;
     @FXML
@@ -37,7 +37,7 @@ public class HelloController {
     IntegerProperty minDate;
     IntegerProperty maxDate;
     ArrayList<Boolean> checkBoxsState = new ArrayList<>();
-    EarthquakeViewModel viewModel = new EarthquakeViewModel();
+    EarthquakeData viewModel = new EarthquakeData();
     public void initialize() {
         viewModel.EarthquakeViewModel();
         checkBoxsState.add(checkBox1.isSelected());

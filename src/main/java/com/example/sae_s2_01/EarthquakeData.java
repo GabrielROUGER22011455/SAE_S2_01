@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class EarthquakeViewModel {
+public class EarthquakeData {
     Earthquake earthquake = new Earthquake();
     EarthquakeMap earthquakeMap = new EarthquakeMap();
     private List<Earthquake> earthquakeList;

@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sae_s2_01.HelloController" stylesheets="@/styles/style.css" styleClass="dashboard" hgap="10" vgap="10">
+<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sae_s2_01.Controller" stylesheets="@/styles/style.css" styleClass="dashboard" hgap="10" vgap="10">
     <rowConstraints>
         <RowConstraints percentHeight="5" />
         <RowConstraints percentHeight="85" />

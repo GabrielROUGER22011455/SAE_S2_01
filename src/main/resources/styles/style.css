@@ -1,0 +1,113 @@
+.dashboard {
+    -fx-padding: 20px;
+    -fx-border-color: #9FB3C8;
+    -fx-border-width: 2px;
+    -fx-background-color: #F2F4F8;
+}
+
+.title {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #354F52;
+    -fx-alignment: center;
+    -fx-font-family: "Arial";
+}
+
+.chart-group {
+    -fx-background-color: #F2F4F8;
+    -fx-padding: 10px;
+    -fx-border-color: #9FB3C8;
+    -fx-border-width: 1px;
+}
+
+.checkbox-group {
+    -fx-alignment: center;
+    -fx-background-color: #D8E2DC;
+    -fx-border-color: #9FB3C8;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10;
+    -fx-padding: 10px;
+}
+
+.checkbox-group .check-box {
+    -fx-font-size: 16px;
+    -fx-padding: 10px;
+    -fx-background-color: #9FB3C8;
+    -fx-text-fill: #354F52;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-family: "Arial";
+}
+
+.checkbox-group .check-box .box {
+    -fx-background-radius: 5;
+    -fx-padding: 5px;
+}
+
+.checkbox-group .check-box .mark {
+    -fx-background-radius: 5;
+}
+
+.map {
+    -fx-max-width: 300px;
+    -fx-max-height: 250px;
+    -fx-background-radius: 20;
+    -fx-border-color: #9FB3C8;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10;
+}
+
+.chart {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 300px;
+    -fx-background-radius: 10;
+    -fx-border-color: #9FB3C8;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10;
+}
+
+.chart-pie {
+    -fx-border-color: #9FB3C8;
+    -fx-background-color: #9FB3C8;
+    -fx-border-width: 1px;
+    -fx-background-radius: 10;
+}
+
+.chart-pie .section0 {
+    -fx-pie-color: #556677;
+}
+.chart-pie .section1 {
+    -fx-pie-color: #667788;
+}
+.chart-pie .section2 {
+    -fx-pie-color: #778899;
+}
+.chart-pie .section3 {
+    -fx-pie-color: #8899AA;
+}
+
+.chart-content {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+
+.chart .chart-plot-background {
+    -fx-background-color: #9FB3C8;
+    -fx-background-radius: 10;
+}
+
+.chart .chart-horizontal-grid-lines {
+    -fx-stroke: #9FB3C8;
+    -fx-stroke-width: 1px;
+}
+
+.chart .chart-vertical-grid-lines {
+    -fx-stroke: #9FB3C8;
+    -fx-stroke-width: 1px;
+}
+
+.chart .axis {
+    -fx-border-color: #9FB3C8;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10;
+}

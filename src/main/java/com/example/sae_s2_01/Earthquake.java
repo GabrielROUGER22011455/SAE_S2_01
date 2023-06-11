@@ -7,7 +7,7 @@ public class Earthquake {
     private String time;
     private String name;
     private String region;
-    private String type;
+    private Type type;
     private float xPos;
     private float yPos;
     private float xPosWGS;
@@ -16,7 +16,7 @@ public class Earthquake {
     private String dataQuality;
 
     public Earthquake(int id, String date, String time, String name, String region,
-                      String type,float xPos, float yPos,
+                      Type type,float xPos, float yPos,
                       float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
         this.id = id;
         this.date = date;
@@ -31,13 +31,13 @@ public class Earthquake {
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
     }
-    public Earthquake(int id, String date, String time, String name,
-                      String type,float xPos, float yPos,
+    public Earthquake(int id, String date, String name, String region,
+                      Type type,float xPos, float yPos,
                       float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
         this.id = id;
         this.date = date;
-        this.time = time;
         this.name = name;
+        this.region = region;
         this.type = type;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -47,13 +47,14 @@ public class Earthquake {
         this.dataQuality = dataQuality;
     }
 
-    public Earthquake(int id, String date, String name,
-                      String time,float xPos, float yPos,
-                      float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
+    public Earthquake(int id, String date, String time, String name,
+                      String region,float xPos, float yPos,
+                      float  xPosWGS, float yPosWGS, float magnitude, String dataQuality){
         this.id = id;
         this.date = date;
         this.name = name;
-        this.type = time;
+        this.region = region;
+        this.time = time;
         this.xPos = xPos;
         this.yPos = yPos;
         this.xPosWGS = xPosWGS;
@@ -63,11 +64,12 @@ public class Earthquake {
     }
 
     public Earthquake(int id, String date, String name,
-                      float xPos, float yPos,
-                      float  xPosWGS, float yPosWGS, float magnitude, String dataQuality) {
+                      String region,float xPos, float yPos,
+                      float  xPosWGS, float yPosWGS, float magnitude, String dataQuality){
         this.id = id;
         this.date = date;
         this.name = name;
+        this.region = region;
         this.xPos = xPos;
         this.yPos = yPos;
         this.xPosWGS = xPosWGS;
@@ -91,7 +93,7 @@ public class Earthquake {
     public String getRegion(){
         return region;
     }
-    public String getType(){
+    public Type getType(){
         return type;
     }
     public float getXPos() {return xPos;}
@@ -100,6 +102,37 @@ public class Earthquake {
     public float getYPosWGS(){return yPosWGS;}
     public float getMagnitude(){return magnitude;}
     public String getDataQuality(){return dataQuality;}
+    
+    public Earthquake(){
+    }
+
+    public String typeToString(Type type){
+        switch (type){
+            case E:
+                return "SECOUSSE INDIVIDUALISEE D UN ESSAIM";
+            case P:
+                return "PRECURSEUR";
+            case R:
+                return "REPLIQUE";
+            case Z:
+                return "GROUPE DE SECOUSSES D UN ESSAIM";
+        }
+        return null;
+    }
+
+    public Type stringToType(String str){
+        switch (str){
+            case "SECOUSSE INDIVIDUALISEE D UN ESSAIM":
+                return Type.E;
+            case "PRECURSEUR":
+                return Type.P;
+            case "REPLIQUE":
+                return Type.R;
+            case "GROUPE DE SECOUSSES D UN ESSAIM":
+                return Type.Z;
+        }
+        return null;
+    }
 
     @Override
     public String toString(){

@@ -3,16 +3,21 @@ package com.example.sae_s2_01;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+
 
 public class EarthquakeViewModel {
+
+    Earthquake earthquake = new Earthquake();
+    HelloController helloController = new HelloController();
+    EarthquakeMap earthquakeMap = new EarthquakeMap();
     private List<Earthquake> earthquakeList;
+    private List<EarthquakeMap> earthquakeMapList;
 
     public void EarthquakeViewModel() {
         earthquakeList = new ArrayList<Earthquake>();
+        earthquakeMapList = new ArrayList<EarthquakeMap>();
         // Load data from the CSV file
         try {
             BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/com/example/sae_s2_01/SisFrance_seismes_20230604151458.csv"));
@@ -20,26 +25,43 @@ public class EarthquakeViewModel {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 ArrayList<String> data = separateString(line);
+
                 if (data.size() == 10) {
                     //System.out.println(data);
                     earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
                             , Float.parseFloat(data.get(4)), Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6))
                             , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), data.get(9)));
+                    earthquakeMapList.add(new EarthquakeMap (earthquakeMap.setDateToYears(data.get(1)), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)),
+                            Float.parseFloat(data.get(8)), false));
                     // Heure non donnée
                     // Type non donné
                 } else if (data.size() == 11) {
-                    //System.out.println(data);
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
-                            , data.get(4), Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6))
-                            , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9))
-                            , data.get(10)));
+                    char firstChar = data.get(2).charAt(0);
+                    if ((Character.isDigit(firstChar))) {
+                        //System.out.println(data);
+                        earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2),
+                                data.get(3), data.get(4),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(5)),
+                                Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
+                                data.get(5)));
+                        earthquakeMapList.add(new EarthquakeMap (earthquakeMap.setDateToYears(data.get(1)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
+                                Float.parseFloat(data.get(9)), false));
+                    }else{
+                        earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2),
+                                data.get(3), earthquake.stringToType(data.get(4)),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(5)),
+                                Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
+                                data.get(5)));
+                        earthquakeMapList.add(new EarthquakeMap (earthquakeMap.setDateToYears(data.get(1)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
+                                Float.parseFloat(data.get(9)), false));
+                    }
                     // Type non donné
                 } else if (data.size() == 12) {
                     //System.out.println(data);
                     earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
-                            , data.get(4), data.get(5), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7))
+                            , data.get(4), earthquake.stringToType(data.get(5)), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7))
                             , Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)), Float.parseFloat(data.get(10))
                             , data.get(11)));
+                    earthquakeMapList.add(new EarthquakeMap (earthquakeMap.setDateToYears(data.get(1)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)),
+                            Float.parseFloat(data.get(10)), false));
                     // Toutes les informations
                 }
             }
@@ -51,6 +73,10 @@ public class EarthquakeViewModel {
 
     public List<Earthquake> getEarthquakeList() {
         return earthquakeList;
+    }
+
+    public List<EarthquakeMap> getEarthquakeMapList() {
+        return earthquakeMapList;
     }
 
     private ArrayList<String> separateString(String str) {
@@ -93,11 +119,20 @@ public class EarthquakeViewModel {
         return new StringInt(tmp, index + 1);
     }
 
-    public int getNumberOfEarthquakePerYear() {
-    Arrays eartquakeCount;
-    for(Earthquake earthquake : earthquakeList) {
-
+    public void changeEarthquakeOnMap(){
+        int cmpt = 0;
+        int magnitude;
+        for (Earthquake earthquake : earthquakeList) {
+            magnitude = (int)earthquakeMap.getMagnitude();
+            if (helloController.minDate.get() > earthquakeMap.getYear()
+                    || helloController.maxDate.get() > earthquakeMap.getYear()
+                    || helloController.checkBoxsState.get(magnitude-1) == false)
+            {
+                earthquakeMap.setShowable(false);
+            }else{
+                earthquakeMap.setShowable(true);
+            }
+            cmpt +=1;
         }
-    return 0;
     }
 }

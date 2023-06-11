@@ -37,13 +37,8 @@ public class HelloController {
     IntegerProperty minDate;
     IntegerProperty maxDate;
     ArrayList<Boolean> checkBoxsState = new ArrayList<>();
-
     EarthquakeViewModel viewModel = new EarthquakeViewModel();
-
     public void initialize() {
-
-
-
         viewModel.EarthquakeViewModel();
         checkBoxsState.add(checkBox1.isSelected());
         checkBoxsState.add(checkBox2.isSelected());
@@ -52,28 +47,18 @@ public class HelloController {
         checkBoxsState.add(checkBox5.isSelected());
         checkBoxsState.add(checkBox6.isSelected());
         checkBoxsState.add(checkBox7.isSelected());
-
         viewModel.getRegionAndNumberOfEarthquake();
         viewModel.getAvgEarthquakePerByRegion();
         viewModel.getTheMostHitByEarthquake(4);
-
-
-        // Remplir le graphique en camembert avec des données de démonstration
         ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
         for (int index=0; index<4; ++index){
             pieData1.add(new PieChart.Data(viewModel.regionMostHitByEarthquake.get(index), viewModel.higherNbrOfEarthquake.get(index)));
         }
-
-
         pieChart1.setData(pieData1);
-
         int i = 0;
         for (final PieChart.Data data : pieChart1.getData()) {
             data.getNode().getStyleClass().add("section" + (i++));
         }
-
-
-        // Remplie le deuxième graphique en camembert avec des données de démonstration
         ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList(
                 new PieChart.Data("region A", 15),
                 new PieChart.Data("region B", 25),
@@ -81,29 +66,22 @@ public class HelloController {
                 new PieChart.Data("region D", 25)
         );
         pieChart2.setData(pieData2);
-
         i = 0;
         for (final PieChart.Data data : pieChart2.getData()) {
             data.getNode().getStyleClass().add("section" + (i++));
         }
-
-
-
-        // Remplir les graphiques linéaires avec des données de démonstration
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         for(int index = 0;index < viewModel.getNbrOfEarthquake().size() ;++index){
             series1.getData().add(new XYChart.Data<>(viewModel.region.get(index), viewModel.nbrOfEarthquake.get(index)));
         }
         series1.setName("Nombre de séisme par région épicentrale ");
         lineChart1.getData().add(series1);
-
         XYChart.Series<String, Number> series2 = new XYChart.Series<>(); // Create new series for lineChart2
         series2.setName("Séries 2");
         series2.getData().add(new XYChart.Data<>("Ville 1", 20));
         series2.getData().add(new XYChart.Data<>("Ville 2", 25));
         series2.getData().add(new XYChart.Data<>("Ville 3", 30));
         lineChart2.getData().add(series2); // Add series to lineChart2
-
         checkBox1.setOnAction(event -> {
             if (checkBox1.isSelected()) {
                 System.out.println("La checkbox est cochée");
@@ -111,7 +89,6 @@ public class HelloController {
                 System.out.println("La checkbox est décochée");
             }
         });
-
     }
 
     public ArrayList<Boolean> getCheckBoxsState(){

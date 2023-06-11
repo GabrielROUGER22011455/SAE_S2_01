@@ -18,13 +18,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-
-        //Data viewModel = new Data();
-        //viewModel.Data();
-        //List<Earthquake> earthquakeList = viewModel.getEarthquakeList();
-        //viewModel.getRegionAndNumberOfEarthquake();
     }
-
     public static void main(String[] args) {
         launch();
     }

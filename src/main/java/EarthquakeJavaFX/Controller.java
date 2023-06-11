@@ -48,6 +48,8 @@ public class Controller {
         data.earthquakesPerRegion();
         data.avgEarthquakePerRegion();
         data.mostHitRegions(4);
+        data.typesAndTheirFrequency();
+        data.earthquakePerDecade();
         ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
         for (int index=0; index<4; ++index){
             pieData1.add(new PieChart.Data(data.regionMostHitByEarthquake.get(index), data.higherNbrOfEarthquake.get(index)));
@@ -57,22 +59,21 @@ public class Controller {
         for (final PieChart.Data data : pieChart1.getData()) {
             data.getNode().getStyleClass().add("section" + (i++));
         }
-        ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList(
-                new PieChart.Data("region A", 15),
-                new PieChart.Data("region B", 25),
-                new PieChart.Data("region C", 35),
-                new PieChart.Data("region D", 25)
-        );
+        ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
+        for (int index=0; index<data.typesOfEarthquake.size(); ++index){
+            pieData2.add(new PieChart.Data(data.typesOfEarthquake.get(index), data.frequencyOfTypes.get(index)));
+        }
         pieChart2.setData(pieData2);
         i = 0;
         for (final PieChart.Data data : pieChart2.getData()) {
             data.getNode().getStyleClass().add("section" + (i++));
         }
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        for(int index = 0;index < data.getNbrOfEarthquake().size() ;++index){
-            series1.getData().add(new XYChart.Data<>(data.region.get(index), data.nbrOfEarthquake.get(index)));
+        for(int index = 0;index < data.dateInDecade.size() ;++index){
+            series1.getData().add(new XYChart.Data<>(data.dateInDecade.get(index).toString()+"-"
+                    +(data.dateInDecade.get(index)+1), data.nbrEarthquakePerDecade.get(index)));
         }
-        series1.setName("Nombre de séisme par région épicentrale ");
+        series1.setName("Nombre de séisme par décennie");
         lineChart1.getData().add(series1);
         XYChart.Series<String, Number> series2 = new XYChart.Series<>(); // Create new series for lineChart2
         series2.setName("Séries 2");

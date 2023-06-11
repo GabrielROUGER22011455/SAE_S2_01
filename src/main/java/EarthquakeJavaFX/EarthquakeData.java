@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.Collections;
+import java.lang.Math;
 
 public class EarthquakeData {
     EarthquakeMap earthquakeMap = new EarthquakeMap();
@@ -14,6 +16,11 @@ public class EarthquakeData {
     ArrayList<Float> avgEarthquake = new ArrayList<>();
     ArrayList<Integer> higherNbrOfEarthquake = new ArrayList<>();
     ArrayList<String> regionMostHitByEarthquake = new ArrayList<>();
+    ArrayList<Integer> frequencyOfTypes = new ArrayList<>();
+    ArrayList<String> typesOfEarthquake = new ArrayList<>();
+    ArrayList<Integer> nbrEarthquakePerDecade = new ArrayList<>();
+    ArrayList<Integer> dateInDecade = new ArrayList<>();
+
     public void EarthquakeViewModel() {
         earthquakeList = new ArrayList<Earthquake>();
         earthquakeMapList = new ArrayList<EarthquakeMap>();
@@ -151,7 +158,7 @@ public class EarthquakeData {
             }
         }
     }
-    public ArrayList mostHitRegions(int x){
+    public void mostHitRegions(int x){
         ArrayList<String> tmpRegion = region;
         for (int index = 0; index < x; ++index){
             int intTmp = 0;
@@ -173,8 +180,58 @@ public class EarthquakeData {
                 }
             }
         }
-        return higherNbrOfEarthquake;
     }
+
+    public void typesAndTheirFrequency(){
+        String tmpType = "";
+        for (Earthquake earthquake : earthquakeList) {
+            if(earthquake.getType() != null) {
+                tmpType = Type.typeToString(earthquake.getType());
+                if (typesOfEarthquake.isEmpty()) {
+                    typesOfEarthquake.add(tmpType);
+                    frequencyOfTypes.add(1);
+                    continue;
+                }
+                for (int index = 0; index < typesOfEarthquake.size(); ++index) {
+                    if (typesOfEarthquake.get(index).equals(tmpType)) {
+                        frequencyOfTypes.set(index, frequencyOfTypes.get(index) + 1);
+                        break;
+                    }
+                }
+                if(!typesOfEarthquake.contains(tmpType)){
+                    typesOfEarthquake.add(tmpType);
+                    frequencyOfTypes.add(1);
+                }
+            }
+        }
+    }
+
+    public int dateInDecade(int year){
+        return (int) Math.floor(year/100);
+    }
+
+    public void earthquakePerDecade() {
+        int decade = 0;
+        for (Earthquake earthquake : earthquakeList) {
+            decade = dateInDecade(earthquakeMap.dateToYear(earthquake.getDate()));
+            if(dateInDecade.isEmpty()){
+                dateInDecade.add(decade);
+                nbrEarthquakePerDecade.add(1);
+                continue;
+            }
+            for (int index = 0; index < dateInDecade.size(); ++index) {
+                if (decade == dateInDecade.get(index)) {
+                    nbrEarthquakePerDecade.set(index, nbrEarthquakePerDecade.get(index) + 1);
+                    break;
+                }
+            }
+            if (!dateInDecade.contains(decade)){
+                dateInDecade.add(decade);
+                nbrEarthquakePerDecade.add(1);
+            }
+        }
+    }
+
     public ArrayList getRegion(){
         return region;
     }

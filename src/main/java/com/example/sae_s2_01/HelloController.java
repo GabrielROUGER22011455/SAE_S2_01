@@ -36,25 +36,37 @@ public class HelloController {
     private CheckBox checkBox7;
     IntegerProperty minDate;
     IntegerProperty maxDate;
-    ArrayList<Boolean> checkBoxsState;
+    ArrayList<Boolean> checkBoxsState = new ArrayList<>();
 
+    EarthquakeViewModel viewModel = new EarthquakeViewModel();
 
     public void initialize() {
-        checkBoxsState.set(1, checkBox1.isSelected());
-        checkBoxsState.set(2, checkBox1.isSelected());
-        checkBoxsState.set(3, checkBox1.isSelected());
-        checkBoxsState.set(4, checkBox1.isSelected());
-        checkBoxsState.set(5, checkBox1.isSelected());
-        checkBoxsState.set(6, checkBox1.isSelected());
-        checkBoxsState.set(7, checkBox1.isSelected());
+
+
+
+        viewModel.EarthquakeViewModel();
+        checkBoxsState.add(checkBox1.isSelected());
+        checkBoxsState.add(checkBox2.isSelected());
+        checkBoxsState.add(checkBox3.isSelected());
+        checkBoxsState.add(checkBox4.isSelected());
+        checkBoxsState.add(checkBox5.isSelected());
+        checkBoxsState.add(checkBox6.isSelected());
+        checkBoxsState.add(checkBox7.isSelected());
+
+        viewModel.getRegionAndNumberOfEarthquake();
+        viewModel.getAvgEarthquakePerByRegion();
+        viewModel.getTheMostHitByEarthquake(4);
+
 
         // Remplir le graphique en camembert avec des données de démonstration
         ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList(
-                new PieChart.Data("region 1", 10),
-                new PieChart.Data("region 2", 30),
-                new PieChart.Data("region 3", 20),
-                new PieChart.Data("region 4", 80)
+                new PieChart.Data("region A", 15),
+                new PieChart.Data("region B", 25),
+                new PieChart.Data("region C", 35),
+                new PieChart.Data("region D", 25)
         );
+
+
         pieChart1.setData(pieData1);
 
         int i = 0;
@@ -81,10 +93,10 @@ public class HelloController {
 
         // Remplir les graphiques linéaires avec des données de démonstration
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        series1.setName("Séries 1");
-        series1.getData().add(new XYChart.Data<>("Ville 1", 23));
-        series1.getData().add(new XYChart.Data<>("Ville 2", 14));
-        series1.getData().add(new XYChart.Data<>("Ville 3", 15));
+        for(int index = 0;index < viewModel.getNbrOfEarthquake().size() ;++index){
+            series1.getData().add(new XYChart.Data<>(viewModel.region.get(index), viewModel.nbrOfEarthquake.get(index)));
+        }
+        series1.setName("Nombre de séisme par région épicentrale ");
         lineChart1.getData().add(series1);
 
         XYChart.Series<String, Number> series2 = new XYChart.Series<>(); // Create new series for lineChart2

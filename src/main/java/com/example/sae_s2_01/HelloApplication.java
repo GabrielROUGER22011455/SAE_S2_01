@@ -12,29 +12,17 @@ import java.util.List;
 
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) {
-        try {
-            GridPane root = FXMLLoader.load(getClass().getClassLoader().getResource("view/hello-view.fxml"));
-            stage.setTitle("");
-            stage.setScene(new Scene(root));
-            stage.show();
-        }catch (Exception e){
-            System.out.println(e);
-        }
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/view/hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
 
-        EarthquakeViewModel viewModel = new EarthquakeViewModel();
-        viewModel.EarthquakeViewModel();
-        List<Earthquake> earthquakeList = viewModel.getEarthquakeList();
-
-        System.out.println("Liste des séismes :");
-        for (Earthquake earthquake : earthquakeList) {
-            System.out.println(earthquake);
-        }
-        viewModel.getRegionAndNumberOfEarthquake();
-        viewModel.getAvgEarthquakePerByRegion();
-        System.out.println(viewModel.region);
-        System.out.println(viewModel.nbrOfEarthquake);
-        System.out.println(viewModel.avgEarthquake);
+        //Data viewModel = new Data();
+        //viewModel.Data();
+        //List<Earthquake> earthquakeList = viewModel.getEarthquakeList();
+        //viewModel.getRegionAndNumberOfEarthquake();
     }
 
     public static void main(String[] args) {

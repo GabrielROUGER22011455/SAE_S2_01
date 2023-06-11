@@ -10,7 +10,6 @@ import java.util.*;
 public class EarthquakeViewModel {
 
     Earthquake earthquake = new Earthquake();
-    HelloController helloController = new HelloController();
     EarthquakeMap earthquakeMap = new EarthquakeMap();
     private List<Earthquake> earthquakeList;
     private List<EarthquakeMap> earthquakeMapList;
@@ -18,6 +17,11 @@ public class EarthquakeViewModel {
     ArrayList<Integer> nbrOfEarthquake = new ArrayList<>();
     ArrayList<String> region = new ArrayList<>();
     ArrayList<Float> avgEarthquake = new ArrayList<>();
+    ArrayList<Float> xPosMap = new ArrayList<>();
+    ArrayList<Float> yPosMap = new ArrayList<>();
+    ArrayList<Integer> higherNbrOfEarthquake = new ArrayList<>();
+
+    ArrayList<String> regionMostHitByEarthquake = new ArrayList<>();
 
 
     public void EarthquakeViewModel() {
@@ -185,6 +189,38 @@ public class EarthquakeViewModel {
         }
     }
 
+    public void ccoordonateConvert(){
+        for(Earthquake earthquake : earthquakeList){
+
+        }
+    }
+
+    public ArrayList getTheMostHitByEarthquake(int x){
+        ArrayList<String> tmpRegion = region;
+        for (int index = 0; index < x; ++index){
+            int intTmp = 0;
+            String strTmp = "";
+            for (int index1=0; index1<tmpRegion.size(); ++index1){
+                if (tmpRegion.get(index1) != null){
+                    if (nbrOfEarthquake.get(index1) > intTmp){
+                        intTmp = nbrOfEarthquake.get(index1);
+                        strTmp = tmpRegion.get(index1);
+                    }
+                }
+            }
+            for (int index1=0; index1<tmpRegion.size(); ++index1){
+                //if (strTmp==(tmpRegion.get(index1))){
+                //    regionMostHitByEarthquake.add(strTmp);
+                //    higherNbrOfEarthquake.add(intTmp);
+                //    tmpRegion.set(index1, null);
+                //    break;
+                //}
+            }
+        }
+        return higherNbrOfEarthquake;
+    }
+
+
     public ArrayList getRegion(){
         return region;
     }
@@ -197,20 +233,4 @@ public class EarthquakeViewModel {
         return avgEarthquake;
     }
 
-    public void changeEarthquakeOnMap(){
-        int cmpt = 0;
-        int magnitude;
-        for (Earthquake earthquake : earthquakeList) {
-            magnitude = (int)earthquakeMap.getMagnitude();
-            if (helloController.minDate.get() > earthquakeMap.getYear()
-                    || helloController.maxDate.get() > earthquakeMap.getYear()
-                    || helloController.checkBoxsState.get(magnitude-1) == false)
-            {
-                earthquakeMap.setShowable(false);
-            }else{
-                earthquakeMap.setShowable(true);
-            }
-            cmpt +=1;
-        }
-    }
 }

@@ -40,7 +40,7 @@ public class EarthquakeMap {
     }
 
     public int setDateToYears(String date){
-        String tmp = null;
+        String tmp = "";
         for(int index = 0; index < 4; ++index){
             tmp = tmp + date.charAt(index);
         }

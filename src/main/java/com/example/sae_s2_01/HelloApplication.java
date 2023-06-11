@@ -30,6 +30,7 @@ public class HelloApplication extends Application {
         for (Earthquake earthquake : earthquakeList) {
             System.out.println(earthquake);
         }
+        viewModel.getRegionAndNumberOfEarthquake();
     }
 
     public static void main(String[] args) {

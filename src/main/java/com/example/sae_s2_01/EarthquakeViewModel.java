@@ -15,6 +15,10 @@ public class EarthquakeViewModel {
     private List<Earthquake> earthquakeList;
     private List<EarthquakeMap> earthquakeMapList;
 
+    ArrayList<Integer> nbrOfEarthquake = new ArrayList<>();
+    ArrayList<String> region = new ArrayList<>();
+
+
     public void EarthquakeViewModel() {
         earthquakeList = new ArrayList<Earthquake>();
         earthquakeMapList = new ArrayList<EarthquakeMap>();
@@ -117,6 +121,29 @@ public class EarthquakeViewModel {
             tmp += i;
         }
         return new StringInt(tmp, index + 1);
+    }
+
+    public void getRegionAndNumberOfEarthquake(){
+        String earthQuakeIndex;
+        for (Earthquake earthquake : earthquakeList) {
+            earthQuakeIndex = earthquake.getRegion();
+            boolean isInArray = false;
+            if (region.isEmpty()){
+                region.add(earthQuakeIndex);
+                nbrOfEarthquake.add(1);
+                continue;
+            }
+            for(int index = 0; index < region.size();++index){
+                if (earthQuakeIndex.equals(region.get(index))) {
+                    isInArray = true;
+                    nbrOfEarthquake.set(index, nbrOfEarthquake.get(index) + 1);
+                }
+            }
+            if(isInArray == false){
+                region.add(earthquake.getRegion());
+                nbrOfEarthquake.add(1);
+            }
+        }
     }
 
     public void changeEarthquakeOnMap(){

@@ -67,23 +67,47 @@
 }
 
 .chart-pie {
-    -fx-border-color: #9FB3C8;
+    -fx-border-color: #3777B2;
     -fx-background-color: #9FB3C8;
     -fx-border-width: 1px;
     -fx-background-radius: 10;
 }
 
-.chart-pie .section0 {
-    -fx-pie-color: #556677;
+.chart-pie .default-color0.chart-pie {
+    -fx-pie-color: #3777B2;
 }
-.chart-pie .section1 {
-    -fx-pie-color: #667788;
+
+.chart-pie .default-color1.chart-pie {
+    -fx-pie-color: #5D93C4;
 }
-.chart-pie .section2 {
-    -fx-pie-color: #778899;
+
+.chart-pie .default-color2.chart-pie {
+    -fx-pie-color: #84B0D7;
 }
-.chart-pie .section3 {
-    -fx-pie-color: #8899AA;
+
+.chart-pie .default-color3.chart-pie {
+    -fx-pie-color: #AEBED4;
+}
+
+.chart-pie .default-color4.chart-pie {
+    -fx-pie-color: #C8D7E6;
+}
+
+.chart-pie .default-color5.chart-pie {
+    -fx-pie-color: #F0E4E2;
+}
+
+.chart-pie .default-color6.chart-pie {
+    -fx-pie-color: #B2C3B3;
+}
+
+.chart-pie .chart-pie-label-line {
+    -fx-stroke: #000000;
+}
+
+.chart-pie .chart-pie-label {
+    -fx-fill: #000000;
+    -fx-font-size: 12px;
 }
 
 .chart-content {
@@ -111,3 +135,39 @@
     -fx-border-width: 1px;
     -fx-border-radius: 10;
 }
+
+.chart .axis .tick-mark {
+    -fx-stroke: #9FB3C8;
+}
+
+.chart .axis .axis-label {
+    -fx-fill: #000000;
+    -fx-font-size: 12px;
+}
+
+.slider-group .slider-container .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #354F52;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0 0 0; /* Ajoutez cette ligne pour élever les étiquettes */
+}
+
+
+.slider-group .slider-container .slider {
+    -fx-pref-width: 200px;
+}
+
+.slider-group .slider-container .slider .thumb {
+    -fx-background-color: #3777B2;
+    -fx-background-radius: 5px;
+}
+
+.slider-group .slider-container .slider .track {
+    -fx-background-color: #9FB3C8;
+}
+
+.slider-group .slider-container .slider .range-bar {
+    -fx-background-color: #3777B2;
+}
+
+

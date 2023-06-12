@@ -11,7 +11,8 @@
     <rowConstraints>
         <RowConstraints percentHeight="5" />
         <RowConstraints percentHeight="85" />
-        <RowConstraints percentHeight="10" />
+        <RowConstraints percentHeight="5" />
+        <RowConstraints percentHeight="5" />
     </rowConstraints>
     <columnConstraints>
         <ColumnConstraints percentWidth="100" />
@@ -30,9 +31,9 @@
         <ImageView styleClass="map">
             <Image url="@/images/carte-regions-france-vierge.png"/>
         </ImageView>
-        <VBox styleClass="chart">
-            <PieChart fx:id="pieChart1" styleClass="chart-pie"/>
-            <PieChart fx:id="pieChart2" styleClass="chart-pie"/>
+        <VBox styleClass="chart" VBox.vgrow="ALWAYS">
+            <PieChart fx:id="pieChart1" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
+            <PieChart fx:id="pieChart2" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
         </VBox>
         <VBox spacing="10.0" styleClass="linechart-group">
             <LineChart fx:id="lineChart1" styleClass="chart">
@@ -53,4 +54,25 @@
             </LineChart>
         </VBox>
     </HBox>
+    <VBox spacing="10.0" alignment="CENTER" styleClass="slider-group" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50" />
+                <ColumnConstraints percentWidth="50" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="100" />
+            </rowConstraints>
+            <HBox spacing="10.0" alignment="CENTER" styleClass="slider-group">
+                <VBox alignment="CENTER" styleClass="slider-container">
+                    <Label text="Date Début" styleClass="label" />
+                    <Slider orientation="HORIZONTAL" />
+                </VBox>
+                <VBox alignment="CENTER" styleClass="slider-container">
+                    <Label text="Date Fin" styleClass="label" />
+                    <Slider orientation="HORIZONTAL" />
+                </VBox>
+            </HBox>
+        </GridPane>
+    </VBox>
 </GridPane>

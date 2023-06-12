@@ -35,9 +35,9 @@ public class Controller {
     @FXML
     private CheckBox checkBox7;
     private ArrayList<Boolean> checkBoxsState = new ArrayList<>();
-    private EarthquakeData data = new EarthquakeData();
+    private EarthquakeData data ;
     public void initialize() {
-        data.EarthquakeViewModel();
+        data = new EarthquakeData();
         checkBoxsState.add(checkBox1.isSelected());
         checkBoxsState.add(checkBox2.isSelected());
         checkBoxsState.add(checkBox3.isSelected());
@@ -45,8 +45,6 @@ public class Controller {
         checkBoxsState.add(checkBox5.isSelected());
         checkBoxsState.add(checkBox6.isSelected());
         checkBoxsState.add(checkBox7.isSelected());
-        data.earthquakesPerRegion();
-        data.avgEarthquakePerRegion();
         data.mostHitRegions(4);
         data.typesAndTheirFrequency();
         data.earthquakePerDecade();

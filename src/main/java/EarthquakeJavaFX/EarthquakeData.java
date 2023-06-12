@@ -11,14 +11,13 @@ public class EarthquakeData {
     private List<Earthquake> earthquakeList;
     ArrayList<Integer> nbrOfEarthquake = new ArrayList<>();
     ArrayList<String> region = new ArrayList<>();
-    ArrayList<Float> avgEarthquake = new ArrayList<>();
     ArrayList<Integer> higherNbrOfEarthquake = new ArrayList<>();
     ArrayList<String> regionMostHitByEarthquake = new ArrayList<>();
     ArrayList<Integer> frequencyOfTypes = new ArrayList<>();
     ArrayList<String> typesOfEarthquake = new ArrayList<>();
     ArrayList<Integer> nbrEarthquakePerDecade = new ArrayList<>();
     ArrayList<Integer> dateInDecade = new ArrayList<>();
-    public void EarthquakeViewModel() {
+    public void EarthquakeData() {
         earthquakeList = new ArrayList<Earthquake>();
         try {
             // Load data from the CSV file
@@ -97,48 +96,29 @@ public class EarthquakeData {
         }
         return new StringInt(tmp, index + 1);
     }
-    public void avgEarthquakePerRegion(){
+
+    public HashMap<String, Float> getAvgMagnitude(){
+        // Returns the average earthquake magnitude per region
+        HashMap<String, Float> sumMagnitude = new HashMap<String, Float>();
+        HashMap<String, Integer> nbrEarthquake = new HashMap<String, Integer>();
         for (Earthquake earthquake : earthquakeList) {
-            String earthQuakeIndex = earthquake.getRegion();
-            if (avgEarthquake.isEmpty()){
-                avgEarthquake.add(earthquake.getMagnitude());
+            // If region already in list : add its magnitude to the total AND add 1 to the number of earthquake
+            if (sumMagnitude.containsKey(earthquake.getRegion()) && nbrEarthquake.containsKey(earthquake.getRegion())) {
+                sumMagnitude.replace(earthquake.getRegion(), sumMagnitude.get(earthquake.getRegion()) + earthquake.getMagnitude());
+                nbrEarthquake.replace(earthquake.getRegion(), nbrEarthquake.get(earthquake.getRegion())+1);
             }
-            for(int index = 0; index < avgEarthquake.size();++index){
-                if (earthQuakeIndex.equals(region.get(index))) {
-                    avgEarthquake.set(index, avgEarthquake.get(index) + earthquake.getMagnitude());
-                    break;
-                }
-            }
-            if(!avgEarthquake.contains(earthquake)){
-                avgEarthquake.add(earthquake.getMagnitude());
+            // If region not in list : add its magnitude AND set the number of earthquake to 1
+            else {
+                sumMagnitude.put(earthquake.getRegion(), earthquake.getMagnitude());
+                nbrEarthquake.put(earthquake.getRegion(), 1);
             }
         }
-        for(int index = 0; index < region.size();++index){
-            avgEarthquake.set(index, avgEarthquake.get(index) / nbrOfEarthquake.get(index));
+        // Then, divide each total of magnitude by the amount of earthquakes
+        HashMap<String, Float> avgMagnitude = new HashMap<String, Float>();
+        for (String region : sumMagnitude.keySet()) {
+            avgMagnitude.put(region,sumMagnitude.get(region)/nbrEarthquake.get(region));
         }
-    }
-    public void earthquakesPerRegion(){
-        String earthQuakeIndex;
-        for (Earthquake earthquake : earthquakeList) {
-            earthQuakeIndex = earthquake.getRegion();
-            boolean isInArray = false;
-            if (region.isEmpty()){
-                region.add(earthQuakeIndex);
-                nbrOfEarthquake.add(1);
-                continue;
-            }
-            for(int index = 0; index < region.size();++index){
-                if (earthQuakeIndex.equals(region.get(index))) {
-                    isInArray = true;
-                    nbrOfEarthquake.set(index, nbrOfEarthquake.get(index) + 1);
-                    break;
-                }
-            }
-            if(!isInArray){
-                region.add(earthquake.getRegion());
-                nbrOfEarthquake.add(1);
-            }
-        }
+        return avgMagnitude;
     }
     public void mostHitRegions(int x){
         ArrayList<String> tmpRegion = region;

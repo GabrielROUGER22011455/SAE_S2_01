@@ -15,8 +15,6 @@ public class MainApplication extends Application {
         stage.setTitle("Rapport des séismes en France");
         stage.setScene(scene);
         stage.show();
-
-
     }
     public static void main(String[] args) {
         launch();

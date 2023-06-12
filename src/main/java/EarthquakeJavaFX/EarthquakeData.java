@@ -18,7 +18,6 @@ public class EarthquakeData {
     ArrayList<String> typesOfEarthquake = new ArrayList<>();
     ArrayList<Integer> nbrEarthquakePerDecade = new ArrayList<>();
     ArrayList<Integer> dateInDecade = new ArrayList<>();
-
     public void EarthquakeViewModel() {
         earthquakeList = new ArrayList<Earthquake>();
         try {
@@ -34,35 +33,32 @@ public class EarthquakeData {
                     // 10 argument-size entries don't have informations avout time and type
                     earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
                             , Float.parseFloat(data.get(4)), Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6))
-                            , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), data.get(9)));
+                            , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Quality.stringToQuality(data.get(9))));
                 } else if (data.size() == 11) {
                     // 11 argument-size entries don't have either time or type
                     char firstChar = data.get(2).charAt(0);
                     if ((Character.isDigit(firstChar))) {
                         earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2),
-                                data.get(3), data.get(4),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(5)),
-                                Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
-                                data.get(5)));
+                                data.get(3), data.get(4),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6)),
+                                Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)),
+                                Quality.stringToQuality(data.get(10))));
                     }else{
                         earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3),
-                                Type.stringToType(data.get(4)),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(5)),
-                                Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), data.get(5)));
+                                Type.stringToType(data.get(4)),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6)),
+                                Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)),
+                                Quality.stringToQuality(data.get(10))));
                     }
                 } else if (data.size() == 12) {
                     // 12 argument-size entries has all informations
                     earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
                             , data.get(4), Type.stringToType(data.get(5)), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7))
                             , Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)), Float.parseFloat(data.get(10))
-                            , data.get(11)));
+                            , Quality.stringToQuality(data.get(11))));
                 }
             }
             reader.close();
         } catch (IOException e) {e.printStackTrace();}
     }
-    public List<Earthquake> getEarthquakeList() {
-        return earthquakeList;
-    }
-
     private ArrayList<String> separateString(String str) {
         // Separate strings from one entry on the CSV file
         // Takes an entry from the CSV file in parameter
@@ -101,7 +97,6 @@ public class EarthquakeData {
         }
         return new StringInt(tmp, index + 1);
     }
-
     public void avgEarthquakePerRegion(){
         for (Earthquake earthquake : earthquakeList) {
             String earthQuakeIndex = earthquake.getRegion();

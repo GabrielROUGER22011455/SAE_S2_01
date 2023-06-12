@@ -1,6 +1,7 @@
 package EarthquakeJavaFX;
 
 public enum Type {
+    // About the type of the earthquake
     P,R,E,Z;
     public static String typeToString(Type type){
         switch (type){

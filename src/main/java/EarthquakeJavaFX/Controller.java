@@ -12,20 +12,10 @@ import java.util.ArrayList;
 
 
 public class Controller {
-
     @FXML
-private PieChart pieChart1;
+    private PieChart pieChart1;
     @FXML
     private PieChart pieChart2;
-
-    public PieChart getPieChart1() {
-        return pieChart1;
-    }
-
-    public PieChart getPieChart2() {
-        return pieChart2;
-    }
-
     @FXML
     private LineChart<String, Number> lineChart1;
     @FXML
@@ -44,10 +34,8 @@ private PieChart pieChart1;
     private CheckBox checkBox6;
     @FXML
     private CheckBox checkBox7;
-
     private ArrayList<Boolean> checkBoxsState = new ArrayList<>();
     private EarthquakeData data = new EarthquakeData();
-
     public void initialize() {
         data.EarthquakeViewModel();
         checkBoxsState.add(checkBox1.isSelected());
@@ -106,9 +94,5 @@ private PieChart pieChart1;
                 System.out.println("La checkbox est décochée");
             }
         });
-    }
-
-    public ArrayList<Boolean> getCheckBoxsState() {
-        return checkBoxsState;
     }
 }

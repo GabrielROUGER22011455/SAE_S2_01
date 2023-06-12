@@ -14,6 +14,7 @@ public class Earthquake {
     private float yPosWGS;
     private float magnitude;
     private String dataQuality;
+    private boolean showable;
 
     public Earthquake(int id, String date, String time, String name, String region,
                       Type type,float xPos, float yPos,
@@ -53,6 +54,7 @@ public class Earthquake {
         this.yPosWGS = yPosWGS;
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
+        showable = false;
     }
     public int getId() {
         return id;
@@ -86,4 +88,12 @@ public class Earthquake {
                 + yPosWGS+"\n Intensité : " + magnitude + "\n Data quality : " + dataQuality+"\n");
         return  earthquakeInfo;
     }
+    public static int getYear(String date) {
+        String year = "";
+        for(int i = 0; i < 4; ++i){
+            year += date.charAt(i);
+        }
+        return Integer.parseInt(year);
+    }
 }
+

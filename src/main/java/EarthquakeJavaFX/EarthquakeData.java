@@ -8,9 +8,7 @@ import java.util.Collections;
 import java.lang.Math;
 
 public class EarthquakeData {
-    EarthquakeMap earthquakeMap = new EarthquakeMap();
     private List<Earthquake> earthquakeList;
-    private List<EarthquakeMap> earthquakeMapList;
     ArrayList<Integer> nbrOfEarthquake = new ArrayList<>();
     ArrayList<String> region = new ArrayList<>();
     ArrayList<Float> avgEarthquake = new ArrayList<>();
@@ -23,7 +21,6 @@ public class EarthquakeData {
 
     public void EarthquakeViewModel() {
         earthquakeList = new ArrayList<Earthquake>();
-        earthquakeMapList = new ArrayList<EarthquakeMap>();
         try {
             // Load data from the CSV file
             BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/SisFrance_seismes_20230604151458.csv"));
@@ -38,8 +35,6 @@ public class EarthquakeData {
                     earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
                             , Float.parseFloat(data.get(4)), Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6))
                             , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), data.get(9)));
-                    earthquakeMapList.add(new EarthquakeMap (earthquakeMap.dateToYear(data.get(1)), Float.parseFloat(data.get(6)),
-                            Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), false));
                 } else if (data.size() == 11) {
                     // 11 argument-size entries don't have either time or type
                     char firstChar = data.get(2).charAt(0);
@@ -48,14 +43,10 @@ public class EarthquakeData {
                                 data.get(3), data.get(4),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(5)),
                                 Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
                                 data.get(5)));
-                        earthquakeMapList.add(new EarthquakeMap (earthquakeMap.dateToYear(data.get(1)), Float.parseFloat(data.get(7))
-                                , Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)), false));
                     }else{
                         earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3),
                                 Type.stringToType(data.get(4)),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(5)),
                                 Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), data.get(5)));
-                        earthquakeMapList.add(new EarthquakeMap (earthquakeMap.dateToYear(data.get(1)), Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)),
-                                Float.parseFloat(data.get(9)), false));
                     }
                 } else if (data.size() == 12) {
                     // 12 argument-size entries has all informations
@@ -63,8 +54,6 @@ public class EarthquakeData {
                             , data.get(4), Type.stringToType(data.get(5)), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7))
                             , Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)), Float.parseFloat(data.get(10))
                             , data.get(11)));
-                    earthquakeMapList.add(new EarthquakeMap (earthquakeMap.dateToYear(data.get(1)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)),
-                            Float.parseFloat(data.get(10)), false));
                 }
             }
             reader.close();
@@ -73,9 +62,7 @@ public class EarthquakeData {
     public List<Earthquake> getEarthquakeList() {
         return earthquakeList;
     }
-    public List<EarthquakeMap> getEarthquakeMapList() {
-        return earthquakeMapList;
-    }
+
     private ArrayList<String> separateString(String str) {
         // Separate strings from one entry on the CSV file
         // Takes an entry from the CSV file in parameter
@@ -205,15 +192,13 @@ public class EarthquakeData {
             }
         }
     }
-
     public int dateInDecade(int year){
         return (int) Math.floor(year/100);
     }
-
     public void earthquakePerDecade() {
         int decade = 0;
         for (Earthquake earthquake : earthquakeList) {
-            decade = dateInDecade(earthquakeMap.dateToYear(earthquake.getDate()));
+            decade = dateInDecade(Earthquake.getYear(earthquake.getDate()));
             if(dateInDecade.isEmpty()){
                 dateInDecade.add(decade);
                 nbrEarthquakePerDecade.add(1);
@@ -231,15 +216,4 @@ public class EarthquakeData {
             }
         }
     }
-
-    public ArrayList getRegion(){
-        return region;
-    }
-    public ArrayList getNbrOfEarthquake(){
-        return nbrOfEarthquake;
-    }
-    public ArrayList getAvgEarthquake(){
-        return avgEarthquake;
-    }
-
 }

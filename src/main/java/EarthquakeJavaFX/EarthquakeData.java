@@ -1,6 +1,7 @@
 package EarthquakeJavaFX;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -9,11 +10,11 @@ import java.lang.Math;
 
 public class EarthquakeData {
     private ArrayList<Earthquake> earthquakeList;
-    public EarthquakeData() {
+    public EarthquakeData(File file) {
         earthquakeList = new ArrayList<Earthquake>();
         try {
             // Load data from the CSV file
-            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/SisFrance_seismes_20230604151458.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             reader.readLine();
             // Read each entries in the CSV file to fill earthquakeList attribute

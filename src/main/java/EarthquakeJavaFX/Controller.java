@@ -45,8 +45,6 @@ public class Controller {
         checkBoxsState.add(checkBox5.isSelected());
         checkBoxsState.add(checkBox6.isSelected());
         checkBoxsState.add(checkBox7.isSelected());
-        data.mostHitRegions(4);
-        data.typesAndTheirFrequency();
         data.earthquakePerDecade();
 
         ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
@@ -61,8 +59,8 @@ public class Controller {
         }
 
         ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
-        for (int index = 0; index < data.typesOfEarthquake.size(); ++index) {
-            pieData2.add(new PieChart.Data(data.typesOfEarthquake.get(index), data.frequencyOfTypes.get(index)));
+        for (int index = 0; index < data.getTypes().size(); ++index) {
+            pieData2.add(new PieChart.Data(data.getTypes().get(index), data.getTypeFrequency().get(index)));
         }
         pieChart2.setData(pieData2);
         i = 0;

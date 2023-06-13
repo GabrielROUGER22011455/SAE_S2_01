@@ -73,12 +73,15 @@ public class Earthquake {
                 + yPosWGS+"\n Intensité : " + magnitude + "\n Data quality : " + Quality.qualityToString(dataQuality)+"\n");
         return  earthquakeInfo;
     }
-    public static int getYear(String date) {
+    public int getYear() {
         String year = "";
         for(int i = 0; i < 4; ++i){
             year += date.charAt(i);
         }
         return Integer.parseInt(year);
+    }
+    public int getDecade() {
+        return (int) Math.floor(getYear()/100);
     }
 }
 

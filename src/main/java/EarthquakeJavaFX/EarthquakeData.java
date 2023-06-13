@@ -13,7 +13,7 @@ public class EarthquakeData {
     ArrayList<String> regionMostHitByEarthquake = new ArrayList<>();
     ArrayList<Integer> nbrEarthquakePerDecade = new ArrayList<>();
     ArrayList<Integer> dateInDecade = new ArrayList<>();
-    public void EarthquakeData() {
+    public EarthquakeData() {
         earthquakeList = new ArrayList<Earthquake>();
         try {
             // Load data from the CSV file
@@ -180,31 +180,30 @@ public class EarthquakeData {
         return frequency;
     }
     public ArrayList<Integer> getDecades () {
+        // Returns the decades in wich we have informations
         ArrayList<Integer> decades = new ArrayList<Integer>();
-        return decades;
-    }
-    public int dateInDecade(int year){
-        return (int) Math.floor(year/100);
-    }
-    public void earthquakePerDecade() {
-        int decade = 0;
         for (Earthquake earthquake : earthquakeList) {
-            decade = dateInDecade(Earthquake.getYear(earthquake.getDate()));
-            if(dateInDecade.isEmpty()){
-                dateInDecade.add(decade);
-                nbrEarthquakePerDecade.add(1);
-                continue;
-            }
-            for (int index = 0; index < dateInDecade.size(); ++index) {
-                if (decade == dateInDecade.get(index)) {
-                    nbrEarthquakePerDecade.set(index, nbrEarthquakePerDecade.get(index) + 1);
-                    break;
-                }
-            }
-            if (!dateInDecade.contains(decade)){
-                dateInDecade.add(decade);
-                nbrEarthquakePerDecade.add(1);
+            int decade = earthquake.getDecade();
+            if (!decades.contains(decade)){
+                decades.add(decade);
             }
         }
+        return decades;
+    }
+    public ArrayList<Integer> getEarthquakePerDecade () {
+        // First, separate and sort the decades and their number of earthquake. They share the same indexes.
+        ArrayList<Integer> earthquakePerDecade = new ArrayList<Integer>();
+        ArrayList<Integer> decades = getDecades();
+        Collections.sort(decades);
+        // Fill the number of earthquake list with zeros
+        for (int decade : decades) {
+            earthquakePerDecade.add(0);
+        }
+        // Count the earthquakes for each decades
+        for (Earthquake earthquake : earthquakeList) {
+            int index = decades.indexOf(earthquake.getDecade());
+            earthquakePerDecade.add(index, earthquakePerDecade.get(index)+1);
+        }
+        return earthquakePerDecade;
     }
 }

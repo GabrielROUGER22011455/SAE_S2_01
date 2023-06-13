@@ -169,5 +169,13 @@
 .slider-group .slider-container .slider .range-bar {
     -fx-background-color: #3777B2;
 }
+.no-data-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
 
 

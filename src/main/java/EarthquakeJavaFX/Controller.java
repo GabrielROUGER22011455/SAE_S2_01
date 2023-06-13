@@ -10,15 +10,30 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+import javafx.scene.layout.FlowPane;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Label;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.scene.control.Button;
+
+
+
 
 
 public class Controller {
+
+    @FXML
+    private FlowPane legendPane1;
+    @FXML
+    private FlowPane legendPane2;
     @FXML
     private PieChart pieChart1;
     @FXML
@@ -33,15 +48,62 @@ public class Controller {
     private Slider startDate;
     @FXML
     private Slider endDate;
+    @FXML
+    private Label pieChart1NoDataLabel;
+    @FXML
+    private Label lineChart1NoDataLabel;
+    @FXML
+    private Button chooseFileButton;
+
+
+
     private ArrayList<Boolean> checkBoxState;
     private EarthquakeData data ;
     public void initialize() {
+
+        chooseFileButton.setOnAction(event -> handleChooseFileButton());
+
         // Det data
         data = new EarthquakeData();
         checkBoxState = new ArrayList<Boolean>();
         for (Node node : checkBoxes.getChildren()) {
             CheckBox checkBox = (CheckBox) node;
             checkBoxState.add(checkBox.isSelected());
+        }
+
+
+        FlowPane legendPane1 = new FlowPane();
+        legendPane1.getStyleClass().add("legend-pane");
+        for (final PieChart.Data data : pieChart1.getData()) {
+            HBox legendEntry = new HBox(5);
+            legendEntry.getStyleClass().add("legend-entry");
+
+            Rectangle colorBox = new Rectangle(10, 10);
+            colorBox.getStyleClass().add("legend-color");
+            colorBox.setStyle("-fx-fill: " + data.getNode().getStyle());
+
+            Label legendLabel = new Label(data.getName());
+            legendLabel.getStyleClass().add("legend-label");
+
+            legendEntry.getChildren().addAll(colorBox, legendLabel);
+            legendPane1.getChildren().add(legendEntry);
+        }
+
+        FlowPane legendPane2 = new FlowPane();
+        legendPane2.getStyleClass().add("legend-pane");
+        for (final PieChart.Data data : pieChart2.getData()) {
+            HBox legendEntry = new HBox(5);
+            legendEntry.getStyleClass().add("legend-entry");
+
+            Rectangle colorBox = new Rectangle(10, 10);
+            colorBox.getStyleClass().add("legend-color");
+            colorBox.setStyle("-fx-fill: " + data.getNode().getStyle());
+
+            Label legendLabel = new Label(data.getName());
+            legendLabel.getStyleClass().add("legend-label");
+
+            legendEntry.getChildren().addAll(colorBox, legendLabel);
+            legendPane2.getChildren().add(legendEntry);
         }
 
         // PieChart about most hit regions
@@ -120,5 +182,30 @@ public class Controller {
         endDate.setOnMouseReleased(event -> {
             System.out.println(endDate.getValue());
         });
+    }
+
+    private void handleChooseFileButton() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir un fichier CSV");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Fichiers CSV", "*.csv")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(chooseFileButton.getScene().getWindow());
+
+        if (selectedFile != null && isCSVFile(selectedFile)) {
+            extractDataFromCSV(selectedFile);
+        } else {
+        }
+    }
+
+    private boolean isCSVFile(File file) {
+        String fileName = file.getName();
+        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        return fileExtension.equalsIgnoreCase("csv");
+    }
+
+    private void extractDataFromCSV(File file) {
+    //je te laisse lier les données depuis cette fonction
     }
 }

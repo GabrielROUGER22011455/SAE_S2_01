@@ -32,18 +32,24 @@
             <Image url="@/images/carte-regions-france-vierge.png"/>
         </ImageView>
         <VBox styleClass="chart" VBox.vgrow="ALWAYS">
-            <PieChart fx:id="pieChart1" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
+            <StackPane>
+                <PieChart fx:id="pieChart1" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
+                <Label text="Aucune donnée" styleClass="no-data-label" fx:id="pieChart1NoDataLabel" visible="false" />
+            </StackPane>
             <PieChart fx:id="pieChart2" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
         </VBox>
         <VBox spacing="10.0" styleClass="linechart-group">
-            <LineChart fx:id="lineChart1" styleClass="chart">
-                <xAxis>
-                    <CategoryAxis label="Ville" side="BOTTOM" />
-                </xAxis>
-                <yAxis>
-                    <NumberAxis label="Nombre de séismes" side="LEFT" />
-                </yAxis>
-            </LineChart>
+            <StackPane>
+                <LineChart fx:id="lineChart1" styleClass="chart">
+                    <xAxis>
+                        <CategoryAxis label="Ville" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Nombre de séismes" side="LEFT" />
+                    </yAxis>
+                </LineChart>
+                <Label text="Aucune donnée" styleClass="no-data-label" fx:id="lineChart1NoDataLabel" visible="false" />
+            </StackPane>
             <LineChart fx:id="lineChart2" styleClass="chart">
                 <xAxis>
                     <CategoryAxis label="Ville" side="BOTTOM" />
@@ -71,6 +77,9 @@
                 <VBox alignment="CENTER" styleClass="slider-container">
                     <Label text="Date Fin" styleClass="label" />
                     <Slider fx:id="endDate" orientation="HORIZONTAL" />
+                </VBox>
+                <VBox>
+                    <Button text="Choisir fichier" fx:id="chooseFileButton"/>
                 </VBox>
             </HBox>
         </GridPane>

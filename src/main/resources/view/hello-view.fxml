@@ -45,7 +45,7 @@
         <VBox spacing="10.0" styleClass="linechart-group">
             <LineChart fx:id="lineChart1" styleClass="chart">
                 <xAxis>
-                    <CategoryAxis label="Ville" side="BOTTOM" />
+                    <CategoryAxis label="Période" side="BOTTOM" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Nombre de séismes" side="LEFT" />
@@ -54,7 +54,7 @@
             <Label text="Aucune donnée" styleClass="no-data-label" fx:id="lineChart1NoDataLabel" visible="false" />
             <BarChart fx:id="barChart1" styleClass="chart">
                 <xAxis>
-                    <CategoryAxis label="Ville" side="BOTTOM" />
+                    <CategoryAxis label="Période" side="BOTTOM" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Magnitude moyenne" side="LEFT" />

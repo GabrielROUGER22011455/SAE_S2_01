@@ -9,10 +9,6 @@ import java.lang.Math;
 
 public class EarthquakeData {
     private List<Earthquake> earthquakeList;
-    ArrayList<Integer> higherNbrOfEarthquake = new ArrayList<>();
-    ArrayList<String> regionMostHitByEarthquake = new ArrayList<>();
-    ArrayList<Integer> nbrEarthquakePerDecade = new ArrayList<>();
-    ArrayList<Integer> dateInDecade = new ArrayList<>();
     public EarthquakeData() {
         earthquakeList = new ArrayList<Earthquake>();
         try {
@@ -157,7 +153,7 @@ public class EarthquakeData {
         // Returns a list of all the earthquake types
         ArrayList<String> types = new ArrayList<String>();
         for (Earthquake earthquake : earthquakeList) {
-            if (!types.contains(Type.typeToString(earthquake.getType()))) {
+            if (earthquake.getType() != null && !types.contains(Type.typeToString(earthquake.getType()))) {
                 types.add(Type.typeToString(earthquake.getType()));
             }
         }
@@ -174,8 +170,10 @@ public class EarthquakeData {
         }
         // Count the frequency of each type
         for (Earthquake earthquake : earthquakeList) {
-            int index = types.indexOf(Type.typeToString(earthquake.getType()));
-            frequency.add(index, frequency.get(index)+1);
+            if (earthquake.getType() != null) {
+                int index = types.indexOf(Type.typeToString(earthquake.getType()));
+                frequency.add(index, frequency.get(index)+1);
+            }
         }
         return frequency;
     }

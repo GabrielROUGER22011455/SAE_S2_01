@@ -9,6 +9,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Controller {
@@ -45,12 +46,21 @@ public class Controller {
         checkBoxsState.add(checkBox5.isSelected());
         checkBoxsState.add(checkBox6.isSelected());
         checkBoxsState.add(checkBox7.isSelected());
-        data.earthquakePerDecade();
 
         ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
-        for (int index = 0; index < data.regionMostHitByEarthquake.size(); ++index) {
-            pieData1.add(new PieChart.Data(data.regionMostHitByEarthquake.get(index),
-                    data.higherNbrOfEarthquake.get(index)));
+
+        // PieChart about most hit regions
+        //   Get informations
+        ArrayList<String> mostHitRegions = data.getMostHitRegions(4);
+        HashMap<String, Integer> earthquakesPerRegion = data.getEarthquakePerRegion();
+        //   Fill the values list
+        ArrayList<Integer> mostEarthquakes = new ArrayList<Integer>();
+        for (String region : mostHitRegions) {
+            mostEarthquakes.add(earthquakesPerRegion.get(region));
+        }
+        //   Create pieChart
+        for (int index = 0; index < mostHitRegions.size(); ++index) {
+            pieData1.add(new PieChart.Data(mostHitRegions.get(index), mostEarthquakes.get(index)));
         }
         pieChart1.setData(pieData1);
         int i = 0;
@@ -69,9 +79,9 @@ public class Controller {
         }
 
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        for (int index = 0; index < data.dateInDecade.size(); ++index) {
-            series1.getData().add(new XYChart.Data<>(data.dateInDecade.get(index).toString() + "-"
-                    + (data.dateInDecade.get(index) + 1), data.nbrEarthquakePerDecade.get(index)));
+        for (int index = 0; index < data.getDecades().size(); ++index) {
+            series1.getData().add(new XYChart.Data<>(data.getDecades().get(index).toString() + "-"
+                    + (data.getDecades().get(index) + 1), data.getEarthquakePerDecade().get(index)));
         }
         series1.setName("Nombre de séisme par décennie");
         lineChart1.getData().add(series1);

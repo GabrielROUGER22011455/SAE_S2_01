@@ -10,6 +10,7 @@ import javafx.scene.shape.Circle;
 /** Affiche un point rouge sur la carte */
 public class CustomCircleMarkerLayer extends MapLayer {
 
+    private EarthquakeData data;
     private final MapPoint mapPoint;
     private final Circle circle;
 
@@ -21,6 +22,7 @@ public class CustomCircleMarkerLayer extends MapLayer {
         this.mapPoint = mapPoint;
 
         /* Cercle rouge de taille 5 */
+
         this.circle = new Circle(5, Color.RED);
 
         /* Ajoute le cercle au MapLayer */

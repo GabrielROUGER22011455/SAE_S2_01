@@ -59,6 +59,8 @@ public class Controller {
     @FXML
     private MapView map;
 
+    ArrayList<String> sectionStyleClass = new ArrayList<>();
+
     public void initialize() {
         createEvents();
     }
@@ -75,6 +77,9 @@ public class Controller {
         endDate.setMin(data.getMinYear());
         endDate.setMax(data.getMaxYear());
 
+        MapPoint paris = new MapPoint(48.85, 2.252);
+        map.flyTo(0 ,paris, 0.1);
+
         for(Earthquake earthquake : this.data.getEarthquakeList()){
             MapPoint earthquakeOnMap = new MapPoint(earthquake.getxPosWGS(), earthquake.getyPosWGS());
             map.addLayer(new CustomCircleMarkerLayer(earthquakeOnMap));
@@ -85,9 +90,9 @@ public class Controller {
         XYChart.Series<String, Number> series2 = new XYChart.Series<>();
         for (int index = 0; index < data.getCenturies().size(); ++index) {
             series2.getData().add(new XYChart.Data<>(data.getCenturies().get(index).toString() + "-"
-                    + (data.getCenturies().get(index) + 1), data.getEarthquakePerCentury().get(index)));
+                    + (data.getCenturies().get(index) + 1), data.getAvgMagnitude().get(index)));
         }
-        series2.setName("Nombre de séisme par décennie");
+        series2.setName("Intensité moyenne par centenaire");
         barChart1.getData().add(series2);
     }
     private void createEvents() {
@@ -185,6 +190,7 @@ public class Controller {
         for (int index = 0; index < this.data.getTypes().size(); ++index) {
             if(!this.data.getTypes().get(index).equals("null") ) {
                 pieData2.add(new PieChart.Data(this.data.getTypes().get(index), this.data.getTypeFrequency().get(index)));
+
             }
         }
         // Create pieChart

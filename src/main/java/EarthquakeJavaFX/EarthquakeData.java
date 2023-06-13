@@ -78,27 +78,29 @@ public class EarthquakeData {
         }
         return nbrEarthquake;
     }
-    public HashMap<String, Float> getAvgMagnitude(){
+    public HashMap<String, Double> getAvgMagnitude() {
         // Returns the average earthquake magnitude per region
-        HashMap<String, Float> sumMagnitude = new HashMap<String, Float>();
+        HashMap<String, Double> sumMagnitude = new HashMap<String, Double>();
         for (Earthquake earthquake : earthquakeList) {
-            // If region already in list : add its magnitude to the total
+            // If region already in list: add its magnitude to the total
             if (earthquake.isShown() && sumMagnitude.containsKey(earthquake.getRegion())) {
                 sumMagnitude.replace(earthquake.getRegion(), sumMagnitude.get(earthquake.getRegion()) + earthquake.getMagnitude());
             }
-            // If region not in list : add its magnitude
+            // If region not in list: add its magnitude
             else if (earthquake.isShown()){
-                sumMagnitude.put(earthquake.getRegion(), earthquake.getMagnitude());
+                sumMagnitude.put(earthquake.getRegion(), (double) earthquake.getMagnitude());
             }
         }
         // Then, divide each total of magnitude by the amount of earthquakes
         HashMap<String, Integer> nbrEarthquake = getEarthquakePerRegion();
-        HashMap<String, Float> avgMagnitude = new HashMap<String, Float>();
+        HashMap<String, Double> avgMagnitude = new HashMap<String, Double>();
         for (String region : sumMagnitude.keySet()) {
-            avgMagnitude.put(region,sumMagnitude.get(region)/nbrEarthquake.get(region));
+            avgMagnitude.put(region, sumMagnitude.get(region) / nbrEarthquake.get(region));
         }
         return avgMagnitude;
     }
+
+
     public ArrayList<String> getMostHitRegions(int range) {
         // Returns the 'range' most hit regions by earthquakes
         // First, separate in two list the regions and their number of earthquakes

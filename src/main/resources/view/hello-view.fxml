@@ -21,31 +21,38 @@
     <Label styleClass="title" text="Dashboard des Séismes" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
     <HBox spacing="10.0" styleClass="chart-group" GridPane.columnIndex="0" GridPane.rowIndex="1">
         <VBox fx:id="checkBoxes" spacing="10.0" styleClass="checkbox-group">
-            <CheckBox text="Magnitude 1" selected="true"/>
-            <CheckBox text="Magnitude 2" selected="true"/>
-            <CheckBox text="Magnitude 3" selected="true"/>
-            <CheckBox text="Magnitude 4" selected="true"/>
-            <CheckBox text="Magnitude 5" selected="true"/>
-            <CheckBox text="Magnitude 6" selected="true"/>
-            <CheckBox text="Magnitude 7" selected="true"/>
-            <CheckBox text="Magnitude 8" selected="true"/>
-            <CheckBox text="Magnitude 9" selected="true"/>
-            <CheckBox text="10 et plus " selected="true"/>
+            <CheckBox text="Magnitude 1" selected="true" style="-fx-background-color: #c0c9d1"/>
+            <CheckBox text="Magnitude 2" selected="true" style="-fx-background-color: #9fd0fc"/>
+            <CheckBox text="Magnitude 3" selected="true" style="-fx-background-color: #67f090"/>
+            <CheckBox text="Magnitude 4" selected="true" style="-fx-background-color: #e7f067"/>
+            <CheckBox text="Magnitude 5" selected="true" style="-fx-background-color: #f0b467"/>
+            <CheckBox text="Magnitude 6" selected="true" style="-fx-background-color: #f07c67"/>
+            <CheckBox text="Magnitude 7" selected="true" style="-fx-background-color: #e03a69"/>
+            <CheckBox text="Magnitude 8" selected="true" style="-fx-background-color: #ff5ebf"/>
+            <CheckBox text="Magnitude 9" selected="true" style="-fx-background-color: #c75eff"/>
+            <CheckBox text="10 et plus " selected="true" style="-fx-background-color: #49265c"/>
         </VBox>
         <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
             <MapView fx:id="map" prefHeight="500" prefWidth="600" zoom="4"  />
         </HBox>
         <VBox styleClass="chart" VBox.vgrow="ALWAYS">
+            <HBox styleClass="checkbox-group">
+                <Label text="Régions les plus touchées" alignment="CENTER" styleClass="label" />
+            </HBox>
             <StackPane>
-                <PieChart fx:id="pieChart1" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
-                <Label text="Aucune donnée" styleClass="no-data-label" fx:id="pieChart1NoDataLabel" visible="false" />
+                <PieChart fx:id="pieChart1" styleClass="chart-pie" VBox.vgrow="ALWAYS" style="-fx-background-color: #9FB3C8" />
             </StackPane>
-            <PieChart fx:id="pieChart2" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
+            <HBox styleClass="checkbox-group">
+                <Label text="Nombre de séisme par type" alignment="CENTER" styleClass="label" />
+            </HBox>
+            <StackPane>
+                <PieChart fx:id="pieChart2" styleClass="chart-pie" style="-fx-background-color: #9FB3C8" VBox.vgrow="ALWAYS" />
+            </StackPane>
         </VBox>
         <VBox spacing="10.0" styleClass="linechart-group">
             <LineChart fx:id="lineChart1" styleClass="chart">
                 <xAxis>
-                    <CategoryAxis label="Ville" side="BOTTOM" />
+                    <CategoryAxis label="Centenaire" side="BOTTOM" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Nombre de séismes" side="LEFT" />
@@ -54,7 +61,7 @@
             <Label text="Aucune donnée" styleClass="no-data-label" fx:id="lineChart1NoDataLabel" visible="false" />
             <BarChart fx:id="barChart1" styleClass="chart">
                 <xAxis>
-                    <CategoryAxis label="Ville" side="BOTTOM" />
+                    <CategoryAxis label="Centenaire" side="BOTTOM" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Magnitude moyenne" side="LEFT" />

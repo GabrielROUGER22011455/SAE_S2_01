@@ -30,7 +30,7 @@
             <CheckBox text="Option 7" fx:id="checkBox7" selected="false"/>
         </VBox>
         <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <MapView fx:id="map" prefHeight="500" prefWidth="600" zoom="3" />
+            <MapView fx:id="map" prefHeight="500" prefWidth="600" zoom="4" />
         </HBox>
         <VBox styleClass="chart" VBox.vgrow="ALWAYS">
             <StackPane>

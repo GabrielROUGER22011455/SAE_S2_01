@@ -84,6 +84,11 @@ public class Controller {
         map.flyTo(0, mapPoint, 0.1);
 
 
+        for(Earthquake earthquake : data.getEarthquakeList()){
+            MapPoint earthquakeOnMap = new MapPoint(earthquake.getxPosWGS(), earthquake.getyPosWGS());
+            map.addLayer(new CustomCircleMarkerLayer(earthquakeOnMap));
+        }
+
         FlowPane legendPane1 = new FlowPane();
         legendPane1.getStyleClass().add("legend-pane");
         for (final PieChart.Data data : pieChart1.getData()) {

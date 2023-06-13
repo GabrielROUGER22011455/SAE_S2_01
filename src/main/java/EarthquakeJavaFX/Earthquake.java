@@ -73,5 +73,13 @@ public class Earthquake {
     public int getCentury() {
         return (int) Math.floor(getYear()/100);
     }
+
+    public float getxPosWGS(){
+        return xPosWGS;
+    }
+
+    public float getyPosWGS(){
+        return yPosWGS;
+    }
 }
 

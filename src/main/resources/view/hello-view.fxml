@@ -66,11 +66,11 @@
             <HBox spacing="10.0" alignment="CENTER" styleClass="slider-group">
                 <VBox alignment="CENTER" styleClass="slider-container">
                     <Label text="Date Début" styleClass="label" />
-                    <Slider orientation="HORIZONTAL" />
+                    <Slider fx:id="startDate" orientation="HORIZONTAL" />
                 </VBox>
                 <VBox alignment="CENTER" styleClass="slider-container">
                     <Label text="Date Fin" styleClass="label" />
-                    <Slider orientation="HORIZONTAL" />
+                    <Slider fx:id="endDate" orientation="HORIZONTAL" />
                 </VBox>
             </HBox>
         </GridPane>

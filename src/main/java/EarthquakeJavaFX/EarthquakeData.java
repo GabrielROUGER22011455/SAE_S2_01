@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.lang.Math;
 
 public class EarthquakeData {
-    private List<Earthquake> earthquakeList;
+    private ArrayList<Earthquake> earthquakeList;
     public EarthquakeData() {
         earthquakeList = new ArrayList<Earthquake>();
         try {
@@ -178,21 +178,21 @@ public class EarthquakeData {
         }
         return frequency;
     }
-    public ArrayList<Integer> getDecades () {
-        // Returns the decades in wich we have informations
+    public ArrayList<Integer> getCenturies () {
+        // Returns the centuries in wich we have informations
         ArrayList<Integer> decades = new ArrayList<Integer>();
         for (Earthquake earthquake : earthquakeList) {
-            int decade = earthquake.getDecade();
-            if (earthquake.isShown() && !decades.contains(decade)){
-                decades.add(decade);
+            int century = earthquake.getCentury();
+            if (earthquake.isShown() && !decades.contains(century)){
+                decades.add(century);
             }
         }
         return decades;
     }
-    public ArrayList<Integer> getEarthquakePerDecade () {
+    public ArrayList<Integer> getEarthquakePerCentury () {
         // First, separate and sort the decades and their number of earthquake. They share the same indexes.
         ArrayList<Integer> earthquakePerDecade = new ArrayList<Integer>();
-        ArrayList<Integer> decades = getDecades();
+        ArrayList<Integer> decades = getCenturies();
         Collections.sort(decades);
         // Fill the number of earthquake list with zeros
         for (int decade : decades) {
@@ -201,10 +201,28 @@ public class EarthquakeData {
         // Count the earthquakes for each decades
         for (Earthquake earthquake : earthquakeList) {
             if (earthquake.isShown()) {
-                int index = decades.indexOf(earthquake.getDecade());
+                int index = decades.indexOf(earthquake.getCentury());
                 earthquakePerDecade.add(index, earthquakePerDecade.get(index)+1);
             }
         }
         return earthquakePerDecade;
+    }
+    public int getMinYear () {
+        int minYear = earthquakeList.get(0).getYear();
+        for (Earthquake earthquake : earthquakeList) {
+            if (earthquake.getYear() <= minYear) {
+                minYear = earthquake.getYear();
+            }
+        }
+        return minYear;
+    }
+    public int getMaxYear () {
+        int maxYear = earthquakeList.get(0).getYear();
+        for (Earthquake earthquake : earthquakeList) {
+            if (earthquake.getYear() >= maxYear) {
+                maxYear = earthquake.getYear();
+            }
+        }
+        return maxYear;
     }
 }

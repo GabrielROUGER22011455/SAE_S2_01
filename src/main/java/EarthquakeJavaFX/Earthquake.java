@@ -84,7 +84,7 @@ public class Earthquake {
         }
         return Integer.parseInt(year);
     }
-    public int getDecade() {
+    public int getCentury() {
         return (int) Math.floor(getYear()/100);
     }
 }

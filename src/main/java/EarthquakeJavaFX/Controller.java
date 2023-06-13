@@ -9,10 +9,12 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -27,6 +29,10 @@ public class Controller {
     private LineChart<String, Number> lineChart2;
     @FXML
     private VBox checkBoxes;
+    @FXML
+    private Slider startDate;
+    @FXML
+    private Slider endDate;
     private ArrayList<Boolean> checkBoxState;
     private EarthquakeData data ;
     public void initialize() {
@@ -71,12 +77,12 @@ public class Controller {
             data.getNode().getStyleClass().add("section" + (i++));
         }
 
-        // Line chart about earthquakes per decades
+        // Line chart about earthquakes per centuries
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         // Get informations
-        for (int index = 0; index < data.getDecades().size(); ++index) {
-            series1.getData().add(new XYChart.Data<>(data.getDecades().get(index).toString() + "-"
-                    + (data.getDecades().get(index) + 1), data.getEarthquakePerDecade().get(index)));
+        for (int index = 0; index < data.getCenturies().size(); ++index) {
+            series1.getData().add(new XYChart.Data<>(data.getCenturies().get(index).toString() + "-"
+                    + (data.getCenturies().get(index) + 1), data.getEarthquakePerCentury().get(index)));
         }
         series1.setName("Nombre de séisme par décennie");
         // Create lineChart
@@ -100,6 +106,19 @@ public class Controller {
             } else {
                 System.out.println("La checkbox est décochée");
             }
+        });
+
+        // Sliders param
+        startDate.setMin(data.getMinYear());
+        startDate.setMax(data.getMaxYear());
+        endDate.setMin(data.getMinYear());
+        endDate.setMax(data.getMaxYear());
+        // Sliders events
+        startDate.setOnMouseReleased(event -> {
+            System.out.println(startDate.getValue());
+        });
+        endDate.setOnMouseReleased(event -> {
+            System.out.println(endDate.getValue());
         });
     }
 }

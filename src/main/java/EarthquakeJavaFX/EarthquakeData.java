@@ -9,11 +9,8 @@ import java.lang.Math;
 
 public class EarthquakeData {
     private List<Earthquake> earthquakeList;
-    ArrayList<Integer> nbrOfEarthquake = new ArrayList<>();
     ArrayList<Integer> higherNbrOfEarthquake = new ArrayList<>();
     ArrayList<String> regionMostHitByEarthquake = new ArrayList<>();
-    ArrayList<Integer> frequencyOfTypes = new ArrayList<>();
-    ArrayList<String> typesOfEarthquake = new ArrayList<>();
     ArrayList<Integer> nbrEarthquakePerDecade = new ArrayList<>();
     ArrayList<Integer> dateInDecade = new ArrayList<>();
     public void EarthquakeData() {
@@ -156,28 +153,35 @@ public class EarthquakeData {
         }
         return mostHitRegions;
     }
-    public void typesAndTheirFrequency(){
-        String tmpType = "";
+    public ArrayList<String> getTypes () {
+        // Returns a list of all the earthquake types
+        ArrayList<String> types = new ArrayList<String>();
         for (Earthquake earthquake : earthquakeList) {
-            if(earthquake.getType() != null) {
-                tmpType = Type.typeToString(earthquake.getType());
-                if (typesOfEarthquake.isEmpty()) {
-                    typesOfEarthquake.add(tmpType);
-                    frequencyOfTypes.add(1);
-                    continue;
-                }
-                for (int index = 0; index < typesOfEarthquake.size(); ++index) {
-                    if (typesOfEarthquake.get(index).equals(tmpType)) {
-                        frequencyOfTypes.set(index, frequencyOfTypes.get(index) + 1);
-                        break;
-                    }
-                }
-                if(!typesOfEarthquake.contains(tmpType)){
-                    typesOfEarthquake.add(tmpType);
-                    frequencyOfTypes.add(1);
-                }
+            if (!types.contains(Type.typeToString(earthquake.getType()))) {
+                types.add(Type.typeToString(earthquake.getType()));
             }
         }
+        return types;
+    }
+    public ArrayList<Integer> getTypeFrequency () {
+        // Returns the frequency of each type
+        // Firts, separate in two list the types and their frequency. They share the same indexes.
+        ArrayList<String> types = getTypes();
+        ArrayList<Integer> frequency = new ArrayList<Integer>();
+        // Fill the frequency list with zeros
+        for (String type : types) {
+            frequency.add(0);
+        }
+        // Count the frequency of each type
+        for (Earthquake earthquake : earthquakeList) {
+            int index = types.indexOf(Type.typeToString(earthquake.getType()));
+            frequency.add(index, frequency.get(index)+1);
+        }
+        return frequency;
+    }
+    public ArrayList<Integer> getDecades () {
+        ArrayList<Integer> decades = new ArrayList<Integer>();
+        return decades;
     }
     public int dateInDecade(int year){
         return (int) Math.floor(year/100);

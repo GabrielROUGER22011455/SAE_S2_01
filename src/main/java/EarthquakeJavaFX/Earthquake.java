@@ -2,6 +2,11 @@ package EarthquakeJavaFX;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents an earthquake.
+ * It contains information such as the ID, date, time,
+ * name, region, type, coordinates, magnitude, data quality, and whether the event is shown.
+ */
 public class Earthquake {
     private int id;
     private String date;
@@ -17,12 +22,28 @@ public class Earthquake {
     private Quality dataQuality;
     private boolean show;
 
+    /**
+     * Checks if the earthquake is shown.
+     * Only earthquakes with show = true are considered in other methods.
+     * @return true if the earthquake is shown, false otherwise.
+     */
     public boolean isShown() {
         // Only earthquake with show = true are considered in any methods
         return show;
     }
+    /**
+     * Hides the earthquake by marking it as not shown.
+     */
     public void hide() {show = false;}
+    /**
+     * Shows the earthquake by marking it as shown.
+     */
     public void show() {show = true;}
+    /**
+     * Constructor for the Earthquake class.
+     * Initializes the attributes based on the data provided in a list.
+     * @param data List containing the earthquake data.
+     */
     public Earthquake (ArrayList<String> data) {
         if (data.get(0) != null)this.id = Integer.parseInt(data.get(0));
         else this.id = 0;
@@ -50,13 +71,29 @@ public class Earthquake {
         else this.dataQuality = Quality.NULL;
         show = true;
     }
+    /**
+     * Gets the region of the earthquake.
+     * @return The region of the earthquake.
+     */
     public String getRegion(){
         return region;
     }
+    /**
+     * Gets the type of the earthquake.
+     * @return The type of the earthquake.
+     */
     public Type getType(){
         return type;
     }
+    /**
+     * Gets the magnitude of the earthquake.
+     * @return The magnitude of the earthquake.
+     */
     public float getMagnitude(){return magnitude;}
+    /**
+     * Returns a string representation of the earthquake.
+     * @return A string containing the earthquake information.
+     */
     @Override
     public String toString(){
         String earthquakeInfo = ("Id : " + id +"\n Date : "+ date + "\n Time : " + time
@@ -65,21 +102,37 @@ public class Earthquake {
                 + yPosWGS+"\n Intensité : " + magnitude + "\n Data quality : " + Quality.qualityToString(dataQuality)+"\n");
         return  earthquakeInfo;
     }
+    /**
+     * Gets the year of the earthquake.
+     * @return The year of the earthquake.
+     */
     public int getYear() {
+        // Extract the year from the date and return it as an integer
         String year = "";
         for(int i = 0; i < 4; ++i){
             year += date.charAt(i);
         }
         return Integer.parseInt(year);
     }
+    /**
+     * Gets the century of the earthquake.
+     * @return The century of the earthquake.
+     */
     public int getCentury() {
+        // Calculate the century based on the year and return it
         return (int) Math.floor(getYear()/100);
     }
-
+    /**
+     * Gets the WGS84 longitude of the earthquake.
+     * @return The WGS84 longitude of the earthquake.
+     */
     public float getxPosWGS(){
         return xPosWGS;
     }
-
+    /**
+     * Gets the WGS84 latitude of the earthquake.
+     * @return The WGS84 latitude of the earthquake.
+     */
     public float getyPosWGS(){
         return yPosWGS;
     }

@@ -48,11 +48,12 @@
             <StackPane>
                 <PieChart fx:id="pieChart2" styleClass="chart-pie" style="-fx-background-color: #9FB3C8" VBox.vgrow="ALWAYS" />
             </StackPane>
+            <PieChart fx:id="pieChart2" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
         </VBox>
         <VBox spacing="10.0" styleClass="linechart-group">
             <LineChart fx:id="lineChart1" styleClass="chart">
                 <xAxis>
-                    <CategoryAxis label="Centenaire" side="BOTTOM" />
+                    <CategoryAxis label="Période" side="BOTTOM" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Nombre de séismes" side="LEFT" />
@@ -61,7 +62,7 @@
             <Label text="Aucune donnée" styleClass="no-data-label" fx:id="lineChart1NoDataLabel" visible="false" />
             <BarChart fx:id="barChart1" styleClass="chart">
                 <xAxis>
-                    <CategoryAxis label="Centenaire" side="BOTTOM" />
+                    <CategoryAxis label="Période" side="BOTTOM" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Magnitude moyenne" side="LEFT" />

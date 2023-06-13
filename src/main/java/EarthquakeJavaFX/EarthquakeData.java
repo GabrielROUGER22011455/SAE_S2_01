@@ -8,8 +8,21 @@ import java.util.*;
 import java.util.Collections;
 import java.lang.Math;
 
+/**
+ * The EarthquakeData class represents a collection of earthquake data.
+ *
+ * It provides methods for loading earthquake data from a CSV file and performing data processing operations.
+ */
 public class EarthquakeData {
+    /**
+     * List of earthquakes.
+     */
     private ArrayList<Earthquake> earthquakeList;
+    /**
+     * Constructs an EarthquakeData object by loading earthquake data from a CSV file.
+     *
+     * @param file the CSV file containing earthquake data
+     */
     public EarthquakeData(File file) {
         earthquakeList = new ArrayList<Earthquake>();
         try {
@@ -24,6 +37,12 @@ public class EarthquakeData {
             reader.close();
         } catch (IOException e) {e.printStackTrace();}
     }
+    /**
+     * Separates strings from one entry on the CSV file.
+     *
+     * @param str an entry from the CSV file
+     * @return an ArrayList of 10 to 12 strings
+     */
     private ArrayList<String> separateString(String str) {
         // Separate strings from one entry on the CSV file
         // Takes an entry from the CSV file in parameter
@@ -39,6 +58,13 @@ public class EarthquakeData {
         }
         return stringList;
     }
+    /**
+     * Retrieves the string at the given position in the CSV file.
+     *
+     * @param str   an entry from the CSV file
+     * @param index the index position
+     * @return a String
+     */
     private StringInt getStringAt(String str, int index) {
         // Give the string at the given position in the CSV file
         // Takes an entry from the CSV file and an index in parameter
@@ -63,6 +89,11 @@ public class EarthquakeData {
         }
         return new StringInt(tmp, index + 1);
     }
+    /**
+     * Returns a HashMap containing each region and the number of earthquakes they had.
+     *
+     * @return a HashMap with region as the key and the number of earthquakes as the value
+     */
     public HashMap<String, Integer> getEarthquakePerRegion(){
         // Returns each regions and the number of earthquakes they had
         HashMap<String, Integer> nbrEarthquake = new HashMap<String, Integer>();
@@ -78,17 +109,22 @@ public class EarthquakeData {
         }
         return nbrEarthquake;
     }
-    public HashMap<String, Double> getAvgMagnitude() {
+    /**
+     * Returns a HashMap containing the average earthquake magnitude per region.
+     *
+     * @return a HashMap with region as the key and the average magnitude as the value
+     */
+    public HashMap<String, Float> getAvgMagnitude(){
         // Returns the average earthquake magnitude per region
-        HashMap<String, Double> sumMagnitude = new HashMap<String, Double>();
+        HashMap<String, Float> sumMagnitude = new HashMap<String, Float>();
         for (Earthquake earthquake : earthquakeList) {
-            // If region already in list: add its magnitude to the total
+            // If region already in list : add its magnitude to the total
             if (earthquake.isShown() && sumMagnitude.containsKey(earthquake.getRegion())) {
                 sumMagnitude.replace(earthquake.getRegion(), sumMagnitude.get(earthquake.getRegion()) + earthquake.getMagnitude());
             }
-            // If region not in list: add its magnitude
+            // If region not in list : add its magnitude
             else if (earthquake.isShown()){
-                sumMagnitude.put(earthquake.getRegion(), (double) earthquake.getMagnitude());
+                sumMagnitude.put(earthquake.getRegion(), earthquake.getMagnitude());
             }
         }
         // Then, divide each total of magnitude by the amount of earthquakes
@@ -99,8 +135,12 @@ public class EarthquakeData {
         }
         return avgMagnitude;
     }
-
-
+    /**
+     * Returns a list of the 'range' most hit regions by earthquakes.
+     *
+     * @param range the number of regions to return
+     * @return an ArrayList of the most hit regions
+     */
     public ArrayList<String> getMostHitRegions(int range) {
         // Returns the 'range' most hit regions by earthquakes
         // First, separate in two list the regions and their number of earthquakes
@@ -126,6 +166,11 @@ public class EarthquakeData {
         }
         return mostHitRegions;
     }
+    /**
+     * Returns a list of all the earthquake types.
+     *
+     * @return an ArrayList of earthquake types
+     */
     public ArrayList<String> getTypes () {
         // Returns a list of all the earthquake types
         ArrayList<String> types = new ArrayList<String>();
@@ -137,6 +182,11 @@ public class EarthquakeData {
         }
         return types;
     }
+    /**
+     * Returns the frequency of each earthquake type.
+     *
+     * @return an ArrayList of type frequencies
+     */
     public ArrayList<Integer> getTypeFrequency () {
         // Returns the frequency of each type
         // Firts, separate in two list the types and their frequency. They share the same indexes.
@@ -155,6 +205,11 @@ public class EarthquakeData {
         }
         return frequency;
     }
+    /**
+     * Returns the centuries in which we have earthquake information.
+     *
+     * @return an ArrayList of centuries
+     */
     public ArrayList<Integer> getCenturies () {
         // Returns the centuries in wich we have informations
         ArrayList<Integer> centuries = new ArrayList<Integer>();
@@ -166,6 +221,11 @@ public class EarthquakeData {
         }
         return centuries;
     }
+    /**
+     * Returns the number of earthquakes per century.
+     *
+     * @return an ArrayList of the number of earthquakes per century
+     */
     public ArrayList<Integer> getEarthquakePerCentury () {
         // First, separate and sort the centuries and their number of earthquake. They share the same indexes.
         ArrayList<Integer> earthquakePerCentury = new ArrayList<Integer>();
@@ -183,6 +243,11 @@ public class EarthquakeData {
         }
         return earthquakePerCentury;
     }
+    /**
+     * Returns the minimum year in the earthquake data.
+     *
+     * @return the minimum year
+     */
     public int getMinYear () {
         int minYear = earthquakeList.get(0).getYear();
         for (Earthquake earthquake : earthquakeList) {
@@ -192,6 +257,11 @@ public class EarthquakeData {
         }
         return minYear;
     }
+    /**
+     * Returns the maximum year in the earthquake data.
+     *
+     * @return the maximum year
+     */
     public int getMaxYear () {
         int maxYear = earthquakeList.get(0).getYear();
         for (Earthquake earthquake : earthquakeList) {
@@ -201,9 +271,20 @@ public class EarthquakeData {
         }
         return maxYear;
     }
+    /**
+     * Returns the list of earthquakes.
+     *
+     * @return an ArrayList of earthquakes
+     */
     public ArrayList<Earthquake> getEarthquakeList () {
         return earthquakeList;
     }
+    /**
+     * Filters the earthquakes based on the specified minimum and maximum years.
+     *
+     * @param minYear the minimum year
+     * @param maxYear the maximum year
+     */
     public void yearFilter(int minYear, int maxYear) {
         for (Earthquake earthquake : earthquakeList) {
             if (earthquake.getYear() >= minYear && earthquake.getYear() <= maxYear) {
@@ -213,6 +294,11 @@ public class EarthquakeData {
             }
         }
     }
+    /**
+     * Filters the earthquakes based on the specified magnitude (when checkBox is checked).
+     *
+     * @param magnitude the magnitude to filter
+     */
     public void magnitudeFilterChecked(int magnitude) {
         for (Earthquake earthquake : earthquakeList) {
             if ((int) earthquake.getMagnitude() == magnitude || (magnitude == 10 && earthquake.getMagnitude() >= 10)) {
@@ -221,6 +307,11 @@ public class EarthquakeData {
             }
         }
     }
+    /**
+     * Filters the earthquakes based on the specified magnitude (when checkBox is unchecked).
+     *
+     * @param magnitude the magnitude to filter
+     */
     public void magnitudeFilterUnchecked(int magnitude) {
         for (Earthquake earthquake : earthquakeList) {
             if ((int) earthquake.getMagnitude() == magnitude || (magnitude == 10 && earthquake.getMagnitude() >= 10)) {

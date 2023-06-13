@@ -1,4 +1,4 @@
-open module cequetuveux.javafx {
+open module sisFrance.javafx {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;

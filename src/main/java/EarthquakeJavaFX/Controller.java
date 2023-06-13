@@ -37,7 +37,9 @@ import javafx.stage.Stage;
 
 import static java.lang.Character.isDigit;
 
-
+/**
+ * The Controller class controls the user interface and handles events for the earthquake visualization application.
+ */
 public class Controller {
     @FXML
     private PieChart pieChart1;
@@ -61,6 +63,10 @@ public class Controller {
 
     ArrayList<String> sectionStyleClass = new ArrayList<>();
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * This method is automatically called by the JavaFX framework.
+     */
     public void initialize() {
         createEvents();
     }
@@ -184,21 +190,20 @@ public class Controller {
 
             Label legendLabel = new Label(data.getName());
             legendLabel.getStyleClass().add("legend-label");
-        // PieChart about types of earthquakes
-        ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
-        // Get informations
-        for (int index = 0; index < this.data.getTypes().size(); ++index) {
-            if(!this.data.getTypes().get(index).equals("null") ) {
-                pieData2.add(new PieChart.Data(this.data.getTypes().get(index), this.data.getTypeFrequency().get(index)));
-
+            // PieChart about types of earthquakes
+            ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
+            // Get informations
+            for (int index = 0; index < this.data.getTypes().size(); ++index) {
+                if(!this.data.getTypes().get(index).equals("null") ) {
+                    pieData2.add(new PieChart.Data(this.data.getTypes().get(index), this.data.getTypeFrequency().get(index)));
+                }
             }
-        }
-        // Create pieChart
-        pieChart2.setData(pieData2);
-        i = 0;
-        for (final PieChart.Data pieChartData : pieChart2.getData()) {
-            pieChartData.getNode().getStyleClass().add("section" + (i++));
-        }
+            // Create pieChart
+            pieChart2.setData(pieData2);
+            i = 0;
+            for (final PieChart.Data pieChartData : pieChart2.getData()) {
+                pieChartData.getNode().getStyleClass().add("section" + (i++));
+            }
 
             legendEntry.getChildren().addAll(colorBox, legendLabel);
             legendPane1.getChildren().add(legendEntry);

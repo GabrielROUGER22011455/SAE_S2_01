@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"sisFrance.javafx","l":"EarthquakeJavaFX"}];updateSearchResults();

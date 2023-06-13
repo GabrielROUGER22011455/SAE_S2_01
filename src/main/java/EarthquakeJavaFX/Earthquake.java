@@ -81,5 +81,6 @@ public class Earthquake {
     public float getyPosWGS(){
         return yPosWGS;
     }
+
 }
 

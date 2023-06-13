@@ -24,7 +24,10 @@ public class CustomCircleMarkerLayer extends MapLayer {
         this.circle = new Circle(5, Color.RED);
 
         /* Ajoute le cercle au MapLayer */
-        this.getChildren().add(circle);
+        if(mapPoint.getLatitude() != 0 && mapPoint.getLongitude() != 0){
+            this.getChildren().add(circle);
+        }
+
     }
 
     /* La fonction est appelée à chaque rafraichissement de la carte */

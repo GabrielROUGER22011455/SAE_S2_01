@@ -35,6 +35,7 @@ import javafx.stage.Stage;
 
 
 
+
 public class Controller {
 
     @FXML
@@ -106,6 +107,7 @@ public class Controller {
             legendPane1.getChildren().add(legendEntry);
         }
 
+
         FlowPane legendPane2 = new FlowPane();
         legendPane2.getStyleClass().add("legend-pane");
         for (final PieChart.Data data : pieChart2.getData()) {
@@ -147,7 +149,9 @@ public class Controller {
         ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
         // Get informations
         for (int index = 0; index < data.getTypes().size(); ++index) {
-            pieData2.add(new PieChart.Data(data.getTypes().get(index), data.getTypeFrequency().get(index)));
+            if(!data.getTypes().get(index).equals("null") ) {
+                pieData2.add(new PieChart.Data(data.getTypes().get(index), data.getTypeFrequency().get(index)));
+            }
         }
         // Create pieChart
         pieChart2.setData(pieData2);

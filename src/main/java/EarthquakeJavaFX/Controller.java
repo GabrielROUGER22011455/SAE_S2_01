@@ -37,7 +37,6 @@ import javafx.stage.Stage;
 
 import static java.lang.Character.isDigit;
 
-
 public class Controller {
     @FXML
     private PieChart pieChart1;
@@ -179,20 +178,20 @@ public class Controller {
 
             Label legendLabel = new Label(data.getName());
             legendLabel.getStyleClass().add("legend-label");
-        // PieChart about types of earthquakes
-        ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
-        // Get informations
-        for (int index = 0; index < this.data.getTypes().size(); ++index) {
-            if(!this.data.getTypes().get(index).equals("null") ) {
-                pieData2.add(new PieChart.Data(this.data.getTypes().get(index), this.data.getTypeFrequency().get(index)));
+            // PieChart about types of earthquakes
+            ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
+            // Get informations
+            for (int index = 0; index < this.data.getTypes().size(); ++index) {
+                if(!this.data.getTypes().get(index).equals("null") ) {
+                    pieData2.add(new PieChart.Data(this.data.getTypes().get(index), this.data.getTypeFrequency().get(index)));
+                }
             }
-        }
-        // Create pieChart
-        pieChart2.setData(pieData2);
-        i = 0;
-        for (final PieChart.Data pieChartData : pieChart2.getData()) {
-            pieChartData.getNode().getStyleClass().add("section" + (i++));
-        }
+            // Create pieChart
+            pieChart2.setData(pieData2);
+            i = 0;
+            for (final PieChart.Data pieChartData : pieChart2.getData()) {
+                pieChartData.getNode().getStyleClass().add("section" + (i++));
+            }
 
             legendEntry.getChildren().addAll(colorBox, legendLabel);
             legendPane1.getChildren().add(legendEntry);

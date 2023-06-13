@@ -88,7 +88,7 @@ public class Controller {
 
         for(Earthquake earthquake : this.data.getEarthquakeList()){
             MapPoint earthquakeOnMap = new MapPoint(earthquake.getxPosWGS(), earthquake.getyPosWGS());
-            map.addLayer(new CustomCircleMarkerLayer(earthquakeOnMap));
+            map.addLayer(new CustomCircleMarkerLayer(earthquakeOnMap,earthquake.getMagnitude()));
         }
     }
     private void barChart(){

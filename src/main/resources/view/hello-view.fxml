@@ -30,7 +30,7 @@
             <CheckBox text="Magnitude 7" selected="true" style="-fx-background-color: #e03a69"/>
             <CheckBox text="Magnitude 8" selected="true" style="-fx-background-color: #ff5ebf"/>
             <CheckBox text="Magnitude 9" selected="true" style="-fx-background-color: #c75eff"/>
-            <CheckBox text="10 et plus " selected="true" style="-fx-background-color: #49265c"/>
+            <CheckBox text="10 et plus " selected="true" style="-fx-background-color: #62428a"/>
         </VBox>
         <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
             <MapView fx:id="map" prefHeight="500" prefWidth="600" zoom="4"  />
@@ -48,7 +48,6 @@
             <StackPane>
                 <PieChart fx:id="pieChart2" styleClass="chart-pie" style="-fx-background-color: #9FB3C8" VBox.vgrow="ALWAYS" />
             </StackPane>
-            <PieChart fx:id="pieChart2" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
         </VBox>
         <VBox spacing="10.0" styleClass="linechart-group">
             <LineChart fx:id="lineChart1" styleClass="chart">

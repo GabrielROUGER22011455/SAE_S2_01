@@ -292,11 +292,6 @@ public class EarthquakeData {
             }
         }
     }
-    /**
-     * Filters the earthquakes based on the specified magnitude (when checkBox is checked).
-     *
-     * @param magnitude the magnitude to filter
-     */
     public void magnitudeFilterChecked(int magnitude) {
         for (Earthquake earthquake : earthquakeList) {
             if ((int) earthquake.getMagnitude() == magnitude || (magnitude == 10 && earthquake.getMagnitude() >= 10)) {
@@ -305,11 +300,6 @@ public class EarthquakeData {
             }
         }
     }
-    /**
-     * Filters the earthquakes based on the specified magnitude (when checkBox is unchecked).
-     *
-     * @param magnitude the magnitude to filter
-     */
     public void magnitudeFilterUnchecked(int magnitude) {
         for (Earthquake earthquake : earthquakeList) {
             if ((int) earthquake.getMagnitude() == magnitude || (magnitude == 10 && earthquake.getMagnitude() >= 10)) {

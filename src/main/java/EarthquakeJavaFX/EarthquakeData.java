@@ -1,6 +1,7 @@
 package EarthquakeJavaFX;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -9,11 +10,11 @@ import java.lang.Math;
 
 public class EarthquakeData {
     private ArrayList<Earthquake> earthquakeList;
-    public EarthquakeData() {
+    public EarthquakeData(File file) {
         earthquakeList = new ArrayList<Earthquake>();
         try {
             // Load data from the CSV file
-            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/SisFrance_seismes_20230604151458.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             reader.readLine();
             // Read each entries in the CSV file to fill earthquakeList attribute
@@ -164,21 +165,21 @@ public class EarthquakeData {
         return centuries;
     }
     public ArrayList<Integer> getEarthquakePerCentury () {
-        // First, separate and sort the decades and their number of earthquake. They share the same indexes.
-        ArrayList<Integer> earthquakePerDecade = new ArrayList<Integer>();
-        ArrayList<Integer> decades = getCenturies();
+        // First, separate and sort the centuries and their number of earthquake. They share the same indexes.
+        ArrayList<Integer> earthquakePerCentury = new ArrayList<Integer>();
+        ArrayList<Integer> centuries = getCenturies();
         // Fill the number of earthquake list with zeros
-        for (int decade : decades) {
-            earthquakePerDecade.add(0);
+        for (int century : centuries) {
+            earthquakePerCentury.add(0);
         }
         // Count the earthquakes for each decades
         for (Earthquake earthquake : earthquakeList) {
             if (earthquake.isShown()) {
-                int index = decades.indexOf(earthquake.getCentury());
-                earthquakePerDecade.set(index, earthquakePerDecade.get(index)+1);
+                int index = centuries.indexOf(earthquake.getCentury());
+                earthquakePerCentury.set(index, earthquakePerCentury.get(index)+1);
             }
         }
-        return earthquakePerDecade;
+        return earthquakePerCentury;
     }
     public int getMinYear () {
         int minYear = earthquakeList.get(0).getYear();
@@ -201,5 +202,29 @@ public class EarthquakeData {
     public ArrayList<Earthquake> getEarthquakeList () {
         return earthquakeList;
     }
-
+    public void yearFilter(int minYear, int maxYear) {
+        for (Earthquake earthquake : earthquakeList) {
+            if (earthquake.getYear() >= minYear && earthquake.getYear() <= maxYear) {
+                earthquake.show();
+            } else {
+                earthquake.hide();
+            }
+        }
+    }
+    public void magnitudeFilterChecked(int magnitude) {
+        for (Earthquake earthquake : earthquakeList) {
+            if ((int) earthquake.getMagnitude() == magnitude || (magnitude == 10 && earthquake.getMagnitude() >= 10)) {
+                System.out.println("show");
+                earthquake.show();
+            }
+        }
+    }
+    public void magnitudeFilterUnchecked(int magnitude) {
+        for (Earthquake earthquake : earthquakeList) {
+            if ((int) earthquake.getMagnitude() == magnitude || (magnitude == 10 && earthquake.getMagnitude() >= 10)) {
+                System.out.println("hide");
+                earthquake.hide();
+            }
+        }
+    }
 }

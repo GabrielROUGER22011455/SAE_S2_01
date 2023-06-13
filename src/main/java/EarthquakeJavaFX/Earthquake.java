@@ -21,6 +21,8 @@ public class Earthquake {
         // Only earthquake with show = true are considered in any methods
         return show;
     }
+    public void hide() {show = false;}
+    public void show() {show = true;}
     public Earthquake (ArrayList<String> data) {
         if (data.get(0) != null)this.id = Integer.parseInt(data.get(0));
         else this.id = 0;

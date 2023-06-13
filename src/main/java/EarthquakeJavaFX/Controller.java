@@ -37,6 +37,9 @@ import javafx.stage.Stage;
 
 import static java.lang.Character.isDigit;
 
+/**
+ * The Controller class controls the user interface and handles events for the earthquake visualization application.
+ */
 public class Controller {
     @FXML
     private PieChart pieChart1;
@@ -58,11 +61,15 @@ public class Controller {
     @FXML
     private MapView map;
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * This method is automatically called by the JavaFX framework.
+     */
     public void initialize() {
         createEvents();
     }
     private void refresh() {
-        // Refresh the interface
+        // Refreshes the user interface
 
         earthquakeTypesPieChart();
         mostHitRegionsPieChart();

@@ -1,8 +1,11 @@
 package EarthquakeJavaFX;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
@@ -25,8 +28,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Button;
 
-
-
+import static java.lang.Character.isDigit;
 
 
 public class Controller {
@@ -54,10 +56,6 @@ public class Controller {
     private Label lineChart1NoDataLabel;
     @FXML
     private Button chooseFileButton;
-    @FXML
-    private CheckBox checkBox1;
-
-    private ArrayList<Boolean> checkBoxState;
     private EarthquakeData data;
 
     public void initialize() {
@@ -96,6 +94,23 @@ public class Controller {
             data.yearFilter((int) startDate.getValue(), (int) endDate.getValue());
             if (data != null) refresh();
         });
+        for (Node node : checkBoxes.getChildren()) {
+            CheckBox checkbox = (CheckBox) node ;
+            String source = checkbox.getText();
+            char lastChar = source.charAt(source.length()-1);
+            checkbox.selectedProperty().addListener(
+                    (ObservableValue<? extends Boolean> observable, Boolean old_val, Boolean new_val) -> {
+                        int magnitude;
+
+                        if (isDigit(lastChar)) {magnitude = Character.getNumericValue(lastChar);}
+                        else {magnitude = 10;}
+
+                        if (new_val) data.magnitudeFilterChecked(magnitude);
+                        else data.magnitudeFilterUnchecked(magnitude);
+
+                        refresh();
+                    });
+        }
     }
     private void earthquakeTypesPieChart(){
         // PieChart about types of earthquakes
@@ -126,7 +141,6 @@ public class Controller {
             legendEntry.getChildren().addAll(colorBox, legendLabel);
             legendPane2.getChildren().add(legendEntry);
         }
-        System.out.println(pieData2);
     }
     private void mostHitRegionsPieChart() {
         // PieChart about most hit regions

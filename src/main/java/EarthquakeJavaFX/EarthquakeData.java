@@ -211,13 +211,20 @@ public class EarthquakeData {
             }
         }
     }
-    public void checkBoxFilter(ArrayList<Boolean> checkBoxes) {
-        if (checkBoxes.get(0)) magnitudeFilter(1);
-        if (checkBoxes.get(0)) magnitudeFilter(1);
-        if (checkBoxes.get(0)) magnitudeFilter(1);
-        if (checkBoxes.get(0)) magnitudeFilter(1);
+    public void magnitudeFilterChecked(int magnitude) {
+        for (Earthquake earthquake : earthquakeList) {
+            if ((int) earthquake.getMagnitude() == magnitude || (magnitude == 10 && earthquake.getMagnitude() >= 10)) {
+                System.out.println("show");
+                earthquake.show();
+            }
+        }
     }
-    private void magnitudeFilter(int magnitude) {
-
+    public void magnitudeFilterUnchecked(int magnitude) {
+        for (Earthquake earthquake : earthquakeList) {
+            if ((int) earthquake.getMagnitude() == magnitude || (magnitude == 10 && earthquake.getMagnitude() >= 10)) {
+                System.out.println("hide");
+                earthquake.hide();
+            }
+        }
     }
 }

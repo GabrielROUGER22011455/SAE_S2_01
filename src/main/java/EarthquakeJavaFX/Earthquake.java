@@ -1,5 +1,7 @@
 package EarthquakeJavaFX;
 
+import java.util.ArrayList;
+
 public class Earthquake {
     private int id;
     private String date;
@@ -14,53 +16,37 @@ public class Earthquake {
     private float magnitude;
     private Quality dataQuality;
     private boolean show;
-    // Only earthquake with show = true are considered in any methods
+
     public boolean isShown() {
+        // Only earthquake with show = true are considered in any methods
         return show;
     }
-
-    public Earthquake(int id, String date, String time, String name, String region,
-                      Type type,float xPos, float yPos,
-                      float  xPosWGS, float yPosWGS, float magnitude, Quality dataQuality) {
-        // Constructor for earthquake will full informations
-        this(id, date, name, region, xPos, yPos, xPosWGS, yPosWGS, magnitude, dataQuality);
-        this.time = time;
-        this.type = type;
-    }
-    public Earthquake(int id, String date, String name, String region,
-                      Type type,float xPos, float yPos,
-                      float  xPosWGS, float yPosWGS, float magnitude, Quality dataQuality) {
-        // Constructor for earthquakes without information about the time
-        this(id, date, name, region, xPos, yPos, xPosWGS, yPosWGS, magnitude, dataQuality);
-        this.type = type;
-    }
-
-    public Earthquake(int id, String date, String time, String name,
-                      String region,float xPos, float yPos,
-                      float  xPosWGS, float yPosWGS, float magnitude, Quality dataQuality){
-        // Constructor for earthquakes without information about the type
-        this(id, date, name, region, xPos, yPos, xPosWGS, yPosWGS, magnitude, dataQuality);
-        this.time = time;
-    }
-
-    public Earthquake(int id, String date, String name,
-                      String region,float xPos, float yPos,
-                      float  xPosWGS, float yPosWGS, float magnitude, Quality dataQuality){
-        // Constructor for earthquakes without information about time and type
-        this.id = id;
-        this.date = date;
-        this.name = name;
-        this.region = region;
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.xPosWGS = xPosWGS;
-        this.yPosWGS = yPosWGS;
-        this.magnitude = magnitude;
-        this.dataQuality = dataQuality;
+    public Earthquake (ArrayList<String> data) {
+        if (data.get(0) != null)this.id = Integer.parseInt(data.get(0));
+        else this.id = 0;
+        if (data.get(1) != null)this.date = data.get(1);
+        else this.date = "0000/00/00";
+        if (data.get(2) != null)this.time = data.get(2);
+        else this.time = "00";
+        if (data.get(3) != null)this.name = data.get(3);
+        else this.name = "NON RENSEIGNE";
+        if (data.get(4) != null)this.region = data.get(4);
+        else this.region = "NON RENSEIGNE";
+        if (data.get(5) != null) this.type = Type.stringToType(data.get(5));
+        else this.type = Type.NULL;
+        if (data.get(6) != null)this.xPos = Float.parseFloat(data.get(6));
+        else this.xPos = 0;
+        if (data.get(7) != null)this.yPos = Float.parseFloat(data.get(7));
+        else this.yPos = 0;
+        if (data.get(8) != null)this.xPosWGS = Float.parseFloat(data.get(8));
+        else this.xPosWGS = 0;
+        if (data.get(9) != null)this.yPosWGS = Float.parseFloat(data.get(9));
+        else this.yPosWGS = 0;
+        if (data.get(10) != null)this.magnitude = Float.parseFloat(data.get(10));
+        else this.magnitude = 0;
+        if (data.get(11) != null)this.dataQuality = Quality.stringToQuality(data.get(11));
+        else this.dataQuality = Quality.NULL;
         show = true;
-    }
-    public String getDate() {
-        return date;
     }
     public String getRegion(){
         return region;

@@ -18,34 +18,7 @@ public class EarthquakeData {
             reader.readLine();
             // Read each entries in the CSV file to fill earthquakeList attribute
             while ((line = reader.readLine()) != null) {
-                // Each entry can contain 10 to 12 arguments
-                ArrayList<String> data = separateString(line);
-                if (data.size() == 10) {
-                    // 10 argument-size entries don't have informations avout time and type
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
-                            , Float.parseFloat(data.get(4)), Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6))
-                            , Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Quality.stringToQuality(data.get(9))));
-                } else if (data.size() == 11) {
-                    // 11 argument-size entries don't have either time or type
-                    char firstChar = data.get(2).charAt(0);
-                    if ((Character.isDigit(firstChar))) {
-                        earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2),
-                                data.get(3), data.get(4),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6)),
-                                Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)),
-                                Quality.stringToQuality(data.get(10))));
-                    }else{
-                        earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3),
-                                Type.stringToType(data.get(4)),Float.parseFloat(data.get(5)), Float.parseFloat(data.get(6)),
-                                Float.parseFloat(data.get(7)), Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)),
-                                Quality.stringToQuality(data.get(10))));
-                    }
-                } else if (data.size() == 12) {
-                    // 12 argument-size entries has all informations
-                    earthquakeList.add(new Earthquake(Integer.parseInt(data.get(0)), data.get(1), data.get(2), data.get(3)
-                            , data.get(4), Type.stringToType(data.get(5)), Float.parseFloat(data.get(6)), Float.parseFloat(data.get(7))
-                            , Float.parseFloat(data.get(8)), Float.parseFloat(data.get(9)), Float.parseFloat(data.get(10))
-                            , Quality.stringToQuality(data.get(11))));
-                }
+                earthquakeList.add(new Earthquake(separateString(line)));
             }
             reader.close();
         } catch (IOException e) {e.printStackTrace();}
@@ -60,6 +33,7 @@ public class EarthquakeData {
         while (index <= str.length()) {
             tmp = getStringAt(str, index);
             if (tmp.getStr() != "") stringList.add(tmp.getStr());
+            else stringList.add(null);
             index = tmp.getNbr();
         }
         return stringList;
@@ -78,7 +52,7 @@ public class EarthquakeData {
                 for (char j : str.substring(index).toCharArray()) {
                     ++index;
                     if (j == '\"') {
-                        return new StringInt(tmp, index);
+                        return new StringInt(tmp, index+1);
                     }
                     tmp += j;
                 }
@@ -180,20 +154,19 @@ public class EarthquakeData {
     }
     public ArrayList<Integer> getCenturies () {
         // Returns the centuries in wich we have informations
-        ArrayList<Integer> decades = new ArrayList<Integer>();
+        ArrayList<Integer> centuries = new ArrayList<Integer>();
         for (Earthquake earthquake : earthquakeList) {
             int century = earthquake.getCentury();
-            if (earthquake.isShown() && !decades.contains(century)){
-                decades.add(century);
+            if (earthquake.isShown() && !centuries.contains(century)){
+                centuries.add(century);
             }
         }
-        return decades;
+        return centuries;
     }
     public ArrayList<Integer> getEarthquakePerCentury () {
         // First, separate and sort the decades and their number of earthquake. They share the same indexes.
         ArrayList<Integer> earthquakePerDecade = new ArrayList<Integer>();
         ArrayList<Integer> decades = getCenturies();
-        Collections.sort(decades);
         // Fill the number of earthquake list with zeros
         for (int decade : decades) {
             earthquakePerDecade.add(0);
@@ -202,7 +175,7 @@ public class EarthquakeData {
         for (Earthquake earthquake : earthquakeList) {
             if (earthquake.isShown()) {
                 int index = decades.indexOf(earthquake.getCentury());
-                earthquakePerDecade.add(index, earthquakePerDecade.get(index)+1);
+                earthquakePerDecade.set(index, earthquakePerDecade.get(index)+1);
             }
         }
         return earthquakePerDecade;
@@ -224,5 +197,8 @@ public class EarthquakeData {
             }
         }
         return maxYear;
+    }
+    public ArrayList<Earthquake> getEarthquakeList () {
+        return earthquakeList;
     }
 }

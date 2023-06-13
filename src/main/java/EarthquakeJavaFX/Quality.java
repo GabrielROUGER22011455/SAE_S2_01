@@ -2,7 +2,7 @@ package EarthquakeJavaFX;
 
 public enum Quality {
     // About the quality of the earthquake information (how trustworthy it is)
-    A, B, C, D, E;
+    A, B, C, D, E, NULL;
     public static String qualityToString(Quality quality){
         switch (quality){
             case A:
@@ -15,8 +15,9 @@ public enum Quality {
                 return "INFORMATION ISOLÉE";
             case E:
                 return "ARBITRAIRE";
+            default :
+                return "null";
         }
-        return null;
     }
     public static Quality stringToQuality(String str){
         switch (str){
@@ -30,7 +31,8 @@ public enum Quality {
                 return Quality.A;
             case "ARBITRAIRE":
                 return Quality.A;
+            default :
+                return NULL;
         }
-        return null;
     }
 }

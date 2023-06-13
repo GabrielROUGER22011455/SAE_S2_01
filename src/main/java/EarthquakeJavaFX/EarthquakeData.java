@@ -93,11 +93,11 @@ public class EarthquakeData {
         HashMap<String, Integer> nbrEarthquake = new HashMap<String, Integer>();
         for (Earthquake earthquake : earthquakeList) {
             // If region already in list : add 1 to the number of earthquake
-            if (nbrEarthquake.containsKey(earthquake.getRegion())) {
+            if (earthquake.isShown() && nbrEarthquake.containsKey(earthquake.getRegion())) {
                 nbrEarthquake.replace(earthquake.getRegion(), nbrEarthquake.get(earthquake.getRegion()) + 1);
             }
             // If region not in list : set the number of earthquake to 1
-            else {
+            else if (earthquake.isShown()){
                 nbrEarthquake.put(earthquake.getRegion(), 1);
             }
         }
@@ -108,11 +108,11 @@ public class EarthquakeData {
         HashMap<String, Float> sumMagnitude = new HashMap<String, Float>();
         for (Earthquake earthquake : earthquakeList) {
             // If region already in list : add its magnitude to the total
-            if (sumMagnitude.containsKey(earthquake.getRegion())) {
+            if (earthquake.isShown() && sumMagnitude.containsKey(earthquake.getRegion())) {
                 sumMagnitude.replace(earthquake.getRegion(), sumMagnitude.get(earthquake.getRegion()) + earthquake.getMagnitude());
             }
             // If region not in list : add its magnitude
-            else {
+            else if (earthquake.isShown()){
                 sumMagnitude.put(earthquake.getRegion(), earthquake.getMagnitude());
             }
         }
@@ -153,7 +153,8 @@ public class EarthquakeData {
         // Returns a list of all the earthquake types
         ArrayList<String> types = new ArrayList<String>();
         for (Earthquake earthquake : earthquakeList) {
-            if (earthquake.getType() != null && !types.contains(Type.typeToString(earthquake.getType()))) {
+            if (earthquake.isShown() && earthquake.getType() != null
+                    && !types.contains(Type.typeToString(earthquake.getType()))) {
                 types.add(Type.typeToString(earthquake.getType()));
             }
         }
@@ -170,7 +171,7 @@ public class EarthquakeData {
         }
         // Count the frequency of each type
         for (Earthquake earthquake : earthquakeList) {
-            if (earthquake.getType() != null) {
+            if (earthquake.isShown() && earthquake.getType() != null) {
                 int index = types.indexOf(Type.typeToString(earthquake.getType()));
                 frequency.add(index, frequency.get(index)+1);
             }
@@ -182,7 +183,7 @@ public class EarthquakeData {
         ArrayList<Integer> decades = new ArrayList<Integer>();
         for (Earthquake earthquake : earthquakeList) {
             int decade = earthquake.getDecade();
-            if (!decades.contains(decade)){
+            if (earthquake.isShown() && !decades.contains(decade)){
                 decades.add(decade);
             }
         }
@@ -199,8 +200,10 @@ public class EarthquakeData {
         }
         // Count the earthquakes for each decades
         for (Earthquake earthquake : earthquakeList) {
-            int index = decades.indexOf(earthquake.getDecade());
-            earthquakePerDecade.add(index, earthquakePerDecade.get(index)+1);
+            if (earthquake.isShown()) {
+                int index = decades.indexOf(earthquake.getDecade());
+                earthquakePerDecade.add(index, earthquakePerDecade.get(index)+1);
+            }
         }
         return earthquakePerDecade;
     }

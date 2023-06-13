@@ -13,7 +13,11 @@ public class Earthquake {
     private float yPosWGS;
     private float magnitude;
     private Quality dataQuality;
-    private boolean showable;
+    private boolean show;
+    // Only earthquake with show = true are considered in any methods
+    public boolean isShown() {
+        return show;
+    }
 
     public Earthquake(int id, String date, String time, String name, String region,
                       Type type,float xPos, float yPos,
@@ -53,7 +57,7 @@ public class Earthquake {
         this.yPosWGS = yPosWGS;
         this.magnitude = magnitude;
         this.dataQuality = dataQuality;
-        showable = false;
+        show = true;
     }
     public String getDate() {
         return date;

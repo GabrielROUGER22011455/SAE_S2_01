@@ -154,20 +154,19 @@ public class EarthquakeData {
     }
     public ArrayList<Integer> getCenturies () {
         // Returns the centuries in wich we have informations
-        ArrayList<Integer> decades = new ArrayList<Integer>();
+        ArrayList<Integer> centuries = new ArrayList<Integer>();
         for (Earthquake earthquake : earthquakeList) {
             int century = earthquake.getCentury();
-            if (earthquake.isShown() && !decades.contains(century)){
-                decades.add(century);
+            if (earthquake.isShown() && !centuries.contains(century)){
+                centuries.add(century);
             }
         }
-        return decades;
+        return centuries;
     }
     public ArrayList<Integer> getEarthquakePerCentury () {
         // First, separate and sort the decades and their number of earthquake. They share the same indexes.
         ArrayList<Integer> earthquakePerDecade = new ArrayList<Integer>();
         ArrayList<Integer> decades = getCenturies();
-        Collections.sort(decades);
         // Fill the number of earthquake list with zeros
         for (int decade : decades) {
             earthquakePerDecade.add(0);
@@ -176,7 +175,7 @@ public class EarthquakeData {
         for (Earthquake earthquake : earthquakeList) {
             if (earthquake.isShown()) {
                 int index = decades.indexOf(earthquake.getCentury());
-                earthquakePerDecade.add(index, earthquakePerDecade.get(index)+1);
+                earthquakePerDecade.set(index, earthquakePerDecade.get(index)+1);
             }
         }
         return earthquakePerDecade;

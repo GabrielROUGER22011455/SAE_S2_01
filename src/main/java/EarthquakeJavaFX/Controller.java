@@ -87,7 +87,7 @@ public class Controller {
         series1.setName("Nombre de séisme par décennie");
         // Create lineChart
         lineChart1.getData().add(series1);
-
+        System.out.println(data.getEarthquakePerCentury().size());
         // Second lineChart
         XYChart.Series<String, Number> series2 = new XYChart.Series<>();
         // Get informations

@@ -19,7 +19,7 @@
     </columnConstraints>
     <Label styleClass="title" text="Dashboard des Séismes" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
     <HBox spacing="10.0" styleClass="chart-group" GridPane.columnIndex="0" GridPane.rowIndex="1">
-        <VBox spacing="10.0" styleClass="checkbox-group">
+        <VBox fx:id="checkBoxes" spacing="10.0" styleClass="checkbox-group">
             <CheckBox text="Option 1" fx:id="checkBox1" selected="false"/>
             <CheckBox text="Option 2" fx:id="checkBox2" selected="false"/>
             <CheckBox text="Option 3" fx:id="checkBox3" selected="false"/>

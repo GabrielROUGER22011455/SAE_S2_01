@@ -4,10 +4,14 @@ import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.VBox;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,30 +26,15 @@ public class Controller {
     @FXML
     private LineChart<String, Number> lineChart2;
     @FXML
-    private CheckBox checkBox1;
-    @FXML
-    private CheckBox checkBox2;
-    @FXML
-    private CheckBox checkBox3;
-    @FXML
-    private CheckBox checkBox4;
-    @FXML
-    private CheckBox checkBox5;
-    @FXML
-    private CheckBox checkBox6;
-    @FXML
-    private CheckBox checkBox7;
-    private ArrayList<Boolean> checkBoxsState = new ArrayList<>();
+    private VBox checkBoxes;
+    private ArrayList<Boolean> checkBoxState = new ArrayList<>();
     private EarthquakeData data ;
     public void initialize() {
         data = new EarthquakeData();
-        checkBoxsState.add(checkBox1.isSelected());
-        checkBoxsState.add(checkBox2.isSelected());
-        checkBoxsState.add(checkBox3.isSelected());
-        checkBoxsState.add(checkBox4.isSelected());
-        checkBoxsState.add(checkBox5.isSelected());
-        checkBoxsState.add(checkBox6.isSelected());
-        checkBoxsState.add(checkBox7.isSelected());
+        for (Node node : checkBoxes.getChildren()) {
+            CheckBox checkBox = (CheckBox) node;
+            checkBoxState.add(checkBox.isSelected());
+        }
 
         ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
 
@@ -93,8 +82,9 @@ public class Controller {
         series2.getData().add(new XYChart.Data<>("Ville 3", 30));
         lineChart2.getData().add(series2);
 
-        checkBox1.setOnAction(event -> {
-            if (checkBox1.isSelected()) {
+        CheckBox tmpCheckBox = (CheckBox) checkBoxes.getChildren().get(0);
+        tmpCheckBox.setOnAction(event -> {
+            if (tmpCheckBox.isSelected()) {
                 System.out.println("La checkbox est cochée");
             } else {
                 System.out.println("La checkbox est décochée");

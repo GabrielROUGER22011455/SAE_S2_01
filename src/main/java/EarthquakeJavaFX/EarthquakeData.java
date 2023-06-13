@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.Collections;
-import java.lang.Math;
 
 /**
  * The EarthquakeData class represents a collection of earthquake data.
@@ -129,9 +127,9 @@ public class EarthquakeData {
         }
         // Then, divide each total of magnitude by the amount of earthquakes
         HashMap<String, Integer> nbrEarthquake = getEarthquakePerRegion();
-        HashMap<String, Double> avgMagnitude = new HashMap<String, Double>();
+        HashMap<String, Float> avgMagnitude = new HashMap<String, Float>();
         for (String region : sumMagnitude.keySet()) {
-            avgMagnitude.put(region, sumMagnitude.get(region) / nbrEarthquake.get(region));
+            avgMagnitude.put(region, Float.valueOf(sumMagnitude.get(region) / nbrEarthquake.get(region)));
         }
         return avgMagnitude;
     }
@@ -175,7 +173,7 @@ public class EarthquakeData {
         // Returns a list of all the earthquake types
         ArrayList<String> types = new ArrayList<String>();
         for (Earthquake earthquake : earthquakeList) {
-            if (earthquake.isShown() && !earthquake.getType().equals(null)
+            if (earthquake.isShown() && earthquake.getType() != Type.NULL
                     && !types.contains(Type.typeToString(earthquake.getType()))) {
                 types.add(Type.typeToString(earthquake.getType()));
             }
@@ -198,7 +196,7 @@ public class EarthquakeData {
         }
         // Count the frequency of each type
         for (Earthquake earthquake : earthquakeList) {
-            if (earthquake.isShown() && earthquake.getType() != null) {
+            if (earthquake.isShown() && earthquake.getType() != Type.NULL) {
                 int index = types.indexOf(Type.typeToString(earthquake.getType()));
                 frequency.set(index, frequency.get(index) + 1);
             }

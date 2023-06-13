@@ -97,8 +97,9 @@ public class Controller {
         for (int index = 0; index < data.getCenturies().size(); ++index) {
             series2.getData().add(new XYChart.Data<>(data.getCenturies().get(index).toString() + "-"
                     + (data.getCenturies().get(index) + 1), data.getAvgMagnitude().get(index)));
+            System.out.println(data.getAvgMagnitude().get(index));
         }
-        series2.setName("Intensité moyenne par centenaire");
+        series2.setName("Magnitude moyenne par centenaire");
         barChart1.getData().add(series2);
     }
     private void createEvents() {

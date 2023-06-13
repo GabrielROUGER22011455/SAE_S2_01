@@ -27,18 +27,19 @@ public class Controller {
     private LineChart<String, Number> lineChart2;
     @FXML
     private VBox checkBoxes;
-    private ArrayList<Boolean> checkBoxState = new ArrayList<>();
+    private ArrayList<Boolean> checkBoxState;
     private EarthquakeData data ;
     public void initialize() {
+        // Det data
         data = new EarthquakeData();
+        checkBoxState = new ArrayList<Boolean>();
         for (Node node : checkBoxes.getChildren()) {
             CheckBox checkBox = (CheckBox) node;
             checkBoxState.add(checkBox.isSelected());
         }
 
-        ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
-
         // PieChart about most hit regions
+        ObservableList<PieChart.Data> pieData1 = FXCollections.observableArrayList();
         //   Get informations
         ArrayList<String> mostHitRegions = data.getMostHitRegions(4);
         HashMap<String, Integer> earthquakesPerRegion = data.getEarthquakePerRegion();
@@ -57,31 +58,41 @@ public class Controller {
             data.getNode().getStyleClass().add("section" + (i++));
         }
 
+        // PieChart about types of earthquakes
         ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
+        // Get informations
         for (int index = 0; index < data.getTypes().size(); ++index) {
             pieData2.add(new PieChart.Data(data.getTypes().get(index), data.getTypeFrequency().get(index)));
         }
+        // Create pieChart
         pieChart2.setData(pieData2);
         i = 0;
         for (final PieChart.Data data : pieChart2.getData()) {
             data.getNode().getStyleClass().add("section" + (i++));
         }
 
+        // Line chart about earthquakes per decades
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        // Get informations
         for (int index = 0; index < data.getDecades().size(); ++index) {
             series1.getData().add(new XYChart.Data<>(data.getDecades().get(index).toString() + "-"
                     + (data.getDecades().get(index) + 1), data.getEarthquakePerDecade().get(index)));
         }
         series1.setName("Nombre de séisme par décennie");
+        // Create lineChart
         lineChart1.getData().add(series1);
 
+        // Second lineChart
         XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+        // Get informations
         series2.setName("Séries 2");
         series2.getData().add(new XYChart.Data<>("Ville 1", 20));
         series2.getData().add(new XYChart.Data<>("Ville 2", 25));
         series2.getData().add(new XYChart.Data<>("Ville 3", 30));
+        // Create lineChart
         lineChart2.getData().add(series2);
 
+        // Test on checkBox
         CheckBox tmpCheckBox = (CheckBox) checkBoxes.getChildren().get(0);
         tmpCheckBox.setOnAction(event -> {
             if (tmpCheckBox.isSelected()) {

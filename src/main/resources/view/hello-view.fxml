@@ -39,7 +39,6 @@
             <PieChart fx:id="pieChart2" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
         </VBox>
         <VBox spacing="10.0" styleClass="linechart-group">
-            <StackPane>
                 <LineChart fx:id="lineChart1" styleClass="chart">
                     <xAxis>
                         <CategoryAxis label="Ville" side="BOTTOM" />
@@ -49,15 +48,14 @@
                     </yAxis>
                 </LineChart>
                 <Label text="Aucune donnée" styleClass="no-data-label" fx:id="lineChart1NoDataLabel" visible="false" />
-            </StackPane>
-            <LineChart fx:id="lineChart2" styleClass="chart">
+            <BarChart fx:id="barChart1" styleClass="chart">
                 <xAxis>
                     <CategoryAxis label="Ville" side="BOTTOM" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Magnitude moyenne" side="LEFT" />
                 </yAxis>
-            </LineChart>
+            </BarChart>
         </VBox>
     </HBox>
     <VBox spacing="10.0" alignment="CENTER" styleClass="slider-group" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">

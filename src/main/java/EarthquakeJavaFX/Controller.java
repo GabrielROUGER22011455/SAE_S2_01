@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -41,7 +42,7 @@ public class Controller {
     @FXML
     private LineChart<String, Number> lineChart1;
     @FXML
-    private LineChart<String, Number> lineChart2;
+    private BarChart<String, Number> barChart1;
     @FXML
     private VBox checkBoxes;
     @FXML
@@ -54,8 +55,8 @@ public class Controller {
     private Label lineChart1NoDataLabel;
     @FXML
     private Button chooseFileButton;
-
-
+    @FXML
+    private CheckBox checkBox1;
 
     private ArrayList<Boolean> checkBoxState;
     private EarthquakeData data ;
@@ -147,23 +148,17 @@ public class Controller {
                     + (data.getCenturies().get(index) + 1), data.getEarthquakePerCentury().get(index)));
         }
         series1.setName("Nombre de séisme par décennie");
-        // Create lineChart
         lineChart1.getData().add(series1);
-        System.out.println(data.getEarthquakePerCentury().size());
-        // Second lineChart
-        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-        // Get informations
-        series2.setName("Séries 2");
-        series2.getData().add(new XYChart.Data<>("Ville 1", 20));
-        series2.getData().add(new XYChart.Data<>("Ville 2", 25));
-        series2.getData().add(new XYChart.Data<>("Ville 3", 30));
-        // Create lineChart
-        lineChart2.getData().add(series2);
 
-        // Test on checkBox
-        CheckBox tmpCheckBox = (CheckBox) checkBoxes.getChildren().get(0);
-        tmpCheckBox.setOnAction(event -> {
-            if (tmpCheckBox.isSelected()) {
+        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+        for (int index = 0; index < data.getCenturies().size(); ++index) {
+            series2.getData().add(new XYChart.Data<>(data.getCenturies().get(index).toString() + "-"
+                    + (data.getCenturies().get(index) + 1), data.getEarthquakePerCentury().get(index)));
+        }
+        series2.setName("Nombre de séisme par décennie");
+        barChart1.getData().add(series2);
+        checkBox1.setOnAction(event -> {
+            if (checkBox1.isSelected()) {
                 System.out.println("La checkbox est cochée");
             } else {
                 System.out.println("La checkbox est décochée");

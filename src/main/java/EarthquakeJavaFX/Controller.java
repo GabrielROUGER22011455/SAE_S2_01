@@ -40,10 +40,6 @@ import static java.lang.Character.isDigit;
 
 public class Controller {
     @FXML
-    private FlowPane legendPane1;
-    @FXML
-    private FlowPane legendPane2;
-    @FXML
     private PieChart pieChart1;
     @FXML
     private PieChart pieChart2;
@@ -58,14 +54,8 @@ public class Controller {
     @FXML
     private Slider endDate;
     @FXML
-    private Label pieChart1NoDataLabel;
-    @FXML
-    private Label lineChart1NoDataLabel;
-    @FXML
     private Button chooseFileButton;
     private EarthquakeData data;
-    @FXML
-    private CheckBox checkBox1;
     @FXML
     private MapView map;
 
@@ -84,6 +74,11 @@ public class Controller {
         startDate.setMax(data.getMaxYear());
         endDate.setMin(data.getMinYear());
         endDate.setMax(data.getMaxYear());
+
+        for(Earthquake earthquake : this.data.getEarthquakeList()){
+            MapPoint earthquakeOnMap = new MapPoint(earthquake.getxPosWGS(), earthquake.getyPosWGS());
+            map.addLayer(new CustomCircleMarkerLayer(earthquakeOnMap));
+        }
     }
     private void barChart(){
         barChart1.getData().clear();
@@ -114,19 +109,13 @@ public class Controller {
                         int magnitude;
                         if (isDigit(lastChar)) {magnitude = Character.getNumericValue(lastChar);}
                         else {magnitude = 10;}
-        MapPoint mapPoint = new MapPoint(48.8566, 2.3522);  // Coordonnées de Paris
-        map.flyTo(0, mapPoint, 0.1);
 
-
-        for(Earthquake earthquake : data.getEarthquakeList()){
-            MapPoint earthquakeOnMap = new MapPoint(earthquake.getxPosWGS(), earthquake.getyPosWGS());
-            map.addLayer(new CustomCircleMarkerLayer(earthquakeOnMap));
-        }
                         if (new_val) data.magnitudeFilterChecked(magnitude);
                         else data.magnitudeFilterUnchecked(magnitude);
 
                         refresh();
                     });
+
         }
     }
     private void earthquakeTypesPieChart(){
@@ -193,16 +182,16 @@ public class Controller {
         // PieChart about types of earthquakes
         ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
         // Get informations
-        for (int index = 0; index < data.getTypes().size(); ++index) {
-            if(!data.getTypes().get(index).equals("null") ) {
-                pieData2.add(new PieChart.Data(data.getTypes().get(index), data.getTypeFrequency().get(index)));
+        for (int index = 0; index < this.data.getTypes().size(); ++index) {
+            if(!this.data.getTypes().get(index).equals("null") ) {
+                pieData2.add(new PieChart.Data(this.data.getTypes().get(index), this.data.getTypeFrequency().get(index)));
             }
         }
         // Create pieChart
         pieChart2.setData(pieData2);
         i = 0;
-        for (final PieChart.Data data : pieChart2.getData()) {
-            data.getNode().getStyleClass().add("section" + (i++));
+        for (final PieChart.Data pieChartData : pieChart2.getData()) {
+            pieChartData.getNode().getStyleClass().add("section" + (i++));
         }
 
             legendEntry.getChildren().addAll(colorBox, legendLabel);

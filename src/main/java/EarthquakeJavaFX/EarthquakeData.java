@@ -9,15 +9,7 @@ import java.lang.Math;
 
 public class EarthquakeData {
     private List<Earthquake> earthquakeList;
-    ArrayList<Integer> nbrOfEarthquake = new ArrayList<>();
-    ArrayList<String> region = new ArrayList<>();
-    ArrayList<Integer> higherNbrOfEarthquake = new ArrayList<>();
-    ArrayList<String> regionMostHitByEarthquake = new ArrayList<>();
-    ArrayList<Integer> frequencyOfTypes = new ArrayList<>();
-    ArrayList<String> typesOfEarthquake = new ArrayList<>();
-    ArrayList<Integer> nbrEarthquakePerDecade = new ArrayList<>();
-    ArrayList<Integer> dateInDecade = new ArrayList<>();
-    public void EarthquakeData() {
+    public EarthquakeData() {
         earthquakeList = new ArrayList<Earthquake>();
         try {
             // Load data from the CSV file
@@ -96,99 +88,120 @@ public class EarthquakeData {
         }
         return new StringInt(tmp, index + 1);
     }
-
-    public HashMap<String, Float> getAvgMagnitude(){
-        // Returns the average earthquake magnitude per region
-        HashMap<String, Float> sumMagnitude = new HashMap<String, Float>();
+    public HashMap<String, Integer> getEarthquakePerRegion(){
+        // Returns each regions and the number of earthquakes they had
         HashMap<String, Integer> nbrEarthquake = new HashMap<String, Integer>();
         for (Earthquake earthquake : earthquakeList) {
-            // If region already in list : add its magnitude to the total AND add 1 to the number of earthquake
-            if (sumMagnitude.containsKey(earthquake.getRegion()) && nbrEarthquake.containsKey(earthquake.getRegion())) {
-                sumMagnitude.replace(earthquake.getRegion(), sumMagnitude.get(earthquake.getRegion()) + earthquake.getMagnitude());
-                nbrEarthquake.replace(earthquake.getRegion(), nbrEarthquake.get(earthquake.getRegion())+1);
+            // If region already in list : add 1 to the number of earthquake
+            if (nbrEarthquake.containsKey(earthquake.getRegion())) {
+                nbrEarthquake.replace(earthquake.getRegion(), nbrEarthquake.get(earthquake.getRegion()) + 1);
             }
-            // If region not in list : add its magnitude AND set the number of earthquake to 1
+            // If region not in list : set the number of earthquake to 1
             else {
-                sumMagnitude.put(earthquake.getRegion(), earthquake.getMagnitude());
                 nbrEarthquake.put(earthquake.getRegion(), 1);
             }
         }
+        return nbrEarthquake;
+    }
+    public HashMap<String, Float> getAvgMagnitude(){
+        // Returns the average earthquake magnitude per region
+        HashMap<String, Float> sumMagnitude = new HashMap<String, Float>();
+        for (Earthquake earthquake : earthquakeList) {
+            // If region already in list : add its magnitude to the total
+            if (sumMagnitude.containsKey(earthquake.getRegion())) {
+                sumMagnitude.replace(earthquake.getRegion(), sumMagnitude.get(earthquake.getRegion()) + earthquake.getMagnitude());
+            }
+            // If region not in list : add its magnitude
+            else {
+                sumMagnitude.put(earthquake.getRegion(), earthquake.getMagnitude());
+            }
+        }
         // Then, divide each total of magnitude by the amount of earthquakes
+        HashMap<String, Integer> nbrEarthquake = getEarthquakePerRegion();
         HashMap<String, Float> avgMagnitude = new HashMap<String, Float>();
         for (String region : sumMagnitude.keySet()) {
             avgMagnitude.put(region,sumMagnitude.get(region)/nbrEarthquake.get(region));
         }
         return avgMagnitude;
     }
-    public void mostHitRegions(int x){
-        ArrayList<String> tmpRegion = region;
-        for (int index = 0; index < x; ++index){
-            int intTmp = 0;
-            String strTmp = "";
-            for (int index1=0; index1<tmpRegion.size(); ++index1){
-                if (tmpRegion.get(index1) != ""){
-                    if (nbrOfEarthquake.get(index1) > intTmp){
-                        intTmp = nbrOfEarthquake.get(index1);
-                        strTmp = tmpRegion.get(index1);
-                    }
-                }
-            }
-            for (int index1=0; index1<tmpRegion.size(); ++index1){
-                if (strTmp.equals(tmpRegion.get(index1))){
-                    regionMostHitByEarthquake.add(strTmp);
-                    higherNbrOfEarthquake.add(intTmp);
-                    tmpRegion.set(index1, "");
-                    break;
-                }
-            }
+    public ArrayList<String> getMostHitRegions(int range) {
+        // Returns the 'range' most hit regions by earthquakes
+        // First, separate in two list the regions and their number of earthquakes
+        HashMap<String, Integer> tmpHashMap = getEarthquakePerRegion();
+        ArrayList<String> regions = new ArrayList<String>(tmpHashMap.keySet());
+        ArrayList<Integer> nbrEarthquake = new ArrayList<Integer>();
+        for (String region : regions ) {
+            nbrEarthquake.add(tmpHashMap.get(region));
         }
+        // Then, create the result list :
+        ArrayList<String> mostHitRegions = new ArrayList<String>();
+        for (int i = 0 ; i < range ; ++i) {
+            // Get the index of the highest element in the list
+            int maxIndex = 0;
+            for (int j = 0; j < nbrEarthquake.size(); j++) {
+                maxIndex = nbrEarthquake.get(j) > nbrEarthquake.get(maxIndex) ? j : maxIndex;
+            }
+            // Add this element to the result list
+            mostHitRegions.add(regions.get(maxIndex));
+            // Delete the element from the other lists
+            regions.remove(maxIndex);
+            nbrEarthquake.remove(maxIndex);
+        }
+        return mostHitRegions;
     }
-
-    public void typesAndTheirFrequency(){
-        String tmpType = "";
+    public ArrayList<String> getTypes () {
+        // Returns a list of all the earthquake types
+        ArrayList<String> types = new ArrayList<String>();
         for (Earthquake earthquake : earthquakeList) {
-            if(earthquake.getType() != null) {
-                tmpType = Type.typeToString(earthquake.getType());
-                if (typesOfEarthquake.isEmpty()) {
-                    typesOfEarthquake.add(tmpType);
-                    frequencyOfTypes.add(1);
-                    continue;
-                }
-                for (int index = 0; index < typesOfEarthquake.size(); ++index) {
-                    if (typesOfEarthquake.get(index).equals(tmpType)) {
-                        frequencyOfTypes.set(index, frequencyOfTypes.get(index) + 1);
-                        break;
-                    }
-                }
-                if(!typesOfEarthquake.contains(tmpType)){
-                    typesOfEarthquake.add(tmpType);
-                    frequencyOfTypes.add(1);
-                }
+            if (earthquake.getType() != null && !types.contains(Type.typeToString(earthquake.getType()))) {
+                types.add(Type.typeToString(earthquake.getType()));
             }
         }
+        return types;
     }
-    public int dateInDecade(int year){
-        return (int) Math.floor(year/100);
-    }
-    public void earthquakePerDecade() {
-        int decade = 0;
+    public ArrayList<Integer> getTypeFrequency () {
+        // Returns the frequency of each type
+        // Firts, separate in two list the types and their frequency. They share the same indexes.
+        ArrayList<String> types = getTypes();
+        ArrayList<Integer> frequency = new ArrayList<Integer>();
+        // Fill the frequency list with zeros
+        for (String type : types) {
+            frequency.add(0);
+        }
+        // Count the frequency of each type
         for (Earthquake earthquake : earthquakeList) {
-            decade = dateInDecade(Earthquake.getYear(earthquake.getDate()));
-            if(dateInDecade.isEmpty()){
-                dateInDecade.add(decade);
-                nbrEarthquakePerDecade.add(1);
-                continue;
-            }
-            for (int index = 0; index < dateInDecade.size(); ++index) {
-                if (decade == dateInDecade.get(index)) {
-                    nbrEarthquakePerDecade.set(index, nbrEarthquakePerDecade.get(index) + 1);
-                    break;
-                }
-            }
-            if (!dateInDecade.contains(decade)){
-                dateInDecade.add(decade);
-                nbrEarthquakePerDecade.add(1);
+            if (earthquake.getType() != null) {
+                int index = types.indexOf(Type.typeToString(earthquake.getType()));
+                frequency.add(index, frequency.get(index)+1);
             }
         }
+        return frequency;
+    }
+    public ArrayList<Integer> getDecades () {
+        // Returns the decades in wich we have informations
+        ArrayList<Integer> decades = new ArrayList<Integer>();
+        for (Earthquake earthquake : earthquakeList) {
+            int decade = earthquake.getDecade();
+            if (!decades.contains(decade)){
+                decades.add(decade);
+            }
+        }
+        return decades;
+    }
+    public ArrayList<Integer> getEarthquakePerDecade () {
+        // First, separate and sort the decades and their number of earthquake. They share the same indexes.
+        ArrayList<Integer> earthquakePerDecade = new ArrayList<Integer>();
+        ArrayList<Integer> decades = getDecades();
+        Collections.sort(decades);
+        // Fill the number of earthquake list with zeros
+        for (int decade : decades) {
+            earthquakePerDecade.add(0);
+        }
+        // Count the earthquakes for each decades
+        for (Earthquake earthquake : earthquakeList) {
+            int index = decades.indexOf(earthquake.getDecade());
+            earthquakePerDecade.add(index, earthquakePerDecade.get(index)+1);
+        }
+        return earthquakePerDecade;
     }
 }

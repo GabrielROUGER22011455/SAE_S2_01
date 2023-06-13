@@ -14,7 +14,7 @@ public enum Type {
             case Z:
                 return "GROUPE DE SECOUSSES D UN ESSAIM";
             default :
-                return "null";
+                return "NON RENSEIGNE";
         }
     }
     public static Type stringToType(String str){

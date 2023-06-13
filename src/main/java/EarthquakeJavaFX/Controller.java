@@ -30,7 +30,6 @@ import javafx.scene.control.Button;
 
 
 public class Controller {
-
     @FXML
     private FlowPane legendPane1;
     @FXML
@@ -64,36 +63,53 @@ public class Controller {
     public void initialize() {
         createEvents();
     }
-    private void refreshData(File file) {
-        // Refresh the data and all the interface
-        data = new EarthquakeData(file);
+    private void refresh() {
+        // Refresh the interface
 
         earthquakeTypesPieChart();
         mostHitRegionsPieChart();
         earthquakesPerCentury();
+        barChart();
 
         startDate.setMin(data.getMinYear());
         startDate.setMax(data.getMaxYear());
         endDate.setMin(data.getMinYear());
         endDate.setMax(data.getMaxYear());
-
-        FlowPane legendPane1 = new FlowPane();
-        legendPane1.getStyleClass().add("legend-pane");
-        for (final PieChart.Data data : pieChart1.getData()) {
-            HBox legendEntry = new HBox(5);
-            legendEntry.getStyleClass().add("legend-entry");
-
-            Rectangle colorBox = new Rectangle(10, 10);
-            colorBox.getStyleClass().add("legend-color");
-            colorBox.setStyle("-fx-fill: " + data.getNode().getStyle());
-
-            Label legendLabel = new Label(data.getName());
-            legendLabel.getStyleClass().add("legend-label");
-
-            legendEntry.getChildren().addAll(colorBox, legendLabel);
-            legendPane1.getChildren().add(legendEntry);
+    }
+    private void barChart(){
+        barChart1.getData().clear();
+        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+        for (int index = 0; index < data.getCenturies().size(); ++index) {
+            series2.getData().add(new XYChart.Data<>(data.getCenturies().get(index).toString() + "-"
+                    + (data.getCenturies().get(index) + 1), data.getEarthquakePerCentury().get(index)));
         }
-
+        series2.setName("Nombre de séisme par décennie");
+        barChart1.getData().add(series2);
+    }
+    private void createEvents() {
+        chooseFileButton.setOnAction(event -> handleChooseFileButton());
+        startDate.setOnMouseReleased(event -> {
+            data.yearFilter((int) startDate.getValue(), (int) endDate.getValue());
+            if (data != null) refresh();
+        });
+        endDate.setOnMouseReleased(event -> {
+            data.yearFilter((int) startDate.getValue(), (int) endDate.getValue());
+            if (data != null) refresh();
+        });
+    }
+    private void earthquakeTypesPieChart(){
+        // PieChart about types of earthquakes
+        ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
+        // Get informations
+        for (int index = 0; index < data.getTypes().size(); ++index) {
+            pieData2.add(new PieChart.Data(data.getTypes().get(index), data.getTypeFrequency().get(index)));
+        }
+        // Create pieChart
+        pieChart2.setData(pieData2);
+        int i = 0;
+        for (final PieChart.Data data : pieChart2.getData()) {
+            data.getNode().getStyleClass().add("section" + (i++));
+        }
         FlowPane legendPane2 = new FlowPane();
         legendPane2.getStyleClass().add("legend-pane");
         for (final PieChart.Data data : pieChart2.getData()) {
@@ -110,37 +126,7 @@ public class Controller {
             legendEntry.getChildren().addAll(colorBox, legendLabel);
             legendPane2.getChildren().add(legendEntry);
         }
-
-        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-        for (int index = 0; index < data.getCenturies().size(); ++index) {
-            series2.getData().add(new XYChart.Data<>(data.getCenturies().get(index).toString() + "-"
-                    + (data.getCenturies().get(index) + 1), data.getEarthquakePerCentury().get(index)));
-        }
-        series2.setName("Nombre de séisme par décennie");
-        barChart1.getData().add(series2);
-    }
-    private void createEvents() {
-        chooseFileButton.setOnAction(event -> handleChooseFileButton());
-        startDate.setOnMouseReleased(event -> {
-            System.out.println(startDate.getValue());
-        });
-        endDate.setOnMouseReleased(event -> {
-            System.out.println(endDate.getValue());
-        });
-    }
-    private void earthquakeTypesPieChart(){
-        // PieChart about types of earthquakes
-        ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
-        // Get informations
-        for (int index = 0; index < data.getTypes().size(); ++index) {
-            pieData2.add(new PieChart.Data(data.getTypes().get(index), data.getTypeFrequency().get(index)));
-        }
-        // Create pieChart
-        pieChart2.setData(pieData2);
-        int i = 0;
-        for (final PieChart.Data data : pieChart2.getData()) {
-            data.getNode().getStyleClass().add("section" + (i++));
-        }
+        System.out.println(pieData2);
     }
     private void mostHitRegionsPieChart() {
         // PieChart about most hit regions
@@ -162,8 +148,25 @@ public class Controller {
         for (final PieChart.Data data : pieChart1.getData()) {
             data.getNode().getStyleClass().add("section" + (i++));
         }
+        FlowPane legendPane1 = new FlowPane();
+        legendPane1.getStyleClass().add("legend-pane");
+        for (final PieChart.Data data : pieChart1.getData()) {
+            HBox legendEntry = new HBox(5);
+            legendEntry.getStyleClass().add("legend-entry");
+
+            Rectangle colorBox = new Rectangle(10, 10);
+            colorBox.getStyleClass().add("legend-color");
+            colorBox.setStyle("-fx-fill: " + data.getNode().getStyle());
+
+            Label legendLabel = new Label(data.getName());
+            legendLabel.getStyleClass().add("legend-label");
+
+            legendEntry.getChildren().addAll(colorBox, legendLabel);
+            legendPane1.getChildren().add(legendEntry);
+        }
     }
     private void earthquakesPerCentury() {
+        lineChart1.getData().clear();
         // Line chart about earthquakes per centuries
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         // Get informations
@@ -184,7 +187,8 @@ public class Controller {
         File selectedFile = fileChooser.showOpenDialog(chooseFileButton.getScene().getWindow());
 
         if (selectedFile != null && isCSVFile(selectedFile)) {
-            refreshData(selectedFile);
+            data = new EarthquakeData(selectedFile);
+            refresh();
         }
     }
     private boolean isCSVFile(File file) {

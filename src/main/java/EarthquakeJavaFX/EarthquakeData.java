@@ -165,21 +165,21 @@ public class EarthquakeData {
         return centuries;
     }
     public ArrayList<Integer> getEarthquakePerCentury () {
-        // First, separate and sort the decades and their number of earthquake. They share the same indexes.
-        ArrayList<Integer> earthquakePerDecade = new ArrayList<Integer>();
-        ArrayList<Integer> decades = getCenturies();
+        // First, separate and sort the centuries and their number of earthquake. They share the same indexes.
+        ArrayList<Integer> earthquakePerCentury = new ArrayList<Integer>();
+        ArrayList<Integer> centuries = getCenturies();
         // Fill the number of earthquake list with zeros
-        for (int decade : decades) {
-            earthquakePerDecade.add(0);
+        for (int century : centuries) {
+            earthquakePerCentury.add(0);
         }
         // Count the earthquakes for each decades
         for (Earthquake earthquake : earthquakeList) {
             if (earthquake.isShown()) {
-                int index = decades.indexOf(earthquake.getCentury());
-                earthquakePerDecade.set(index, earthquakePerDecade.get(index)+1);
+                int index = centuries.indexOf(earthquake.getCentury());
+                earthquakePerCentury.set(index, earthquakePerCentury.get(index)+1);
             }
         }
-        return earthquakePerDecade;
+        return earthquakePerCentury;
     }
     public int getMinYear () {
         int minYear = earthquakeList.get(0).getYear();
@@ -201,5 +201,23 @@ public class EarthquakeData {
     }
     public ArrayList<Earthquake> getEarthquakeList () {
         return earthquakeList;
+    }
+    public void yearFilter(int minYear, int maxYear) {
+        for (Earthquake earthquake : earthquakeList) {
+            if (earthquake.getYear() >= minYear && earthquake.getYear() <= maxYear) {
+                earthquake.show();
+            } else {
+                earthquake.hide();
+            }
+        }
+    }
+    public void checkBoxFilter(ArrayList<Boolean> checkBoxes) {
+        if (checkBoxes.get(0)) magnitudeFilter(1);
+        if (checkBoxes.get(0)) magnitudeFilter(1);
+        if (checkBoxes.get(0)) magnitudeFilter(1);
+        if (checkBoxes.get(0)) magnitudeFilter(1);
+    }
+    private void magnitudeFilter(int magnitude) {
+
     }
 }

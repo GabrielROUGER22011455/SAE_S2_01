@@ -5,13 +5,17 @@
     -fx-background-color: #F2F4F8;
 }
 
+
 .title {
     -fx-font-size: 36px;
     -fx-font-weight: bold;
     -fx-text-fill: #354F52;
     -fx-alignment: center;
     -fx-font-family: "Arial";
+    -fx-min-width: 0;
+    -fx-min-height: 0;
 }
+
 
 .chart-group {
     -fx-background-color: #F2F4F8;
@@ -227,4 +231,22 @@
 
 .slider-group .slider-container .slider .range-bar {
     -fx-background-color: #3777B2;
+}
+
+.button {
+    -fx-font-size: 14px;
+    -fx-text-fill: #354F52;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-color: #9FB3C8;
+    -fx-background-radius: 10;
+    -fx-border-color: #9FB3C8;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #3777B2;
+    -fx-border-color: #3777B2;
 }

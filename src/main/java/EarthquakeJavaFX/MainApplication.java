@@ -11,7 +11,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/view/hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1500, 700);
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 850);
         stage.setTitle("Rapport des séismes en France");
         stage.setScene(scene);
         stage.show();

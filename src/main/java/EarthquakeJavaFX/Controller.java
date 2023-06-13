@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.FlowPane;
 import java.awt.*;
+import java.awt.image.ImageProducer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +25,12 @@ import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Button;
-
+import com.gluonhq.maps.MapPoint;
+import com.gluonhq.maps.MapView;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 
 
@@ -57,6 +63,8 @@ public class Controller {
     private Button chooseFileButton;
     @FXML
     private CheckBox checkBox1;
+    @FXML
+    private MapView map;
 
     private ArrayList<Boolean> checkBoxState;
     private EarthquakeData data ;
@@ -71,6 +79,9 @@ public class Controller {
             CheckBox checkBox = (CheckBox) node;
             checkBoxState.add(checkBox.isSelected());
         }
+
+        MapPoint mapPoint = new MapPoint(48.8566, 2.3522);  // Coordonnées de Paris
+        map.flyTo(0, mapPoint, 0.1);
 
 
         FlowPane legendPane1 = new FlowPane();

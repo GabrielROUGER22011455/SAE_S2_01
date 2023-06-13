@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
+<?import com.gluonhq.maps.MapView?>
 <GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EarthquakeJavaFX.Controller" stylesheets="@/styles/style.css" styleClass="dashboard" hgap="10" vgap="10">
     <rowConstraints>
         <RowConstraints percentHeight="5" />
@@ -28,9 +29,9 @@
             <CheckBox text="Option 6" fx:id="checkBox6" selected="false"/>
             <CheckBox text="Option 7" fx:id="checkBox7" selected="false"/>
         </VBox>
-        <ImageView styleClass="map">
-            <Image url="@/images/carte-regions-france-vierge.png"/>
-        </ImageView>
+        <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <MapView fx:id="map" prefHeight="500" prefWidth="600" zoom="3" />
+        </HBox>
         <VBox styleClass="chart" VBox.vgrow="ALWAYS">
             <StackPane>
                 <PieChart fx:id="pieChart1" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
@@ -39,15 +40,15 @@
             <PieChart fx:id="pieChart2" styleClass="chart-pie" VBox.vgrow="ALWAYS" />
         </VBox>
         <VBox spacing="10.0" styleClass="linechart-group">
-                <LineChart fx:id="lineChart1" styleClass="chart">
-                    <xAxis>
-                        <CategoryAxis label="Ville" side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis label="Nombre de séismes" side="LEFT" />
-                    </yAxis>
-                </LineChart>
-                <Label text="Aucune donnée" styleClass="no-data-label" fx:id="lineChart1NoDataLabel" visible="false" />
+            <LineChart fx:id="lineChart1" styleClass="chart">
+                <xAxis>
+                    <CategoryAxis label="Ville" side="BOTTOM" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Nombre de séismes" side="LEFT" />
+                </yAxis>
+            </LineChart>
+            <Label text="Aucune donnée" styleClass="no-data-label" fx:id="lineChart1NoDataLabel" visible="false" />
             <BarChart fx:id="barChart1" styleClass="chart">
                 <xAxis>
                     <CategoryAxis label="Ville" side="BOTTOM" />
@@ -70,11 +71,11 @@
             <HBox spacing="10.0" alignment="CENTER" styleClass="slider-group">
                 <VBox alignment="CENTER" styleClass="slider-container">
                     <Label text="Date Début" styleClass="label" />
-                    <Slider fx:id="startDate" orientation="HORIZONTAL" />
+                    <Slider fx:id="startDate" orientation="HORIZONTAL"/>
                 </VBox>
                 <VBox alignment="CENTER" styleClass="slider-container">
                     <Label text="Date Fin" styleClass="label" />
-                    <Slider fx:id="endDate" orientation="HORIZONTAL" />
+                    <Slider fx:id="endDate" orientation="HORIZONTAL"/>
                 </VBox>
                 <VBox>
                     <Button text="Choisir fichier" fx:id="chooseFileButton"/>

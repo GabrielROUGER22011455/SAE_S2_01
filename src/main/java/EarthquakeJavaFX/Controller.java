@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.FlowPane;
 import java.awt.*;
+import java.awt.image.ImageProducer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,12 @@ import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Button;
+import com.gluonhq.maps.MapPoint;
+import com.gluonhq.maps.MapView;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import static java.lang.Character.isDigit;
 
@@ -57,6 +64,10 @@ public class Controller {
     @FXML
     private Button chooseFileButton;
     private EarthquakeData data;
+    @FXML
+    private CheckBox checkBox1;
+    @FXML
+    private MapView map;
 
     public void initialize() {
         createEvents();
@@ -101,10 +112,16 @@ public class Controller {
             checkbox.selectedProperty().addListener(
                     (ObservableValue<? extends Boolean> observable, Boolean old_val, Boolean new_val) -> {
                         int magnitude;
-
                         if (isDigit(lastChar)) {magnitude = Character.getNumericValue(lastChar);}
                         else {magnitude = 10;}
+        MapPoint mapPoint = new MapPoint(48.8566, 2.3522);  // Coordonnées de Paris
+        map.flyTo(0, mapPoint, 0.1);
 
+
+        for(Earthquake earthquake : data.getEarthquakeList()){
+            MapPoint earthquakeOnMap = new MapPoint(earthquake.getxPosWGS(), earthquake.getyPosWGS());
+            map.addLayer(new CustomCircleMarkerLayer(earthquakeOnMap));
+        }
                         if (new_val) data.magnitudeFilterChecked(magnitude);
                         else data.magnitudeFilterUnchecked(magnitude);
 
@@ -167,13 +184,26 @@ public class Controller {
         for (final PieChart.Data data : pieChart1.getData()) {
             HBox legendEntry = new HBox(5);
             legendEntry.getStyleClass().add("legend-entry");
-
             Rectangle colorBox = new Rectangle(10, 10);
             colorBox.getStyleClass().add("legend-color");
             colorBox.setStyle("-fx-fill: " + data.getNode().getStyle());
 
             Label legendLabel = new Label(data.getName());
             legendLabel.getStyleClass().add("legend-label");
+        // PieChart about types of earthquakes
+        ObservableList<PieChart.Data> pieData2 = FXCollections.observableArrayList();
+        // Get informations
+        for (int index = 0; index < data.getTypes().size(); ++index) {
+            if(!data.getTypes().get(index).equals("null") ) {
+                pieData2.add(new PieChart.Data(data.getTypes().get(index), data.getTypeFrequency().get(index)));
+            }
+        }
+        // Create pieChart
+        pieChart2.setData(pieData2);
+        i = 0;
+        for (final PieChart.Data data : pieChart2.getData()) {
+            data.getNode().getStyleClass().add("section" + (i++));
+        }
 
             legendEntry.getChildren().addAll(colorBox, legendLabel);
             legendPane1.getChildren().add(legendEntry);

@@ -128,7 +128,7 @@ public class EarthquakeData {
         // Returns a list of all the earthquake types
         ArrayList<String> types = new ArrayList<String>();
         for (Earthquake earthquake : earthquakeList) {
-            if (earthquake.isShown() && earthquake.getType() != null
+            if (earthquake.isShown() && !earthquake.getType().equals(null)
                     && !types.contains(Type.typeToString(earthquake.getType()))) {
                 types.add(Type.typeToString(earthquake.getType()));
             }
@@ -148,7 +148,7 @@ public class EarthquakeData {
         for (Earthquake earthquake : earthquakeList) {
             if (earthquake.isShown() && earthquake.getType() != null) {
                 int index = types.indexOf(Type.typeToString(earthquake.getType()));
-                frequency.add(index, frequency.get(index)+1);
+                frequency.set(index, frequency.get(index) + 1);
             }
         }
         return frequency;
